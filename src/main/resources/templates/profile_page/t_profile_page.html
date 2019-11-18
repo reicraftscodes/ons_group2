@@ -23,13 +23,45 @@
         <main>
             <h3>Your profile</h3>
             <div id="profile_area">
-                <h2 th:text="${userInfo.name}"></h2>
+                <h2 th:text="${user.name}"></h2>
                 <img src="/images/profile_page/default_profile.jpeg"
                      alt="Profile picture" class="profile_pic">
             </div>
             <article>
-                <form action="/Account/ChangePassword" th:object="">
+                <form action="/Account/ChangePassword" th:object="${changePasswordDto}" method="post">
+                    <fieldset class="flex five">
+                        <label>
+                            Old Password
+                            <input type="password" th:field="*{oldPassword}" id="oldPassword">
+                        </label>
+                        <div class="label error"
+                             th:errors="*{oldPassword}"
+                             th:if="${#fields.hasErrors('oldPassword')}">
+                            Old Password Error
+                        </div>
 
+                        <label>
+                            New Password
+                            <input type="password" th:field="*{newPassword}" id="newPassword">
+                        </label>
+                        <div class="label error"
+                             th:errors="*{newPassword}"
+                             th:if="${#fields.hasErrors('newPassword')}">
+                            New Password Error
+                        </div>
+
+                        <label>
+                            New Password Confirm
+                            <input type="password" th:field="*{newPasswordCf}" id="newPasswordCf">
+                        </label>
+                        <div class="label error"
+                             th:errors="*{newPasswordCf}"
+                             th:if="${#fields.hasErrors('newPasswordCf')}">
+                            New Password Confirm Error
+                        </div>
+                    </fieldset>
+
+                    <button type="submit">Change Password</button>
                 </form>
             </article>
 
