@@ -1,6 +1,4 @@
-CREATE SCHEMA newUsers;
-
-USE newUsers;
+USE ons_db;
 
 DROP TABLE IF EXISTS `user_table`;
 

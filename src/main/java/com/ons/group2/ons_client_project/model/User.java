@@ -36,6 +36,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Transient
     private String status;
 
     public String getName() {

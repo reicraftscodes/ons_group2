@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>Your profile</title>
         <link rel="stylesheet" href="/css/picnic/picnic.min.css">
@@ -23,7 +23,7 @@
         <main>
             <h3>Your profile</h3>
             <div id="profile_area">
-                <h2>Soma Somorjai</h2>
+                <h2 th:text="${userInfo.name}"></h2>
                 <img src="/images/profile_page/default_profile.jpeg"
                      alt="Profile picture" class="profile_pic">
             </div>
