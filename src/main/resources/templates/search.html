@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head.html :: head"></head>
+<body>
+<div th:replace="fragments/navbar.html :: nav"></div>
+<section class="search-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" style="margin-top: 100px" >
+                    <img src="images/msg.PNG" class="responsive" id="sideimage" align="right">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form action="/searchkey" method="get" novalidate="novalidate" class="vertical-center">
+                    <h2 style="color: black">Search for a keyword(s), skills or name </h2>
+                    <div class="col-lg-12 mt-4">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-12 p-0">
+                                <input type="text" class="form-control search-slt" name="search"
+                                       placeholder="I am looking for.....">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <input type="submit" class="btn-yellowgreen wrn-btn" value="Search"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="fragments/footer.html :: div.footer"></div>
+</body>
+</html>
+
+
