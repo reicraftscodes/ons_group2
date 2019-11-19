@@ -5,6 +5,7 @@ import com.ons.group2.ons_client_project.model.dto.account.ChangePasswordDto;
 import com.ons.group2.ons_client_project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,8 @@ public class AccountController {
     @PostMapping("/ChangePassword")
     public String changePassword(@ModelAttribute("changePasswordDto") @Valid ChangePasswordDto changePasswordDto,
                                  @SessionAttribute("user") User user,
-                                 BindingResult bindingResult) {
+                                 BindingResult bindingResult,
+                                 Model model) {
 
         log.info("Change Password Dto: " + changePasswordDto);
         log.info("Change Password For user: " + user);
@@ -41,12 +43,10 @@ public class AccountController {
             );
         }
 
-        if(bindingResult.hasErrors()) {
-            return "profile_page/t_profile_page";
-        }
-
         userService.changePassword(user, changePasswordDto.newPassword);
 
-        return "redirect:/Profiles/" + user.getId();
+        model.addAttribute("changePasswordSuccess", "Password changed!");
+
+        return "profile_page/t_profile_page";
     }
 }

@@ -53,6 +53,9 @@
                              th:if="${#fields.hasErrors('*')}">
                             New Password Error
                         </div>
+                        <div class="success"
+                             th:if="${changePasswordSuccess}"
+                            th:text="${changePasswordSuccess}"></div>
                         <footer>
                             <button type="submit">Change Password</button>
                         </footer>
