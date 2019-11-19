@@ -56,12 +56,42 @@ public class AccountControllerTest {
                 post("/Account/ChangePassword")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("oldPassword", testUserPass)
-                        .param("newPassword", "hellow")
-                        .param("newPasswordCf", "hellow")
+                        .param("newPassword", "password1")
+                        .param("newPasswordCf", "password2")
                         .sessionAttr("user", testUser)
         )
                 .andDo(print())
-                .andExpect(status().is3xxRedirection())
+                .andExpect(status().isOk())
                 .andExpect(content().string(containsString("The two passwords do not match.")));
+    }
+
+    @Test
+    public void testChangePasswordCorrectly() throws Exception {
+        mvc.perform(
+                post("/Account/ChangePassword")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("oldPassword", testUserPass)
+                        .param("newPassword", "password1")
+                        .param("newPasswordCf", "password1")
+                        .sessionAttr("user", testUser)
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Password changed!")));
+    }
+
+    @Test
+    public void testChangePasswordWithIncorrectPassword() throws Exception {
+        mvc.perform(
+                post("/Account/ChangePassword")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("oldPassword", "incorrectPassword")
+                        .param("newPassword", "password1")
+                        .param("newPasswordCf", "password1")
+                        .sessionAttr("user", testUser)
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Invalid password.")));
     }
 }

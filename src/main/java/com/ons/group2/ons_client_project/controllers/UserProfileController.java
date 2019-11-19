@@ -4,12 +4,14 @@ import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.dto.account.ChangePasswordDto;
 import com.ons.group2.ons_client_project.repository.UserRepository;
 import com.ons.group2.ons_client_project.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ public class UserProfileController {
         Optional<User> user = userService.findById(id);
 
         if(user.isEmpty()) {
-            return "404";
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
         model.addAttribute("changePasswordDto", new ChangePasswordDto());
