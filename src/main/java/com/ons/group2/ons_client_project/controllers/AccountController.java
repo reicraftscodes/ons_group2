@@ -47,6 +47,6 @@ public class AccountController {
 
         userService.changePassword(user, changePasswordDto.newPassword);
 
-        return "redirect:/profiles/" + user.getId();
+        return "redirect:/Profiles/" + user.getId();
     }
 }
