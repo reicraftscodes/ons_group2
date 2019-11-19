@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/profiles")
+@RequestMapping("/Profiles")
 @SessionAttributes({"user"})
 public class UserProfileController {
 

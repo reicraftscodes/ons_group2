@@ -10,61 +10,59 @@
                 <span>Your profile page</span>
             </a>
 
-            <!-- responsive-->
-            <input id="bmenub" type="checkbox" class="show">
-            <label for="bmenub" class="burger pseudo button">menu</label>
-
             <div class="menu">
-                <a href="#" class="pseudo button icon-picture">Demo</a>
-                <a href="#" class="button icon-puzzle">Plugins</a>
+                <a href="#" class="pseudo button icon-picture">Logout</a>
+                <a href="#" class="button icon-puzzle">SignIn</a>
             </div>
         </nav>
 
         <main>
-            <h3>Your profile</h3>
-            <div id="profile_area">
-                <h2 th:text="${user.name}"></h2>
-                <img src="/images/profile_page/default_profile.jpeg"
-                     alt="Profile picture" class="profile_pic">
-            </div>
-            <article>
-                <form action="/Account/ChangePassword" th:object="${changePasswordDto}" method="post">
-                    <fieldset class="flex five">
-                        <label>
-                            Old Password
-                            <input type="password" th:field="*{oldPassword}" id="oldPassword">
-                        </label>
-                        <div class="label error"
-                             th:errors="*{oldPassword}"
-                             th:if="${#fields.hasErrors('oldPassword')}">
-                            Old Password Error
-                        </div>
+            <h2 th:inline="text">Welcome to your profile, [[${user.name}]]!</h2>
+            <article class="flex two">
+                <section id="profile_info">
+                    <img src="/images/profile_page/default_profile.jpeg"
+                         alt="Profile picture" class="profile_pic">
+                    <a href="#" class="button">Change picture</a>
+                </section>
+                <section id="change_password">
+                    <h2>Change password</h2>
+                    <form id="change_password_form"
+                            action="/Account/ChangePassword"
+                            th:object="${changePasswordDto}"
+                            method="post">
+                        <section>
+                            <input class="stack"
+                               placeholder="Old password"
+                               type="password"
+                               th:field="*{oldPassword}"
+                               id="oldPassword">
+                            <input class="stack"
+                                    placeholder="New Password"
+                                    type="password"
+                                    th:field="*{newPassword}"
+                                    id="newPassword">
+                            <input class="stack"
+                                    placeholder="Confirm Password"
+                                    type="password"
+                                    th:field="*{newPasswordCf}"
+                                    id="newPasswordCf">
+                        </section>
 
-                        <label>
-                            New Password
-                            <input type="password" th:field="*{newPassword}" id="newPassword">
-                        </label>
-                        <div class="label error"
-                             th:errors="*{newPassword}"
-                             th:if="${#fields.hasErrors('newPassword')}">
+                        <div class="alert"
+                             th:errors="*"
+                             th:if="${#fields.hasErrors('*')}">
                             New Password Error
                         </div>
-
-                        <label>
-                            New Password Confirm
-                            <input type="password" th:field="*{newPasswordCf}" id="newPasswordCf">
-                        </label>
-                        <div class="label error"
-                             th:errors="*{newPasswordCf}"
-                             th:if="${#fields.hasErrors('newPasswordCf')}">
-                            New Password Confirm Error
-                        </div>
-                    </fieldset>
-
-                    <button type="submit">Change Password</button>
-                </form>
+                        <div class="success"
+                             th:if="${changePasswordSuccess}"
+                            th:text="${changePasswordSuccess}"></div>
+                        <footer>
+                            <button type="submit">Change Password</button>
+                        </footer>
+                    </form>
+                </section>
             </article>
-            <article>
+            <section>
                 <table class="primary">
                     <thead>
                         <tr><th>Skills</th></tr>
@@ -87,7 +85,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </article>
+            </section>
         </main>
     </body>
 </html>
