@@ -36,6 +36,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "img_url")
+    private String profileUrl;
+
     @Transient
     private String status;
 

@@ -4,19 +4,27 @@ import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.dto.account.ChangePasswordDto;
 import com.ons.group2.ons_client_project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/Account")
 @SessionAttributes({"user"})
 @Slf4j
 public class AccountController {
+
+    private final String profileTemplate = "profile_page/t_profile_page";
 
     private final UserService userService;
 
@@ -47,6 +55,18 @@ public class AccountController {
 
         model.addAttribute("changePasswordSuccess", "Password changed!");
 
-        return "profile_page/t_profile_page";
+        return profileTemplate;
+    }
+
+    @PostMapping("/ChangePicture")
+    public String changeImage(@NotNull MultipartFile imgFile,
+                              @SessionAttribute("user") User user) {
+        try {
+            userService.changeProfilePicture(user, imgFile);
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        return profileTemplate;
     }
 }
