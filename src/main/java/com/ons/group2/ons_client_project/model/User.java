@@ -36,8 +36,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    private String status;
-
     public String getName() {
         return name;
     }
@@ -62,12 +60,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-
 
 
 }

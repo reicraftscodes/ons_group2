@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         user.setPassword(user.getPassword());
-//        user.setStatus("VERIFIED");
+//        user.setPassword(encoder.encode(user.getPassword())); //TODO: Spring boot security
         userRepository.save(user);
     }
 
