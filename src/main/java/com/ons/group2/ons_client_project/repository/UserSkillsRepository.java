@@ -1,0 +1,10 @@
+package com.ons.group2.ons_client_project.repository;
+
+import com.ons.group2.ons_client_project.model.UserSkill;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UserSkillsRepository extends JpaRepository<UserSkill, Integer> {
+    Optional<UserSkill> findById(Integer id);
+}
