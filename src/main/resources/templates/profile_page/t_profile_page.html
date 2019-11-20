@@ -1,6 +1,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>Your profile</title>
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link rel="stylesheet" href="/css/picnic/picnic.min.css">
         <link rel="stylesheet" href="/css/pages/profile_page/page.css">
     </head>
@@ -94,6 +96,8 @@
         /*<![CDATA[*/
 
         const imgUrl = /*[[${user.profileUrl}]]*/ 'none';
+        const csrfHeaderName = /*[[${_csrf.headerName}]]*/ 'none';
+        const csrfToken = /*[[${_csrf.token}]]*/ 'none';
 
         /*]]>*/
     </script>
@@ -114,6 +118,7 @@
                         formData.set('imgFile', file);
 
                         xhr.open('POST', '/api/Account/ChangePicture');
+                        xhr.setRequestHeader(csrfHeaderName, csrfToken);
                         xhr.send(formData);
 
                         inputfile.style['background-image'] = 'url('+reader.result+')';
