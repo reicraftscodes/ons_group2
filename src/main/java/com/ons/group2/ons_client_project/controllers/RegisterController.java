@@ -29,7 +29,7 @@ public class RegisterController {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("t_register_form"); // resources/template/register.html
+        modelAndView.setViewName("t_register_form");
         return modelAndView;
     }
 
