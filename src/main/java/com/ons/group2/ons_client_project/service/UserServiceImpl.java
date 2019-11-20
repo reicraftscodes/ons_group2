@@ -82,7 +82,8 @@ public class UserServiceImpl implements UserService {
                         StandardCopyOption.REPLACE_EXISTING);
 
                 // remove previous profile picture
-                Files.deleteIfExists(Paths.get("src/main/resources/static/" + user.getProfileUrl()));
+                if(!user.getProfileUrl().equals(defaultUserProfilePicURL)) // don't delete default profile
+                    Files.deleteIfExists(Paths.get("src/main/resources/static/" + user.getProfileUrl()));
 
                 // Set the url in the db
                 user.setProfileUrl(uploadWebLocationBase + user.getId() + "/" + filename);
