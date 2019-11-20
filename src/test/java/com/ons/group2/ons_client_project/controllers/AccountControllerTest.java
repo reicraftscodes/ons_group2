@@ -44,8 +44,7 @@ public class AccountControllerTest {
                 "TestName",
                 "test@email.com",
                 testUserPass,
-                "/images/test.png",
-                "none"
+                "/images/test.png"
         );
 
         given(userService.findById(1)).willReturn(Optional.of(testUser));

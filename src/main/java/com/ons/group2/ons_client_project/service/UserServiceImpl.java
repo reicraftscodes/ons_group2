@@ -2,9 +2,9 @@ package com.ons.group2.ons_client_project.service;
 
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.repository.UserRepository;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.ons.group2.ons_client_project.utils.StorageException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +20,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final BCryptPasswordEncoder encoder;
     private static final String defaultUserProfilePicURL = "/images/profile_page/default_profile.jpeg";
     private static final String uploadWebLocationBase = "/images/user/profile/";
 
@@ -28,13 +29,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
 
     @Override
     public void saveUser(User user) {
-//        user.setStatus("VERIFIED");
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setProfileUrl(defaultUserProfilePicURL);
 
         userRepository.save(user);
