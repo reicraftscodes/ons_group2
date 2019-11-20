@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/Account")
@@ -23,17 +24,9 @@ public class AccountRestController {
     @PostMapping("/ChangePicture")
     public ResponseEntity changeImage(@RequestParam("imgFile") MultipartFile imgFile,
                                       @SessionAttribute("user") User user) throws IOException {
+        URI uri = userService.changeProfilePicture(user, imgFile);
 
-        log.info(imgFile.toString());
-
-        try {
-            userService.changeProfilePicture(user, imgFile);
-        } catch (IOException e) {
-            throw e;
-            // return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(uri).build();
     }
 
 }

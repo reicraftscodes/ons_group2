@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changeProfilePicture(User user, MultipartFile newImg) {
+    public URI changeProfilePicture(User user, MultipartFile newImg) {
 
         String filename = StringUtils.cleanPath(newImg.getOriginalFilename());
         try {
@@ -65,24 +66,32 @@ public class UserServiceImpl implements UserService {
                 throw new StorageException("Failed to store empty file " + filename);
             }
             if (filename.contains("..")) {
-                // This is a security check
+                // this is a security check
                 throw new StorageException(
                         "Cannot store file with relative path outside current directory "
                                 + filename);
             }
             try (InputStream inputStream = newImg.getInputStream()) {
-                var path = basePath + user.getId() + "/profile/";
+                var path = basePath + user.getId() + "/";
+                var finalPath = Paths.get(path).resolve(filename);
 
-                Files.copy(inputStream, Paths.get(basePath).resolve(filename),
+                Files.createDirectories(finalPath.getParent());
+                Files.copy(inputStream, finalPath,
                         StandardCopyOption.REPLACE_EXISTING);
 
-                user.setProfileUrl(uploadWebLocationBase + filename);
+                // remove previous profile picture
+                Files.deleteIfExists(Paths.get("src/main/resources/static/" + user.getProfileUrl()));
+
+                // Set the url in the db
+                user.setProfileUrl(uploadWebLocationBase + user.getId() + "/" + filename);
                 userRepository.save(user);
+
+                // return the created url
+                return URI.create(uploadWebLocationBase + filename);
             }
         }
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
-
     }
 }

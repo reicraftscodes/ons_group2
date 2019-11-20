@@ -90,13 +90,14 @@
             </section>
         </main>
     </body>
-    <script>
+    <script th:inline="javascript">
         /*<![CDATA[*/
 
-        var imgUrl = /*[[${user.profileUrl}]]*/ '/images/profile_page/default_profile.jpeg';
+        const imgUrl = /*[[${user.profileUrl}]]*/ 'none';
 
         /*]]>*/
-
+    </script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             [].forEach.call(document.querySelectorAll('.dropimage'), function(img){
                 img.style['background-image'] = 'url('+imgUrl+')';
