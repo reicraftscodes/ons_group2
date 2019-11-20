@@ -1,6 +1,8 @@
 package com.ons.group2.ons_client_project.service.impl;
 
 import com.ons.group2.ons_client_project.model.UserSkill;
+import com.ons.group2.ons_client_project.model.adaptors.UserSkillAdaptor;
+import com.ons.group2.ons_client_project.model.dto.skill.NewSkillDto;
 import com.ons.group2.ons_client_project.repository.UserSkillsRepository;
 import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class UserSkillServiceImpl implements UserSkillService {
     }
 
     @Override
-    public UserSkill save(UserSkill userSkill) {
-        return userSkillsRepository.save(userSkill);
+    public UserSkill save(NewSkillDto newSkillDto) {
+        return userSkillsRepository.save(UserSkillAdaptor.createUserSkill(newSkillDto));
     }
 }
