@@ -44,6 +44,7 @@ public class AccountControllerTest {
                 "TestName",
                 "test@email.com",
                 testUserPass,
+                "/images/test.png",
                 "none"
         );
 

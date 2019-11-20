@@ -20,9 +20,11 @@
             <h2 th:inline="text">Welcome to your profile, [[${user.name}]]!</h2>
             <article class="flex two">
                 <section id="profile_info">
-                    <img src="/images/profile_page/default_profile.jpeg"
-                         alt="Profile picture" class="profile_pic">
-                    <a href="#" class="button">Change picture</a>
+                    <div style="width: 200px"> <!-- this div just for demo display -->
+                        <label class="dropimage profile_pic">
+                            <input name="filea" title="Drop image or click me" type="file">
+                        </label>
+                    </div>
                 </section>
                 <section id="change_password">
                     <h2>Change password</h2>
@@ -88,4 +90,36 @@
             </section>
         </main>
     </body>
+    <script>
+        /*<![CDATA[*/
+
+        var imgUrl = /*[[${user.profileUrl}]]*/ '/images/profile_page/default_profile.jpeg';
+
+        /*]]>*/
+
+        document.addEventListener("DOMContentLoaded", function() {
+            [].forEach.call(document.querySelectorAll('.dropimage'), function(img){
+                img.style['background-image'] = 'url('+imgUrl+')';
+
+                img.onchange = function(e){
+                    let inputfile = this, reader = new FileReader();
+                    reader.onloadend = function(){
+
+                        let formData = new FormData(),
+                            file = e.target.files[0],
+                            xhr = new XMLHttpRequest();
+
+                        formData.append('imgFile', file);
+                        formData.set('imgFile', file);
+
+                        xhr.open('POST', '/api/Account/ChangePicture');
+                        xhr.send(formData);
+
+                        inputfile.style['background-image'] = 'url('+reader.result+')';
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+        });
+    </script>
 </html>

@@ -32,7 +32,7 @@
 
 .profile_pic {
     border-radius: 50%;
-    width: 10rem;
+    padding-bottom: 100%;   /* 100% height (ratio 1) */
 }
 
 main {

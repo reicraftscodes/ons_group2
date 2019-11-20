@@ -41,6 +41,7 @@ public class UserProfileControllerTest {
                 "TestName",
                 "test@email.com",
                 "testUserPass",
+                "/images/test.png",
                 "none"
         );
 

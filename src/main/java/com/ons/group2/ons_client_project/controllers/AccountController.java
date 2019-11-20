@@ -24,7 +24,7 @@ import java.io.IOException;
 @Slf4j
 public class AccountController {
 
-    private final String profileTemplate = "profile_page/t_profile_page";
+    private static final String profileTemplate = "profile_page/t_profile_page";
 
     private final UserService userService;
 
@@ -54,18 +54,6 @@ public class AccountController {
         userService.changePassword(user, changePasswordDto.newPassword);
 
         model.addAttribute("changePasswordSuccess", "Password changed!");
-
-        return profileTemplate;
-    }
-
-    @PostMapping("/ChangePicture")
-    public String changeImage(@NotNull MultipartFile imgFile,
-                              @SessionAttribute("user") User user) {
-        try {
-            userService.changeProfilePicture(user, imgFile);
-        } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
 
         return profileTemplate;
     }
