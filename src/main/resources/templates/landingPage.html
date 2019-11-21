@@ -1,65 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="css/searchImages.css">
     <title>Home Page</title>
-    <style>
-        .form-search{
-            width: 640px;
-            margin: 20px auto;
-        }
-        .search-item{
-            width: 100%;
-            height: 35px;
-        }
-        .containerItems{
-            width: 660px;
-            margin: 20px auto;
-            clear: both;
-        }
-        .item{
-            float: left;
-            width: 200px;
-            padding: 10px;
-            text-align: center;
-        }
-        .item img{
-            width: 100%;
-        }
-
-
-    </style>
 </head>
 <body>
 
-<div class="form-search">
-    <input type="search" class="search-item" placeholder="Search here..."/>
-</div>
-<div class="containerItems">
-    <div data-filter="tedir" data-search="tedir" class="item">
-        <img src="images/man1.png"/>
-        <span><b>Tedir</b></span>
+<div th:replace="fragments/navbar.html :: nav"></div>
+
+<div class="container">
+    <div class="form-search">
+        <input type="search" class="search-item" placeholder="Search here..."/>
     </div>
-    <div data-search="Ghazali" class="item">
-        <img src="images/man3.png"/>
-        <span><b>Ghazali</b></span>
+    <div class="containerItems">
+        <div data-filter="tedir" data-search="tedir" class="item">
+            <img src="images/man1.png"/>
+            <span><b>Tedir</b></span>
+        </div>
+        <div data-filter="Ghazali" data-search="Ghazali" class="item">
+            <img src="images/man3.png"/>
+            <span><b>Ghazali</b></span>
+        </div>
+        <div data-filter="Boy" data-search="Boy" class="item">
+            <img src="images/woman1.png"/>
+            <span><b>Boy Haki</b></span>
+        </div>
+        <div data-filter="Bukhari" data-search="Bukhari" class="item">
+            <img src="images/woman4.png"/>
+            <span><b>Bukhari</b></span>
+        </div>
+        <div data-filter="Nurjannah" data-search="Nurjannah" class="item">
+            <img src="images/woman5.png"/>
+            <span><b>Nurjannah</b></span>
+        </div>
+        <div data-filter="Zulkifli" data-search="Zulkifli" class="item">
+            <img src="images/man6.png"/>
+            <span><b>Zulkifli</b></span>
+        </div>
     </div>
-    <div data-search="Boy" class="item">
-        <img src="images/woman1.png"/>
-        <span><b>Boy Haki</b></span>
-    </div>
-    <div data-search="Bukhari" class="item">
-        <img src="images/woman4.png"/>
-        <span><b>Bukhari</b></span>
-    </div>
-    <div data-search="Nurjannah" class="item">
-        <img src="images/woman5.png"/>
-        <span><b>Nurjannah</b></span>
-    </div>
-    <div data-search="Zulkifli" class="item">
-        <img src="images/man6.png"/>
-        <span><b>Zulkifli</b></span>
-    </div>
+
 </div>
 
 <script src="js/jquery-3.1.0.min.js"></script>
