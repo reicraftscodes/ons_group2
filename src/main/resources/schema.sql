@@ -3,6 +3,9 @@ USE ons_db;
 DROP TABLE IF EXISTS `user_table`;
 DROP TABLE IF EXISTS `user_skills`;
 
+-- ---------------------------------------------------------------------------------------------------------------------
+-- USER DATA TABLES
+-- ---------------------------------------------------------------------------------------------------------------------
 CREATE TABLE `user_table` (
 	`user_id` int(11) NOT NULL AUTO_INCREMENT,
     `user_name` varchar(255) DEFAULT NULL,
@@ -20,4 +23,17 @@ CREATE TABLE `user_skills` (
       `description` varchar(255) DEFAULT NULL,
       `confidence` tinyint DEFAULT NULL,
       PRIMARY KEY(`id`)
+);
+
+-- ---------------------------------------------------------------------------------------------------------------------
+-- OFFERS AND REQUESTS FOR HELP TABLES
+-- ---------------------------------------------------------------------------------------------------------------------
+CREATE TABLE `help_request`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_posted`date DEFAULT NULL,
+  `title` VARCHAR(25) DEFAULT NULL,
+  `description` VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
+  `method_of_contact` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY(`id`)
 );
