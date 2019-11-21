@@ -77,23 +77,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="skill : ${userSkills}">
-                            <td th:text="${skill.title}"></td>
-                            <td th:text="${skill.description}"></td>
-                            <td th:text="${skill.confidence}"></td>
-                            <td><button th:onclick="|removeSkill('${skill.id}')|" class="error">-</button></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" id="skillName" placeholder="Name"></td>
-                            <td><input type="text" id="description" placeholder="Tell us more"></td>
-                            <td><input type="number" id="confidence" placeholder="Confidence (1 - 5)"></td>
-                            <td><button onclick="addSkill()" class="warning">+</button></td>
-                        </tr>
                     </tbody>
                 </table>
             </section>
         </main>
     </body>
+    <script src="/js/jquery-3.4.1.min.js"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
 

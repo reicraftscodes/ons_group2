@@ -42,4 +42,9 @@ public class UserSkillRestController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/")
+    public ResponseEntity getAllForUser(@SessionAttribute("user") User user) {
+        return ResponseEntity.ok(userSkillService.getAllForUser(user.getId()));
+    }
 }
