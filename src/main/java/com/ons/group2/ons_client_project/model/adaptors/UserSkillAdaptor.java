@@ -10,7 +10,8 @@ public class UserSkillAdaptor {
                 null,
                 newSkillDto.getTitle(),
                 newSkillDto.getDescription(),
-                newSkillDto.getConfidence()
+                newSkillDto.getConfidence().shortValue(),
+                newSkillDto.getUser()
         );
     }
 }

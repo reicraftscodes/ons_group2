@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "user_skill")
+@Table(name = "user_skills")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +26,9 @@ public class UserSkill {
 
     @NotNull
     private Short confidence;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @NotNull
+    private User user;
 }
