@@ -2,6 +2,8 @@ USE ons_db;
 
 DROP TABLE IF EXISTS `user_table`;
 DROP TABLE IF EXISTS `user_skills`;
+DROP TABLE IF EXISTS `help_request`;
+DROP TABLE IF EXISTS  `help_offer_skill_link_table`;
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- USER DATA TABLES
@@ -35,5 +37,12 @@ CREATE TABLE `help_request`(
   `title` VARCHAR(25) DEFAULT NULL,
   `description` VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
   `method_of_contact` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `help_offer_skill_link_table`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `skill_id` int(11) NOT NULL,
+  `help_request_id` int(11) NOT NULL,
   PRIMARY KEY(`id`)
 );
