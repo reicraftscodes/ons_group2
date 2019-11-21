@@ -1,7 +1,8 @@
-package com.ons.group2.ons_client_project.service;
+package com.ons.group2.ons_client_project.service.impl;
 
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.repository.UserRepository;
+import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.utils.StorageException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

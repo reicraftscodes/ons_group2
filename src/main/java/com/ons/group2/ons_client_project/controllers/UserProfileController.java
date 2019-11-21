@@ -2,8 +2,8 @@ package com.ons.group2.ons_client_project.controllers;
 
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.dto.account.ChangePasswordDto;
-import com.ons.group2.ons_client_project.repository.UserRepository;
 import com.ons.group2.ons_client_project.service.UserService;
+import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +21,11 @@ import java.util.Optional;
 public class UserProfileController {
 
     private final UserService userService;
+    private final UserSkillService userSkillService;
 
-    public UserProfileController(UserService userService) {
+    public UserProfileController(UserService userService, UserSkillService userSkillService) {
         this.userService = userService;
+        this.userSkillService = userSkillService;
     }
 
     @GetMapping("/{id}")
@@ -37,6 +39,7 @@ public class UserProfileController {
 
         model.addAttribute("changePasswordDto", new ChangePasswordDto());
         model.addAttribute("user", user.get());
+        model.addAttribute("userSkills", userSkillService.getAllForUser(user.get().getId()));
 
         return "profile_page/t_profile_page";
     }

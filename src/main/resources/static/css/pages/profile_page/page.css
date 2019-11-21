@@ -22,7 +22,7 @@
     padding: 3px;
 }
 
-.success {
+.successMessage {
     color: #2b7515;
     background: #ecffd6;
     border: 1px solid #617c42;
@@ -37,4 +37,10 @@
 
 main {
     margin: 3rem;
+}
+
+.add_button {
+    color: white;
+    width: 2vw;
+    height: 2vw;
 }
