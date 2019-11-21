@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Image upload ###
+/src/main/resources/static/images/user/profile/
