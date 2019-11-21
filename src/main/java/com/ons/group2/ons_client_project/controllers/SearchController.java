@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SearchController {
 
+//    @RequestMapping(value = "/home", method = RequestMethod.GET)
+//    public String searchView() {
+//        return "search";
+//    }
+
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String searchView() {
-        return "search";
+        return "landingPage";
     }
+
 }
