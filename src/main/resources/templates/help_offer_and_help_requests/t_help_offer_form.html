@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Offer your services</title>
 </head>
 <body>
+
+<form autocomplete="on" action="#" th:action="@{/submitOffer}" th:object="${NewHelpOfferDto}" method="post" class="form-signin" role="form">
+
+    <h3 class="form-signin-heading">Offer your expertise</h3>
+
+    <div class="form-group">
+            <input type="text" th:field="*{title}" placeholder="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <input type="text" th:field="*{description}" placeholder="Description" class="form-control" />
+    </div>
+
+    <div class = "form-group">
+        <select id = "skills">
+            <!-- TODO: POPULATE WITH USER SKILLS DATA FROM JSON GRABBED FROM REST API -->
+        </select>
+    </div>
+
+    <div class="form-group">
+            <button type="submit" class="btn btn-success">Submit offer</button>
+    </div>
+</form>
 
 </body>
 </html>

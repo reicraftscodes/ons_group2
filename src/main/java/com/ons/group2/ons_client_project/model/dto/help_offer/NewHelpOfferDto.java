@@ -15,13 +15,10 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class NewHelpOfferDto {
     @NotNull
-    private String opName;
+    private String title;
 
     @NotNull(message = "You must tag at least one skill for others to be able to find your offer!")
     private ArrayList<UserSkill> taggedSkills;
-
-    @NotNull
-    private Date postingDate;
 
     @NotNull
     private String methodOfContact;
