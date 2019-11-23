@@ -38,8 +38,4 @@ public class MainController {
         return "admin/index";
     }
 
-    @GetMapping("/user/profile")
-    public String userProfile() {
-        return "user/profile";
-    }
 }
