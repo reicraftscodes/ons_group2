@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
 
   <title>ONS - User</title>
 
@@ -105,17 +106,17 @@
         </button>
 
         <!-- Topbar Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                   aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
-        </form>
+        <!--        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
+        <!--          <div class="input-group">-->
+        <!--            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."-->
+        <!--                   aria-label="Search" aria-describedby="basic-addon2">-->
+        <!--            <div class="input-group-append">-->
+        <!--              <button class="btn btn-primary" type="button">-->
+        <!--                <i class="fas fa-search fa-sm"></i>-->
+        <!--              </button>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </form>-->
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
@@ -183,7 +184,53 @@
       <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+
+        <div class="container">
+          <h1 class="center-align">
+            People to help you!
+          </h1>
+          <input type="text" id="filterInput" placeholder="Search names...">
+          <ul id="names" class="collection with-header">
+            <li class="collection-header">
+              <h5>A</h5>
+            </li>
+            <li class="collection-item">
+              <a href="#">Abe</a>
+            </li>
+            <li class="collection-item">
+              <a href="#">Adam</a>
+            </li>
+            <li class="collection-item">
+              <a href="#">Anna</a>
+            </li>
+
+            <li class="collection-header">
+              <h5>B</h5>
+            </li>
+            <li class="collection-item">
+              <a href="#">Beth</a>
+            </li>
+            <li class="collection-item">
+              <a href="#">ben</a>
+            </li>
+            <li class="collection-item">
+              <a href="#">Brad</a>
+            </li>
+
+            <li class="collection-header">
+              <h5>C</h5>
+            </li>
+            <li class="collection-item">
+              <a href="#">Cathy</a>
+            </li>
+            <li class="collection-item">
+              <a href="#">Carre</a>
+            </li>
+            <li class="collection-item">
+              <a href="#">Country</a>
+            </li>
+          </ul>
+        </div>
 
       </div>
       <!-- /.container-fluid -->
@@ -241,6 +288,38 @@
 
 <!-- Custom scripts for all pages-->
 <script th:src="@{~/js/sb-admin-2.min.js}"></script>
+
+<script>
+  //Get input element
+  let filterInput = document.getElementById('filterInput');
+
+  //Add event listener
+  filterInput.addEventListener('keyup', filterNames);
+
+  function filterNames(){
+    //get value of input
+    let filterValue = document.getElementById('filterInput').value.toUpperCase();
+
+    //get names ul
+    let ul = document.getElementById('names');
+    //get lis from ul
+    let li = ul.querySelectorAll('li.collection-item');
+
+    //loop through collection-item lis
+    for(let i = 0; i < li.length; i++){
+      let a = li[i].getElementsByTagName('a')[0];
+
+      //if matched
+      if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+        li[i].style.display = '';
+      }else{
+        li[i].style.display = 'none';
+      }
+    }
+
+  }
+
+</script>
 
 </body>
 
