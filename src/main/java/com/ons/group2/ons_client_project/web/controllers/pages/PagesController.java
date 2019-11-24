@@ -12,8 +12,7 @@ public class PagesController {
     public String root() {
         return "index";
     }
-
-
+    
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
@@ -27,6 +26,10 @@ public class PagesController {
     @GetMapping("/forgotpass")
     public String forgotpass(Model model) {
         return "forgotpass";
+    }
+    @GetMapping("/resetpass")
+    public String resetPassword(Model model) {
+        return "resetpass";
     }
 
 }
