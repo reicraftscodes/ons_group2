@@ -1,4 +1,4 @@
-package com.onsclientproject.app.web.controllers.auth;
+package com.ons.group2.ons_client_project.web.controllers.auth;
 
 import javax.validation.Valid;
 
