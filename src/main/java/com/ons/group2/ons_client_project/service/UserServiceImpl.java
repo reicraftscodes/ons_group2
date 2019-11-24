@@ -1,12 +1,10 @@
 package com.ons.group2.ons_client_project.service;
 
-
 import com.ons.group2.ons_client_project.model.Role;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.repository.UserRepository;
 import com.ons.group2.ons_client_project.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,7 +24,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);

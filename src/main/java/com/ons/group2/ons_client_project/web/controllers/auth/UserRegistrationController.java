@@ -1,4 +1,6 @@
-package com.ons.group2.ons_client_project.web.controllers.auth;
+package com.onsclientproject.app.web.controllers.auth;
+
+import javax.validation.Valid;
 
 
 import com.ons.group2.ons_client_project.model.User;
@@ -12,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registration")

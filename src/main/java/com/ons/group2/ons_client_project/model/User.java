@@ -15,8 +15,6 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private String profileUrl;
-
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -26,7 +24,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
-
 
     public User() {
     }
@@ -38,7 +35,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstName, String lastName, String email, String password, Collection<Role> roles, String profileUrl) {
+    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -94,10 +91,9 @@ public class User {
         this.roles = roles;
     }
 
-
     @Override
     public String toString() {
-        return "com.ons.group2.ons_client_project.model.User{" +
+        return "com.ons.ons_client_project.model.User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
