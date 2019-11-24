@@ -31,4 +31,8 @@ public class UserSkill {
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
