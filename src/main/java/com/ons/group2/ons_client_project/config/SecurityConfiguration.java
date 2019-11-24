@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/forgotpass**",
                         "/js/**",
                         "/css/**",
-                        "/img/**",  
+                        "/img/**",
                         "/scss/**",
                         "/vendor/**").permitAll()
                 .antMatchers("/user/**").hasRole("USER")
