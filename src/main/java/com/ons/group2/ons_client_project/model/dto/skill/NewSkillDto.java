@@ -1,5 +1,6 @@
 package com.ons.group2.ons_client_project.model.dto.skill;
 
+import com.ons.group2.ons_client_project.model.Category;
 import com.ons.group2.ons_client_project.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class NewSkillDto {
     @Min(1)
     @Max(5)
     private Integer confidence;
+
+    private Integer categoryId;
 
     private User user;
 }

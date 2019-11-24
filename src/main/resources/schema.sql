@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `user_skills` (
 
 CREATE TABLE IF NOT EXISTS `categories` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
+    `name` varchar(255) NOT NULL UNIQUE,
     `parent_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
