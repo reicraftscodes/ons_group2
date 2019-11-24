@@ -1,13 +1,14 @@
 package com.ons.group2.ons_client_project.repository;
 
 import com.ons.group2.ons_client_project.model.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CategoryRepository {
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-    Optional<Category> getByName(String name);
+    Optional<Category> findByName(String name);
 
-    List<Category> getByParent(Category parentCategory);
+    List<Category> findAllByParentCategory(Category category);
 }
