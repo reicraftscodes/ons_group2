@@ -42,7 +42,7 @@ function removeSkill(id) {
 }
 
 function refreshSkillsList() {
-    fetch("/api/Skills/").then((response) => {
+    fetch("/api/Skills/User").then((response) => {
         let $table = $('.primary tbody');
 
         $table.empty();
@@ -52,12 +52,14 @@ function refreshSkillsList() {
                let results = JSON.parse(data);
 
                for (let i = 0; i < results.length; i++) {
+                   const currentSkill = results[i];
 
                    let markup = `<tr>
-                            <td>${results[i].title}</td>
-                            <td>${results[i].description}</td>
-                            <td>${results[i].confidence}</td>
-                            <td><button onclick="removeSkill('${results[i].id}')" class="error">-</button></td>
+                            <td>${currentSkill.title}</td>
+                            <td>${currentSkill.description}</td>
+                            <td>${currentSkill.confidence}</td>
+                            <td>${!currentSkill.category ? "" : currentSkill.category.name}</td>
+                            <td><button onclick="removeSkill('${currentSkill.id}')" class="error">-</button></td>
                         </tr>`;
 
                    $table.append(markup);
@@ -67,7 +69,7 @@ function refreshSkillsList() {
                             <td><input type="text" id="skillName" placeholder="Name"></td>
                             <td><input type="text" id="description" placeholder="Tell us more"></td>
                             <td><input type="number" id="confidence" placeholder="Confidence (1 - 5)"></td>
-                            <td><select id="categorySelect"></select></td>
+                            <td><select id="categorySelect" style="width: 115%;"></select></td>
                             <td><button onclick="addSkill()" class="warning">+</button></td>
                         </tr>`;
 
@@ -75,6 +77,7 @@ function refreshSkillsList() {
 
                getCategories().then((categories) => {
                    let $categorySelect = $('#categorySelect');
+                   $categorySelect.empty();
 
                    for (let i = 0; i < categories.length; i++) {
                        const currentCategory = categories[i];
