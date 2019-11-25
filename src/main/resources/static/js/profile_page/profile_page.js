@@ -1,12 +1,10 @@
 refreshSkillsList();
-getCategories();
 
 function getCategories() {
     return $.get({
-        url: "/api/categories/"
+        url: "/api/categories/topLevel"
     })
 }
-
 
 function addSkill() {
     let xhr = new XMLHttpRequest();
@@ -14,11 +12,13 @@ function addSkill() {
     let title = document.querySelector("#skillName");
     let description = document.querySelector("#description");
     let confidence = document.querySelector("#confidence");
+    let category = document.querySelector("#categorySelect");
 
     let payload = {
         "title": title.value,
         "description": description.value,
-        "confidence": confidence.value
+        "confidence": confidence.value,
+        "categoryId": category.value
     };
 
     xhr.open('POST', '/api/Skills/AddSkill');
@@ -73,19 +73,32 @@ function refreshSkillsList() {
 
                $table.append(newSkillMarkup);
 
-               getCategories().then((data) => {
-
+               getCategories().then((categories) => {
                    let $categorySelect = $('#categorySelect');
 
-                   for (let i = 0; i < data.length; i++) {
-                       const currentCategory = data[i];
-
+                   for (let i = 0; i < categories.length; i++) {
+                       const currentCategory = categories[i];
                        $categorySelect.append(new Option(currentCategory.name, currentCategory.id));
+
+                       displaySubCategories(currentCategory);
                    }
                });
            })
        }
-
-
     });
+}
+
+function displaySubCategories(category, level = 1) {
+    let $categorySelect = $('#categorySelect');
+
+    if(!category.subCategories) return;
+    if(category.subCategories.length === 0) return;
+
+    for (let i = 0; i < category.subCategories.length; i++) {
+        const currentCategory = category.subCategories[i];
+        $categorySelect.append(
+            new Option('-'.repeat(level) + ' ' + currentCategory.name));
+
+        displaySubCategories(currentCategory, level + 1);
+    }
 }

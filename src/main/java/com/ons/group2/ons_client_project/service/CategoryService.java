@@ -14,8 +14,6 @@ public interface CategoryService {
 
     List<Category> getAll();
     List<Category> getAllTopLevel();
-    List<Category> getAllByParent(Category parentCategory);
-
 
     Category save(Category category);
     Category create(NewCategoryDto newCategoryDto);

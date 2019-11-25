@@ -35,8 +35,13 @@ public class CategoryRestController {
     }
 
     @GetMapping("")
-    public ResponseEntity allCategories() {
+    public ResponseEntity getAll() {
         return ResponseEntity.ok(categoryService.getAll());
+    }
+
+    @GetMapping("/topLevel")
+    public ResponseEntity allTopLevel() {
+        return ResponseEntity.ok(categoryService.getAllTopLevel());
     }
 
     @GetMapping("/{name}")
@@ -57,17 +62,5 @@ public class CategoryRestController {
         }
 
         return ResponseEntity.ok(category.get());
-    }
-
-    @GetMapping("/{id}/subCategories")
-    public ResponseEntity getAllSubcategories(@PathVariable("id") Integer parentId) {
-        Optional<Category> parentCategory = categoryService.getById(parentId);
-
-        if(parentCategory.isEmpty())
-            return ResponseEntity.notFound().build();
-
-        var subCategories = categoryService.getAllByParent(parentCategory.get());
-
-        return ResponseEntity.ok(subCategories);
     }
 }

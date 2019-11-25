@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -19,8 +21,24 @@ public class Category {
 
     private String name;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "parent_id")
-    private Category parentCategory;
+    private Set<Category> subCategories;
 
+    @Column(name = "parent_id")
+    private Integer parentId;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(id, category.id) &&
+                Objects.equals(name, category.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }
