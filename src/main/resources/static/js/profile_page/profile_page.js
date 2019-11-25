@@ -100,7 +100,7 @@ function displaySubCategories(category, level = 1) {
     for (let i = 0; i < category.subCategories.length; i++) {
         const currentCategory = category.subCategories[i];
         $categorySelect.append(
-            new Option('-'.repeat(level) + ' ' + currentCategory.name));
+            new Option('-'.repeat(level) + ' ' + currentCategory.name, currentCategory.id));
 
         displaySubCategories(currentCategory, level + 1);
     }
