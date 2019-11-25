@@ -21,11 +21,9 @@ import java.util.Optional;
 public class UserProfileController {
 
     private final UserService userService;
-    private final UserSkillService userSkillService;
 
-    public UserProfileController(UserService userService, UserSkillService userSkillService) {
+    public UserProfileController(UserService userService) {
         this.userService = userService;
-        this.userSkillService = userSkillService;
     }
 
     @GetMapping("/{id}")
@@ -39,7 +37,6 @@ public class UserProfileController {
 
         model.addAttribute("changePasswordDto", new ChangePasswordDto());
         model.addAttribute("user", user.get());
-        model.addAttribute("userSkills", userSkillService.getAllForUser(user.get().getId()));
 
         return "profile_page/t_profile_page";
     }

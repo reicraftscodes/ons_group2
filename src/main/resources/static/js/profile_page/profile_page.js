@@ -1,4 +1,12 @@
 refreshSkillsList();
+getCategories();
+
+function getCategories() {
+    return $.get({
+        url: "/api/categories/"
+    })
+}
+
 
 function addSkill() {
     let xhr = new XMLHttpRequest();
@@ -14,7 +22,6 @@ function addSkill() {
     };
 
     xhr.open('POST', '/api/Skills/AddSkill');
-    xhr.setRequestHeader(csrfHeaderName, csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(payload));
 
@@ -27,7 +34,6 @@ function removeSkill(id) {
     let xhr = new XMLHttpRequest();
 
     xhr.open('DELETE', `/api/Skills/RemoveSkill/${id}`);
-    xhr.setRequestHeader(csrfHeaderName, csrfToken);
     xhr.send();
 
     xhr.onreadystatechange = () => {
@@ -52,7 +58,7 @@ function refreshSkillsList() {
                             <td>${results[i].description}</td>
                             <td>${results[i].confidence}</td>
                             <td><button onclick="removeSkill('${results[i].id}')" class="error">-</button></td>
-                        </tr>`
+                        </tr>`;
 
                    $table.append(markup);
                }
@@ -61,10 +67,22 @@ function refreshSkillsList() {
                             <td><input type="text" id="skillName" placeholder="Name"></td>
                             <td><input type="text" id="description" placeholder="Tell us more"></td>
                             <td><input type="number" id="confidence" placeholder="Confidence (1 - 5)"></td>
+                            <td><select id="categorySelect"></select></td>
                             <td><button onclick="addSkill()" class="warning">+</button></td>
-                        </tr>`
+                        </tr>`;
 
                $table.append(newSkillMarkup);
+
+               getCategories().then((data) => {
+
+                   let $categorySelect = $('#categorySelect');
+
+                   for (let i = 0; i < data.length; i++) {
+                       const currentCategory = data[i];
+
+                       $categorySelect.append(new Option(currentCategory.name, currentCategory.id));
+                   }
+               });
            })
        }
 

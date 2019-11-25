@@ -1,5 +1,6 @@
 package com.ons.group2.ons_client_project.controllers.rest;
 
+import com.ons.group2.ons_client_project.model.Category;
 import com.ons.group2.ons_client_project.model.dto.category.NewCategoryDto;
 import com.ons.group2.ons_client_project.service.CategoryService;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -19,7 +21,7 @@ public class CategoryRestController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity createCategory(@RequestBody @Valid NewCategoryDto newCategoryDto) {
         try {
             var category = categoryService.create(newCategoryDto);
@@ -32,7 +34,7 @@ public class CategoryRestController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity allCategories() {
         return ResponseEntity.ok(categoryService.getAll());
     }
@@ -55,5 +57,17 @@ public class CategoryRestController {
         }
 
         return ResponseEntity.ok(category.get());
+    }
+
+    @GetMapping("/{id}/subCategories")
+    public ResponseEntity getAllSubcategories(@PathVariable("id") Integer parentId) {
+        Optional<Category> parentCategory = categoryService.getById(parentId);
+
+        if(parentCategory.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        var subCategories = categoryService.getAllByParent(parentCategory.get());
+
+        return ResponseEntity.ok(subCategories);
     }
 }

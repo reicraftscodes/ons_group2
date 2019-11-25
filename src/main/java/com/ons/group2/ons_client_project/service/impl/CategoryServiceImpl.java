@@ -30,6 +30,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getAllTopLevel() {
+        return categoryRepository.findAllTopLevel();
+    }
+
+    @Override
     public Optional<Category> getByName(String name) {
         return categoryRepository.findByName(name);
     }

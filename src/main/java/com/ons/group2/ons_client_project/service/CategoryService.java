@@ -8,11 +8,15 @@ import java.util.Optional;
 
 public interface CategoryService {
 
-    List<Category> getAll();
+
     Optional<Category> getByName(String name);
     Optional<Category> getById(Integer id);
 
+    List<Category> getAll();
+    List<Category> getAllTopLevel();
     List<Category> getAllByParent(Category parentCategory);
+
+
     Category save(Category category);
     Category create(NewCategoryDto newCategoryDto);
 }
