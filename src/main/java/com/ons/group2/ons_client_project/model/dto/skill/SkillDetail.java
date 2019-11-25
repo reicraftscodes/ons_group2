@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * This classed is used to expose information of a skill to the frontend.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

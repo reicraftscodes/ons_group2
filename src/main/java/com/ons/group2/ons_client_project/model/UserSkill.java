@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This class represents a skill of a user.
+ */
 @Entity
 @Table(name = "user_skills")
 @Data

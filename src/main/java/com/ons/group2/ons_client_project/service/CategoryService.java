@@ -17,4 +17,7 @@ public interface CategoryService {
 
     Category save(Category category);
     Category create(NewCategoryDto newCategoryDto);
+
+    void remove(Category category);
+    void removeById(Integer categoryId);
 }

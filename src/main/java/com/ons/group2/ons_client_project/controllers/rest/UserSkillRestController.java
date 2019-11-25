@@ -27,8 +27,6 @@ public class UserSkillRestController {
     public ResponseEntity addSkill(@RequestBody @Valid NewSkillDto newSkillDto,
             @SessionAttribute("user") User user) {
 
-        log.info(newSkillDto.toString());
-
         newSkillDto.setUser(user);
         userSkillService.save(newSkillDto);
 
