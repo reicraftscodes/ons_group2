@@ -28,7 +28,7 @@ public class UserSkillRestController {
             @SessionAttribute("user") User user) {
 
         newSkillDto.setUser(user);
-        userSkillService.save(newSkillDto);
+        userSkillService.create(newSkillDto);
 
         return ResponseEntity.ok().build();
     }

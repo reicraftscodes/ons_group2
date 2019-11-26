@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `user_skills` (
       `title` varchar(255) DEFAULT NULL,
       `description` varchar(255) DEFAULT NULL,
       `confidence` tinyint DEFAULT NULL,
-      `category_id` int(11) NOT NULL,
+      `category_id` int(11) DEFAULT NULL,
       PRIMARY KEY(`id`)
 );
 

@@ -34,10 +34,20 @@ public class UserSkillServiceImpl implements UserSkillService {
     }
 
     @Override
-    public UserSkill save(NewSkillDto newSkillDto) {
+    public List<UserSkill> getAllByCategoryId(Integer categoryId) {
+        return userSkillsRepository.findAllByCategory_Id(categoryId);
+    }
+
+    @Override
+    public UserSkill create(NewSkillDto newSkillDto) {
         var skill = userSkillAdaptor.createUserSkill(newSkillDto);
 
         return userSkillsRepository.save(skill);
+    }
+
+    @Override
+    public UserSkill save(UserSkill userSkill) {
+        return userSkillsRepository.save(userSkill);
     }
 
     @Override
