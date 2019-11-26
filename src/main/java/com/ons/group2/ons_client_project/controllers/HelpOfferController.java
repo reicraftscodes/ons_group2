@@ -1,8 +1,10 @@
 package com.ons.group2.ons_client_project.controllers;
 
 import com.ons.group2.ons_client_project.model.HelpOffer;
+import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.dto.help_offer.NewHelpOfferDto;
 import com.ons.group2.ons_client_project.service.HelpOfferService;
+import com.ons.group2.ons_client_project.service.UserService;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,21 +13,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.sound.midi.SysexMessage;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Optional;
 
 @Controller
 public class HelpOfferController {
 
     private HelpOfferService helpOfferService;
+    private UserService userService;
 
-    public HelpOfferController(HelpOfferService helpOfferService) {
+    public HelpOfferController(HelpOfferService helpOfferService, UserService userService) {
         this.helpOfferService = helpOfferService;
+        this.userService = userService;
     }
 
     @GetMapping("/createOffer")
@@ -35,21 +42,35 @@ public class HelpOfferController {
     }
 
     @PostMapping("/submitOffer")
-    public String submitOffer(Model model, @ModelAttribute NewHelpOfferDto newHelpOfferDto){
+    public ModelAndView submitOffer(Model model, @ModelAttribute NewHelpOfferDto newHelpOfferDto){
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
+        String currentUserName;
+        User currentUser = null;
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // get the current logged in users name
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-            System.out.println("USERNAME"+currentUserName);
+        User dummyUser = new User(1,"testUser","testUser@gmail.com","testPassword","www.google.com");
+
+        //TODO: CHANGE FROM DUMMY USER FOR TESTING PURPOSES ONCE LOGIN HAS BEEN MERGED TO MASTER TO ALLOW ACTUAL USER TO BE SAVED INSTEAD OF DUMMY USER
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // get the current logged in users name and then find the user object with corresponding username
+//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+//            currentUserName = authentication.getName();
+//            currentUser = userService.getUserByUsername(currentUserName);
+//        }
+
+        HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),newHelpOfferDto.getMethodOfContact());
+        HelpOffer savedOffer = helpOfferService.save(newOffer);
+        Long savedOfferId =  savedOffer.getId();
+
+        return new ModelAndView("redirect:/helpOffer/"+savedOfferId);
+    }
+
+    @GetMapping("/helpOffer/{id}")
+    public String helpOffer(@PathVariable Long id, Model model){
+
+        Optional<HelpOffer> helpOffer = helpOfferService.findById(id);
+        if(helpOffer.isPresent()){
+            model.addAttribute("offer",helpOffer.get());
         }
+        return"help_offer_and_help_requests/t_help_offer";
 
-
-
-
-        HelpOffer newOffer = new HelpOffer(null,null,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),newHelpOfferDto.getMethodOfContact());
-        helpOfferService.save(newOffer);
-
-        return "placeholder";
     }
 }

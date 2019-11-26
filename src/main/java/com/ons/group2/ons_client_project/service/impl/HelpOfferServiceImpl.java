@@ -5,6 +5,8 @@ import com.ons.group2.ons_client_project.repository.HelpOfferRepository;
 import com.ons.group2.ons_client_project.service.HelpOfferService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class HelpOfferServiceImpl implements HelpOfferService {
 
@@ -15,8 +17,13 @@ public class HelpOfferServiceImpl implements HelpOfferService {
     }
 
     @Override
-    public void save(HelpOffer helpOffer) {
-        helpOfferRepository.save(helpOffer);
+    public HelpOffer save(HelpOffer helpOffer) {
+        return helpOfferRepository.save(helpOffer);
 
+    }
+
+    @Override
+    public Optional<HelpOffer> findById(Long id) {
+        return helpOfferRepository.findById(id);
     }
 }
