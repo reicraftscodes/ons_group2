@@ -16,6 +16,7 @@ public class UserSkill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "skill_id")
     private Integer id;
 
     @NotNull

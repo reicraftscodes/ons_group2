@@ -60,7 +60,6 @@ public class HelpOfferController {
 
         // add all skills the user has selected on their profile to model
         List<UserSkill> userSkills = userSkillService.getAllForUser(1);
-        System.out.println(userSkills.isEmpty() + "aaaa");
         model.addAttribute("userSkills",userSkills);
 
         // add data transfer object to model to be able to parse to submit method
@@ -83,13 +82,16 @@ public class HelpOfferController {
 //            currentUser = userService.getUserByUsername(currentUserName);
 //        }
 
+        // save help offer
         HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),newHelpOfferDto.getMethodOfContact()); // save offer to database
         HelpOffer savedOffer = helpOfferService.save(newOffer);
         Long savedOfferId =  savedOffer.getId();
 
-        ArrayList<UserSkill> taggedSkills = newHelpOfferDto.getTaggedSkills();
-        for(UserSkill userSkill:taggedSkills){
+        // save tagged skills
+        System.out.println(newHelpOfferDto.getTaggedSkills().isEmpty() + "TEST");
+        for(UserSkill userSkill:newHelpOfferDto.getTaggedSkills()){
             helpOfferSkillLinkService.save(new HelpOfferSkillLink(null,userSkill,savedOffer));
+            System.out.println("SAVED " + userSkill);
         }
 
         return new ModelAndView("redirect:/helpOffer/"+savedOfferId);

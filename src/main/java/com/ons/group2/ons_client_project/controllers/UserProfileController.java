@@ -28,7 +28,7 @@ public class UserProfileController {
         this.userSkillService = userSkillService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/test/{id}")
     public String profilePage(@PathVariable("id") Integer id, Model model) {
 
         Optional<User> user = userService.findById(id);

@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class NewHelpOfferDto {
     private String title;
 
     @NotNull(message = "You must tag at least one skill for others to be able to find your offer!")
-    private ArrayList<UserSkill> taggedSkills;
+    private List<UserSkill> taggedSkills;
 
     @NotNull
     private String methodOfContact;

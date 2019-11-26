@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,8 +20,7 @@ public class HelpOfferSkillLink {
     private Long help_offer_skill_link_id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    @NotNull
+    @JoinColumn(name = "skill_id")
     private UserSkill skill_id;
 
     @ManyToOne(fetch = FetchType.EAGER)

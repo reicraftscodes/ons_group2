@@ -19,7 +19,7 @@ CREATE TABLE `user_table` (
 );
 
 CREATE TABLE `user_skills` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `skill_id` int(11) NOT NULL AUTO_INCREMENT,
       `user_id` int(11) NOT NULL,
       `title` varchar(255) DEFAULT NULL,
       `description` varchar(255) DEFAULT NULL,
