@@ -8,6 +8,7 @@ import com.ons.group2.ons_client_project.model.dto.help_offer.NewHelpOfferDto;
 import com.ons.group2.ons_client_project.service.HelpOfferService;
 import com.ons.group2.ons_client_project.service.HelpOfferSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserService;
+import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,15 +36,34 @@ public class HelpOfferController {
     private HelpOfferService helpOfferService;
     private UserService userService;
     private HelpOfferSkillLinkService helpOfferSkillLinkService;
+    private UserSkillService userSkillService;
 
-    public HelpOfferController(HelpOfferService helpOfferService, UserService userService, HelpOfferSkillLinkService helpOfferSkillLinkService) {
+    public HelpOfferController(HelpOfferService helpOfferService, UserService userService, HelpOfferSkillLinkService helpOfferSkillLinkService,UserSkillService userSkillService) {
         this.helpOfferService = helpOfferService;
         this.userService = userService;
         this.helpOfferSkillLinkService = helpOfferSkillLinkService;
+        this.userSkillService = userSkillService;
     }
 
     @GetMapping("/createOffer")
     public String createOffer(Model model){
+        String currentUserName;
+        User currentUser = null;
+
+        //TODO: UNCOMMENT CURRENT USER GRAB METHOD AND REPLACE HARD CODED USER ID FROM CALL TO USER SKILL SERVICE TO GET USER SKILLS
+
+        //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // get the current logged in users name and then find the user object with corresponding username
+//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+//            currentUserName = authentication.getName();
+//            currentUser = userService.getUserByUsername(currentUserName);
+//        }
+
+        // add all skills the user has selected on their profile to model
+        List<UserSkill> userSkills = userSkillService.getAllForUser(1);
+        System.out.println(userSkills.isEmpty() + "aaaa");
+        model.addAttribute("userSkills",userSkills);
+
+        // add data transfer object to model to be able to parse to submit method
         model.addAttribute("NewHelpOfferDto", new NewHelpOfferDto());
         return "help_offer_and_help_requests/t_help_offer_form";
     }
