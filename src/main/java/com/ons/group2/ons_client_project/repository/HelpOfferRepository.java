@@ -1,4 +1,9 @@
 package com.ons.group2.ons_client_project.repository;
 
-public interface HelpOfferRepository {
+import com.ons.group2.ons_client_project.model.HelpOffer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HelpOfferRepository extends JpaRepository<HelpOffer, Integer> {
+
+    public void saveOffer(HelpOffer helpOffer);
 }
