@@ -5,7 +5,13 @@ function getRootCategories() {
 }
 
 function createCategory(category) {
-
+    return fetch(`/api/categories`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(category)
+    });
 }
 
 function removeCategoryById(id) {

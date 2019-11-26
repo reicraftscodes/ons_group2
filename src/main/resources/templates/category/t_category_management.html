@@ -19,13 +19,13 @@
                     <section>
                         <label>
                             Category name
-                            <input type="text" id="categoryName" placeholder="e.g.: Web Technology">
+                            <input type="text" id="newCategoryName" placeholder="e.g.: Web Technology">
                         </label>
                         <label>
                             Parent Category
-                            <select class="categorySelect"></select>
+                            <select id="newCategoryParentSelect" class="categorySelect"></select>
                         </label>
-                        <button>Create</button>
+                        <button id="createButton">Create</button>
                     </section>
                 </div>
                 <div class="card">
@@ -49,6 +49,18 @@
 
             $('#deleteButton').on('click', () => {
                 removeCategoryById($('#removeCategorySelect').val()).then(() => {
+                    fillSelects();
+                });
+            });
+
+            $('#createButton').on('click', () => {
+                createCategory(
+                    {
+                        name: $('#newCategoryName').val(),
+                        parentCategoryId: $('#newCategoryParentSelect').val()
+                    }
+                ).then(() => {
+                    $('#newCategoryName').val("");
                     fillSelects();
                 });
             });
