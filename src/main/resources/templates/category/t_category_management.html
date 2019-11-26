@@ -67,7 +67,11 @@
 
             function fillSelects() {
                 getRootCategories().then((categories) => {
-                    fillSelectWithCategories($('.categorySelect'), categories)
+                    fillSelectWithCategories($('.categorySelect'), categories);
+
+                    $('#newCategoryParentSelect').prepend(
+                        new Option('None', null, true, true)
+                    )
                 });
             }
         </script>

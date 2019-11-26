@@ -15,7 +15,10 @@ public class CategoryAdaptor implements com.ons.group2.ons_client_project.model.
     }
 
     public Category createNewCategory(NewCategoryDto newCategoryDto) {
-        var parentCategoryOpt = categoryRepository.findById(newCategoryDto.getParentCategoryId());
+        var parentCategoryOpt =
+                newCategoryDto.getParentCategoryId() == null ?
+                        java.util.Optional.<Category>empty() :
+                        categoryRepository.findById(newCategoryDto.getParentCategoryId());
 
         return new Category(
                 null,
