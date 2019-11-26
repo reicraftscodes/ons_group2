@@ -37,12 +37,12 @@ CREATE TABLE `help_offer`(
   `title` VARCHAR(25) DEFAULT NULL,
   `description` VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
   `method_of_contact` VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY(`id`)
+  PRIMARY KEY(`help_offer_id`)
 );
 
 CREATE TABLE `help_offer_skill_link_table`(
   `help_offer_skill_link_id` int(11) NOT NULL AUTO_INCREMENT,
   `skill_id` int(11) NOT NULL,
   `help_offer_id` int(11) NOT NULL,
-  PRIMARY KEY(`id`)
+  PRIMARY KEY(`help_offer_skill_link_id`)
 );

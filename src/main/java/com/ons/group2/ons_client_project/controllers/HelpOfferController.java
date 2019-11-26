@@ -1,9 +1,12 @@
 package com.ons.group2.ons_client_project.controllers;
 
 import com.ons.group2.ons_client_project.model.HelpOffer;
+import com.ons.group2.ons_client_project.model.HelpOfferSkillLink;
 import com.ons.group2.ons_client_project.model.User;
+import com.ons.group2.ons_client_project.model.UserSkill;
 import com.ons.group2.ons_client_project.model.dto.help_offer.NewHelpOfferDto;
 import com.ons.group2.ons_client_project.service.HelpOfferService;
+import com.ons.group2.ons_client_project.service.HelpOfferSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserService;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +24,7 @@ import javax.sound.midi.SysexMessage;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 
@@ -29,10 +33,12 @@ public class HelpOfferController {
 
     private HelpOfferService helpOfferService;
     private UserService userService;
+    private HelpOfferSkillLinkService helpOfferSkillLinkService;
 
-    public HelpOfferController(HelpOfferService helpOfferService, UserService userService) {
+    public HelpOfferController(HelpOfferService helpOfferService, UserService userService, HelpOfferSkillLinkService helpOfferSkillLinkService) {
         this.helpOfferService = helpOfferService;
         this.userService = userService;
+        this.helpOfferSkillLinkService = helpOfferSkillLinkService;
     }
 
     @GetMapping("/createOffer")
@@ -56,9 +62,14 @@ public class HelpOfferController {
 //            currentUser = userService.getUserByUsername(currentUserName);
 //        }
 
-        HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),newHelpOfferDto.getMethodOfContact());
+        HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),newHelpOfferDto.getMethodOfContact()); // save offer to database
         HelpOffer savedOffer = helpOfferService.save(newOffer);
         Long savedOfferId =  savedOffer.getId();
+
+        ArrayList<UserSkill> taggedSkills = newHelpOfferDto.getTaggedSkills();
+        for(UserSkill userSkill:taggedSkills){
+            helpOfferSkillLinkService.save(new HelpOfferSkillLink(null,userSkill,savedOffer));
+        }
 
         return new ModelAndView("redirect:/helpOffer/"+savedOfferId);
     }

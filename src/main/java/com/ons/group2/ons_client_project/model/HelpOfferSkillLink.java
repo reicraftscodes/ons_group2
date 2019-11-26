@@ -10,16 +10,18 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "help_offer_skill_link_table")
 public class HelpOfferSkillLink {
     @Id
+    @Column(name = "help_offer_skill_link_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long help_offer_skill_link_id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
     @NotNull
-    private Long skill_id;
+    private UserSkill skill_id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "help_offer_id")
