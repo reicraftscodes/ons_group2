@@ -24,5 +24,5 @@ public class HelpOfferSkillLink {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "help_offer_id")
     @NotNull
-    private Long help_offer_id;
+    private HelpOffer help_offer_id;
 }

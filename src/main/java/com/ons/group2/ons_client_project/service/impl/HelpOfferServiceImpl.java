@@ -3,7 +3,9 @@ package com.ons.group2.ons_client_project.service.impl;
 import com.ons.group2.ons_client_project.model.HelpOffer;
 import com.ons.group2.ons_client_project.repository.HelpOfferRepository;
 import com.ons.group2.ons_client_project.service.HelpOfferService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class HelpOfferServiceImpl implements HelpOfferService {
 
     private HelpOfferRepository helpOfferRepository;
@@ -13,8 +15,8 @@ public class HelpOfferServiceImpl implements HelpOfferService {
     }
 
     @Override
-    public void saveOffer(HelpOffer helpOffer) {
-        helpOfferRepository.saveOffer(helpOffer);
+    public void save(HelpOffer helpOffer) {
+        helpOfferRepository.save(helpOffer);
 
     }
 }

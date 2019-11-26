@@ -22,7 +22,7 @@ public class HelpOffer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @NotNull
-    private Long user_id;
+    private User user_id;
 
     @Column(name = "date_posted")
     private Date date_posted;
