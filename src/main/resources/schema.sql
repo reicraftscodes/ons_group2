@@ -2,7 +2,7 @@ USE ons_db;
 
 DROP TABLE IF EXISTS `user_table`;
 DROP TABLE IF EXISTS `user_skills`;
-DROP TABLE IF EXISTS `help_request`;
+DROP TABLE IF EXISTS `help_offer`;
 DROP TABLE IF EXISTS  `help_offer_skill_link_table`;
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ CREATE TABLE `user_skills` (
 -- ---------------------------------------------------------------------------------------------------------------------
 -- OFFERS AND REQUESTS FOR HELP TABLES
 -- ---------------------------------------------------------------------------------------------------------------------
-CREATE TABLE `help_request`(
+CREATE TABLE `help_offer`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `date_posted`date DEFAULT NULL,
