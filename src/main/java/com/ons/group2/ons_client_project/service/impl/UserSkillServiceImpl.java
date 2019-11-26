@@ -2,7 +2,7 @@ package com.ons.group2.ons_client_project.service.impl;
 
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.UserSkill;
-import com.ons.group2.ons_client_project.model.adaptors.UserSkillAdaptor;
+import com.ons.group2.ons_client_project.model.adaptors.abstraction.UserSkillAdaptor;
 import com.ons.group2.ons_client_project.model.dto.skill.NewSkillDto;
 import com.ons.group2.ons_client_project.repository.UserSkillsRepository;
 import com.ons.group2.ons_client_project.service.UserSkillService;
@@ -15,10 +15,12 @@ import java.util.Optional;
 public class UserSkillServiceImpl implements UserSkillService {
 
     private final UserSkillsRepository userSkillsRepository;
+    private final UserSkillAdaptor userSkillAdaptor;
 
-    public UserSkillServiceImpl(UserSkillsRepository userSkillsRepository) {
+    public UserSkillServiceImpl(UserSkillsRepository userSkillsRepository, UserSkillAdaptor userSkillAdaptor) {
 
         this.userSkillsRepository = userSkillsRepository;
+        this.userSkillAdaptor = userSkillAdaptor;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class UserSkillServiceImpl implements UserSkillService {
 
     @Override
     public UserSkill save(NewSkillDto newSkillDto) {
-        var skill = UserSkillAdaptor.createUserSkill(newSkillDto);
+        var skill = userSkillAdaptor.createUserSkill(newSkillDto);
 
         return userSkillsRepository.save(skill);
     }

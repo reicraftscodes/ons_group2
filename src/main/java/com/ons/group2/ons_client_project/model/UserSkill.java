@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This class represents a skill of a user.
+ */
 @Entity
 @Table(name = "user_skills")
 @Data
@@ -31,4 +34,8 @@ public class UserSkill {
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
