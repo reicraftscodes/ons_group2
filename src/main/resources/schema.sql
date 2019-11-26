@@ -31,7 +31,7 @@ CREATE TABLE `user_skills` (
 -- OFFERS AND REQUESTS FOR HELP TABLES
 -- ---------------------------------------------------------------------------------------------------------------------
 CREATE TABLE `help_offer`(
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `help_offer_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `date_posted`date DEFAULT NULL,
   `title` VARCHAR(25) DEFAULT NULL,
@@ -41,8 +41,8 @@ CREATE TABLE `help_offer`(
 );
 
 CREATE TABLE `help_offer_skill_link_table`(
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `help_offer_skill_link_id` int(11) NOT NULL AUTO_INCREMENT,
   `skill_id` int(11) NOT NULL,
-  `help_request_id` int(11) NOT NULL,
+  `help_offer_id` int(11) NOT NULL,
   PRIMARY KEY(`id`)
 );
