@@ -3,6 +3,7 @@ package com.ons.group2.ons_client_project.model.dto.helpRequest;
 import com.ons.group2.ons_client_project.model.UserSkill;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class NewHelpRequestDto {
 
     @NotNull
