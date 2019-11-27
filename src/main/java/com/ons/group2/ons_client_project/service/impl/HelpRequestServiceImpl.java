@@ -1,6 +1,7 @@
 package com.ons.group2.ons_client_project.service.impl;
 
 import com.ons.group2.ons_client_project.model.HelpRequest;
+import com.ons.group2.ons_client_project.repository.HelpRequestRepository;
 import com.ons.group2.ons_client_project.service.HelpRequestService;
 import org.springframework.stereotype.Service;
 
