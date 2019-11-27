@@ -15,4 +15,6 @@ public interface UserService {
 
     void changePassword(User user, String newPassword);
     URI changeProfilePicture(User user, MultipartFile newImg) throws IOException;
+
+    User getUserByUsername(String username);
 }

@@ -98,4 +98,9 @@ public class UserServiceImpl implements UserService {
             throw new StorageException("Failed to store file " + filename, e);
         }
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findUserByEmail(username);
+    }
 }
