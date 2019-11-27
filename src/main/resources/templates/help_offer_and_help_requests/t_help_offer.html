@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Help Offer</title>
+    <link rel="stylesheet" th:href="@{~/css/picnic/picnic.min.css}">
 </head>
 <body>
 <h1 th:inline="text"> [[${offer.title}]]!</h1>
 
-<h2>Date Posted</h2>
+<h2>Date Posted:</h2>
 <h3 th:inline="text">[[${offer.date_posted}]]</h3>
 
 <h2>More details:</h2>
@@ -15,4 +16,14 @@
 
 
 </body>
+<style>
+    h1{
+        text-align: center;
+        color: #002f94;
+    }
+    body{
+        background-color: #FAFAFA;
+        margin: 2px;
+    }
+</style>
 </html>

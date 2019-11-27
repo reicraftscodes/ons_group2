@@ -10,12 +10,14 @@ import com.ons.group2.ons_client_project.service.HelpRequestSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -89,7 +91,11 @@ public class HelpRequestController {
     }
 
     @GetMapping("/helpRequest/{id}")
-    public String helpRequest(@PathVariable Long id, Model model){
+    public String helpRequest(@Valid NewHelpRequestDto newHelpRequestDto, @PathVariable Long id, Model model, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return "help_offer_and_help_requests/t_help_request_form";
+        }
 
         Optional<HelpRequest> helpRequest = helpRequestService.findById(id);
         if(helpRequest.isPresent()){

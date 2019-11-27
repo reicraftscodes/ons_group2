@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Help Request</title>
+    <link rel="stylesheet" th:href="@{~/css/picnic/picnic.min.css}">
 </head>
 <body>
 <h1 th:inline="text"> [[${request.title}]]!</h1>
@@ -14,5 +15,14 @@
 <h3 th:inline="text">[[${request.description}]]</h3>
 
 </body>
-
+<style>
+    h1{
+        text-align: center;
+        color: #002f94;
+    }
+    body{
+        background-color: #FAFAFA;
+        margin: 2px;
+    }
+</style>
 </html>
