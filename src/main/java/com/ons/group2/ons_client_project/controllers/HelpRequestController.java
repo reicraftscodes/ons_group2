@@ -1,20 +1,24 @@
 package com.ons.group2.ons_client_project.controllers;
 
 import com.ons.group2.ons_client_project.model.HelpRequest;
+import com.ons.group2.ons_client_project.model.HelpRequestSkillLink;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.UserSkill;
 import com.ons.group2.ons_client_project.model.dto.helpRequest.NewHelpRequestDto;
 import com.ons.group2.ons_client_project.service.HelpRequestService;
+import com.ons.group2.ons_client_project.service.HelpRequestSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HelpRequestController {
@@ -22,6 +26,8 @@ public class HelpRequestController {
     private UserSkillService userSkillService;
 
     private HelpRequestService helpRequestService;
+
+    private HelpRequestSkillLinkService helpRequestSkillLinkService;
 
     public HelpRequestController(UserSkillService userSkillService,HelpRequestService helpRequestService) {
         this.userSkillService = userSkillService;
@@ -77,5 +83,17 @@ public class HelpRequestController {
 
         return new ModelAndView("redirect:/helpOffer/"+savedOfferId);
     }
+
+    @GetMapping("/helpRequest/{id}")
+    public String helpRequest(@PathVariable Long id, Model model){
+
+        Optional<HelpRequest> helpRequest = helpRequestService.findById(id);
+        if(helpRequest.isPresent()){
+            model.addAttribute("request",helpRequest.get());
+        }
+        return"help_offer_and_help_requests/t_help_request";
+
+    }
+
 
 }
