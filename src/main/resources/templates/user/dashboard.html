@@ -7,11 +7,13 @@
             <thead>
             <tr>
                 <th>Name</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user: ${userInfoKey}">
                 <td th:text="${user.first_name}"></td>
+                <td><a class="btn btn-link" th:href ="@{/user/profile}"> View Profile </a> </td>
             </tr>
 
             </tbody>

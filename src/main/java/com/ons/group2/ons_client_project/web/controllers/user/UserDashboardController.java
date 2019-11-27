@@ -24,10 +24,17 @@ public class UserDashboardController {
         model.addAttribute("userInfoKey", userInfos);
         model.addAttribute("content", "dashboard");
 
-
         System.out.println("user info = " + userInfos);
 
         return "user/index";
     }
+
+    @GetMapping("/user/profile")
+    public String userProfile(Model model) {
+        model.addAttribute("content", "profile");
+        return "user/index";
+    }
+
+
 
 }
