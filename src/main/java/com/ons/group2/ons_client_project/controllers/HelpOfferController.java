@@ -34,19 +34,17 @@ import java.util.Optional;
 public class HelpOfferController {
 
     private HelpOfferService helpOfferService;
-    private UserService userService;
     private HelpOfferSkillLinkService helpOfferSkillLinkService;
     private UserSkillService userSkillService;
 
-    public HelpOfferController(HelpOfferService helpOfferService, UserService userService, HelpOfferSkillLinkService helpOfferSkillLinkService,UserSkillService userSkillService) {
+    public HelpOfferController(HelpOfferService helpOfferService, HelpOfferSkillLinkService helpOfferSkillLinkService,UserSkillService userSkillService) {
         this.helpOfferService = helpOfferService;
-        this.userService = userService;
         this.helpOfferSkillLinkService = helpOfferSkillLinkService;
         this.userSkillService = userSkillService;
     }
 
     @GetMapping("/createOffer")
-    public String createOffer(Model model){
+    public String createOffer(Model model) {
         String currentUserName;
         User currentUser = null;
 
@@ -60,12 +58,13 @@ public class HelpOfferController {
 
         // add all skills the user has selected on their profile to model
         List<UserSkill> userSkills = userSkillService.getAllForUser(1);
-        model.addAttribute("userSkills",userSkills);
+        model.addAttribute("userSkills", userSkills);
 
         // add data transfer object to model to be able to parse to submit method
         model.addAttribute("NewHelpOfferDto", new NewHelpOfferDto());
         return "help_offer_and_help_requests/t_help_offer_form";
     }
+
 
     @PostMapping("/submitOffer")
     public ModelAndView submitOffer(Model model, @ModelAttribute NewHelpOfferDto newHelpOfferDto){
@@ -85,13 +84,13 @@ public class HelpOfferController {
         // save help offer
         HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),newHelpOfferDto.getMethodOfContact()); // save offer to database
         HelpOffer savedOffer = helpOfferService.save(newOffer);
+        System.out.println(savedOffer + "AAA");
         Long savedOfferId =  savedOffer.getId();
 
         // save tagged skills
         System.out.println(newHelpOfferDto.getTaggedSkills().isEmpty() + "TEST");
         for(UserSkill userSkill:newHelpOfferDto.getTaggedSkills()){
             helpOfferSkillLinkService.save(new HelpOfferSkillLink(null,userSkill,savedOffer));
-            System.out.println("SAVED " + userSkill);
         }
 
         return new ModelAndView("redirect:/helpOffer/"+savedOfferId);
