@@ -29,7 +29,7 @@ public class UserSkillServiceImpl implements UserSkillService {
     }
 
     @Override
-    public List<UserSkill> getAllForUser(Integer userId) {
+    public List<UserSkill> getAllForUser(Long userId) {
         return userSkillsRepository.findAllByUser_Id(userId);
     }
 

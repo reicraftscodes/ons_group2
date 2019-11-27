@@ -57,6 +57,8 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Optional<Category> getById(Integer id) {
+        if(id == null) return Optional.empty();
+
         return categoryRepository.findById(id);
     }
 

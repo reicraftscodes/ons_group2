@@ -1,0 +1,368 @@
+<div class="container-fluid" th:fragment="profile" xmlns:th="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <style type="text/css">
+
+        .table-wrapper {
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-title {
+            padding-bottom: 10px;
+            margin: 0 0 10px;
+        }
+
+        .table-title h2 {
+            margin: 6px 0 0;
+            font-size: 22px;
+        }
+
+        .table-title .add-new {
+            float: right;
+            height: 30px;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: none;
+            min-width: 100px;
+            border-radius: 50px;
+            line-height: 13px;
+        }
+
+        .table-title .add-new i {
+            margin-right: 4px;
+        }
+
+        table.table {
+            table-layout: fixed;
+        }
+
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table th:last-child {
+            width: 100px;
+        }
+
+        table.table td a {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 24px;
+        }
+
+        table.table td a.add {
+            color: #27C46B;
+        }
+
+        table.table td a.edit {
+            color: #FFC107;
+        }
+
+        table.table td a.delete {
+            color: #E34724;
+        }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        table.table td a.add i {
+            font-size: 24px;
+            margin-right: -1px;
+            position: relative;
+            top: 3px;
+        }
+
+        table.table .form-control {
+            height: 32px;
+            line-height: 32px;
+            box-shadow: none;
+            border-radius: 2px;
+        }
+
+        table.table .form-control.errm {
+            border-color: #f50000;
+        }
+
+        table.table td .add {
+            display: none;
+        }
+    </style>
+
+    <!--  insert code here   -->
+    <h1 class="h3 mb-4 text-gray-800">Profile Page</h1>
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="card-title mb-4">
+                            <div class="d-flex justify-content-start">
+                                <!--             Profile                   -->
+                                <div class="image-container">
+                                    <img th:src="${#authentication.getPrincipal().getUser().getProfileUrl()}"
+                                         id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail"/>
+                                    <div class="middle">
+                                        <label class="btn btn-secondary btn-block">
+                                            Browse <input type="file" hidden id="profilePicChange">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="userData ml-3">
+                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">
+                                        <a
+                                            href="javascript:void(0);"
+                                            th:inline="text">
+                                            [[${#authentication.getPrincipal().getUser().getFullName()}]]
+                                        </a>
+                                    </h2>
+                                    <h6 class="d-block">Looking for a.....</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab"
+                                           href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">Basic
+                                            Info</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="skils-tab" data-toggle="tab" href="#skils" role="tab"
+                                           aria-controls="skils" aria-selected="false">Skills</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
+                                         aria-labelledby="basicInfo-tab">
+                                        <div class="table-wrapper">
+                                            <div class="table-title">
+                                                <div class="row">
+                                                    <div class="col-sm-8"><h2>About <b>Me</b></h2></div>
+                                                    <div class="col-sm-4">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Full Name</label>
+                                                </div>
+                                                <div class="col-md-8 col-6" th:inline="text">
+                                                    [[${#authentication.getPrincipal().getUser().getFullName()}]]
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Email</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    [[${#authentication.getPrincipal().getUser().getEmail()}]]
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="skils" role="tabpanel"
+                                         aria-labelledby="skils-tab">
+
+                                        <div class="table-wrapper">
+                                            <div class="table-title">
+                                                <div class="row">
+                                                    <div class="col-sm-8"><h2>My <b>Skills</b></h2></div>
+                                                    <div class="col-sm-4">
+                                                        <button type="button" class="btn btn-info add-new">
+                                                            <i class="fa fa-plus"></i> Add New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Programming Language</th>
+                                                        <th>Description</th>
+                                                        <th>Confidence Level</th>
+                                                        <th>Category</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="skillstable">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{~/js/profile_page/profile_page.js}"></script>
+    <script type="text/javascript">
+        $('#profilePicChange').on('change', (e) => {
+            let $img = $('#imgProfile');
+
+            let reader = new FileReader();
+            reader.onloadend = function(){
+
+                let formData = new FormData(),
+                    file = e.target.files[0];
+
+                formData.set('imgFile', file);
+
+                fetch('/api/Account/ChangePicture', {
+                   method: 'POST',
+                   body: formData
+                });
+
+                $img.prop('src', reader.result);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+
+        function saveProfileChanges() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Great...',
+                text: 'Profile successfully saved!'
+            });
+        }
+
+        function saveSkillsChanges() {
+            var isAllSaved = true;
+            var skills = [];
+
+            $('#skillstable tr').each(function () {
+                var pl = $(this).find(".pl_tablecell").html();
+                var desc = $(this).find(".desc_tablecell").html();
+                var confidence = $(this).find(".confidence_tablecell .confidencesel").val();
+
+                if ($(pl).length > 0 || $(desc).length > 0 || $(confidence).length > 0) {
+                    isAllSaved = false;
+                }
+                skills.push({"pl": pl, "description": desc, "confidence": confidence});
+            });
+
+            if (isAllSaved) {
+                console.log(skills);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great...',
+                    text: 'Skill successfully saved!'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please save all your skills before saving!'
+                });
+            }
+        }
+
+        $(document).ready(function () {
+
+            // Append table with add row form on add new button click
+            $(".add-new").click(function () {
+                var actions = $("table td:last-child").html();
+                $(this).attr("disabled", "disabled");
+                var index = $("table tbody tr:last-child").index();
+                var row = `<tr>
+                                <td class="pl_tablecell">
+                                    <input type="text" class="form-control" name="name[]">
+                                </td>
+                                <td class="desc_tablecell">
+                                    <input type="text" class="form-control" name="description[]">
+                                </td>
+                                <td class="confidence_tablecell">
+                                    <select class="form-control confidencesel" name="confidence[]">
+                                        <option value="2">1 - None</option>
+                                        <option value="2">2 - Beginner</option>
+                                        <option value="3">3 - Intermediate</option>
+                                        <option value="4">4 - Advance</option>
+                                        <option value="5">5 - Expert</option>
+                                    </select>
+                                </td>
+                                <td>none</td>
+                                <td>
+                                    <a class="add" title="Add"><i
+                                            class="fa fa-check"></i></a>
+                                    <a class="edit" title="Edit"><i
+                                            class="fa fa-edit"></i></a>
+                                    <a class="delete" title="Delete"><i
+                                            class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>`;
+                $("table").append(row);
+                $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            });
+            // Add row on add button click
+            $(document).on("click", ".add", function () {
+                var empty = false;
+                var input = $(this).parents("tr").find('input[type="text"]');
+                input.each(function () {
+                    if (!$(this).val()) {
+                        $(this).addClass("errm");
+                        empty = true;
+                    } else {
+                        $(this).removeClass("errm");
+                    }
+                });
+                $(this).parents("tr").find(".errm").first().focus();
+                if (!empty) {
+                    input.each(function () {
+                        $(this).parent("td").html($(this).val());
+                    });
+                    let title = $(this).parents("tr").find(".pl_tablecell").text();
+                    let description = $(this).parents("tr").find(".desc_tablecell").text();
+                    let confidence = $(this).parents("tr").find(".confidencesel").val();
+
+                    saveSkill(title, description, confidence, null);
+
+                    $(this).parents("tr").find("td:nth-child(3)")
+                        .html($(this).parents("tr").find("td:nth-child(3) option:selected").text());
+                    $(this).parents("tr").find(".add, .edit").toggle();
+                    $(".add-new").removeAttr("disabled");
+                }
+            });
+            // Edit row on edit button click
+            $(document).on("click", ".edit", function () {
+                $(this).parents("tr").find("td:nth-child(1), td:nth-child(2)").each(function () {
+                    $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+                });
+                $(this).parents("tr").find("td:nth-child(3)").html(`
+                   <select class="form-control confidencesel" name="confidence[]">
+                        <option value="2">0 - None</option>
+                        <option value="2">1 - Beginner</option>
+                        <option value="3">2 - Intermediate</option>
+                        <option value="4">3 - Advance</option>
+                        <option value="5">4 - Expert</option>
+                    </select>`);
+
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new").attr("disabled", "disabled");
+            });
+            // Delete row on delete button click
+            $(document).on("click", ".delete", function () {
+                $(this).parents("tr").remove();
+                $(".add-new").removeAttr("disabled");
+            });
+        });
+    </script>
+</div>

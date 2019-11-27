@@ -11,7 +11,7 @@ public interface UserSkillService {
 
     Optional<UserSkill> getById(Integer id);
 
-    List<UserSkill> getAllForUser(Integer userId);
+    List<UserSkill> getAllForUser(Long userId);
 
     UserSkill save(NewSkillDto newSkillDto);
 
