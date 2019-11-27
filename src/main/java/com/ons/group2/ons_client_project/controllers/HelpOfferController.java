@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.sound.midi.SysexMessage;
+import javax.validation.Valid;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -67,7 +68,7 @@ public class HelpOfferController {
 
 
     @PostMapping("/submitOffer")
-    public ModelAndView submitOffer(Model model, @ModelAttribute NewHelpOfferDto newHelpOfferDto){
+    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpOfferDto newHelpOfferDto, Model model){
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
         String currentUserName;
         User currentUser = null;

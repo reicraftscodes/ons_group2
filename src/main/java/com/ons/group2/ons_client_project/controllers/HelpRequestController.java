@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.Binding;
 import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.List;
@@ -52,7 +53,6 @@ public class HelpRequestController {
 
         // add all skills the user has selected on their profile to model
         List<UserSkill> userSkills = userSkillService.getAllForUser(1); // replace 1 with actual user id in the future
-        System.out.println(userSkills.isEmpty() + "Aaaaaa");
         model.addAttribute("userSkills", userSkills);
 
         // add data transfer object to model to be able to parse to submit method
@@ -61,7 +61,18 @@ public class HelpRequestController {
     }
 
     @PostMapping("/submitRequest")
-    public ModelAndView submitOffer(Model model, @ModelAttribute NewHelpRequestDto newHelpRequestDto){
+    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpRequestDto newHelpRequestDto, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()) {
+            // add all skills the user has selected on their profile to model
+            List<UserSkill> userSkills = userSkillService.getAllForUser(1); // replace 1 with actual user id in the future
+            System.out.println(userSkills.isEmpty() + "Aaaaaa");
+            model.addAttribute("userSkills", userSkills);
+
+            // add data transfer object to model to be able to parse to submit method
+            model.addAttribute("NewHelpRequestDto", new NewHelpRequestDto());
+            return new ModelAndView("help_offer_and_help_requests/t_help_request_form");
+        }
+
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
         String currentUserName;
         User currentUser = null;
@@ -91,17 +102,7 @@ public class HelpRequestController {
     }
 
     @GetMapping("/helpRequest/{id}")
-    public String helpRequest(@Valid NewHelpRequestDto newHelpRequestDto,BindingResult bindingResult ,Model model,@PathVariable Long id){
-        if (bindingResult.hasErrors()) {
-            // add all skills the user has selected on their profile to model
-            List<UserSkill> userSkills = userSkillService.getAllForUser(1); // replace 1 with actual user id in the future
-            System.out.println(userSkills.isEmpty() + "Aaaaaa");
-            model.addAttribute("userSkills", userSkills);
-
-            // add data transfer object to model to be able to parse to submit method
-            model.addAttribute("NewHelpRequestDto", new NewHelpRequestDto());
-            return "help_offer_and_help_requests/t_help_request_form";
-        }
+    public String helpRequest(Model model,@PathVariable Long id){
 
         Optional<HelpRequest> helpRequest = helpRequestService.findById(id);
         if(helpRequest.isPresent()){
