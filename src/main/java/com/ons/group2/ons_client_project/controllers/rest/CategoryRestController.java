@@ -63,4 +63,13 @@ public class CategoryRestController {
 
         return ResponseEntity.ok(category.get());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteCategory(@PathVariable("id") Integer id) {
+        if(id == null) return ResponseEntity.badRequest().body("Id cannot be null.");
+
+        categoryService.removeById(id);
+
+        return ResponseEntity.ok().build();
+    }
 }

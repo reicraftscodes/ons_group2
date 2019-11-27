@@ -10,6 +10,7 @@ public interface UserSkillsRepository extends JpaRepository<UserSkill, Integer> 
     Optional<UserSkill> findById(Integer id);
 
     List<UserSkill> findAllByUser_Id(Integer userId);
+    List<UserSkill> findAllByCategory_Id(Integer categoryId);
 
     void deleteByIdAndUser_Id(Integer skillId, Integer userId);
 }
