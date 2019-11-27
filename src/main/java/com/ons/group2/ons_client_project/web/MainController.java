@@ -27,11 +27,6 @@ public class MainController {
         return "forgotpass";
     }
 
-    @GetMapping("/user")
-    public String userIndex() {
-        return "user/index";
-    }
-
 //    Admin - responsible for updating / deleting stuff on the website.
     @GetMapping("/admin")
     public String adminIndex() {
