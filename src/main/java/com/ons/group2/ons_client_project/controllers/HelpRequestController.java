@@ -4,6 +4,7 @@ import com.ons.group2.ons_client_project.model.HelpRequest;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.UserSkill;
 import com.ons.group2.ons_client_project.model.dto.helpRequest.NewHelpRequestDto;
+import com.ons.group2.ons_client_project.service.HelpRequestService;
 import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +21,11 @@ public class HelpRequestController {
 
     private UserSkillService userSkillService;
 
-    public HelpRequestController(UserSkillService userSkillService) {
+    private HelpRequestService helpRequestService;
+
+    public HelpRequestController(UserSkillService userSkillService,HelpRequestService helpRequestService) {
         this.userSkillService = userSkillService;
+        this.helpRequestService = helpRequestService;
     }
 
     @GetMapping("/createRequest")
