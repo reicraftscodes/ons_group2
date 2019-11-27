@@ -1,5 +1,13 @@
 CREATE SCHEMA IF NOT EXISTS  ons_db;
 
+DROP TABLE IF EXISTS `user_table`;
+DROP TABLE IF EXISTS `user_skills`;
+DROP TABLE IF EXISTS `help_offer`;
+DROP TABLE IF EXISTS  `help_offer_skill_link_table`;
+DROP TABLE IF EXISTS `help_request`;
+DROP TABLE IF EXISTS `help_request_skill_link_table`;
+
+
 USE ons_db;
 
 CREATE TABLE IF NOT EXISTS `user_table` (
@@ -13,13 +21,13 @@ CREATE TABLE IF NOT EXISTS `user_table` (
 );
 
 CREATE TABLE IF NOT EXISTS `user_skills` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `skill_id` int(11) NOT NULL AUTO_INCREMENT,
       `user_id` int(11) NOT NULL,
       `title` varchar(255) DEFAULT NULL,
       `description` varchar(255) DEFAULT NULL,
       `confidence` tinyint DEFAULT NULL,
       `category_id` int(11) NOT NULL,
-      PRIMARY KEY(`id`)
+      PRIMARY KEY(`skill_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -28,3 +36,25 @@ CREATE TABLE IF NOT EXISTS `categories` (
     `parent_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `help_request`
+(
+  `help_request_id`     int(11) NOT NULL AUTO_INCREMENT,
+  `user_id`           int(11) NOT NULL,
+  `date_posted`       date         DEFAULT NULL,
+  `title`             VARCHAR(25)  DEFAULT NULL,
+  `description`       VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
+  `method_of_contact` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`help_request_id`)
+);
+
+CREATE TABLE `help_request_skill_link_table`
+(
+  `help_request_skill_link_id` int(11) NOT NULL AUTO_INCREMENT,
+  `skill_id`                 int(11) NOT NULL,
+  `help_request_id`            int(11) NOT NULL,
+  PRIMARY KEY (`help_request_skill_link_id`)
+);
+
+
+

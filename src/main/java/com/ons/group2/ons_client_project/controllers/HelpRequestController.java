@@ -29,9 +29,10 @@ public class HelpRequestController {
 
     private HelpRequestSkillLinkService helpRequestSkillLinkService;
 
-    public HelpRequestController(UserSkillService userSkillService,HelpRequestService helpRequestService) {
+    public HelpRequestController(UserSkillService userSkillService,HelpRequestService helpRequestService,HelpRequestSkillLinkService helpRequestSkillLinkService) {
         this.userSkillService = userSkillService;
         this.helpRequestService = helpRequestService;
+        this.helpRequestSkillLinkService = helpRequestSkillLinkService;
     }
 
     @GetMapping("/createRequest")
@@ -49,6 +50,7 @@ public class HelpRequestController {
 
         // add all skills the user has selected on their profile to model
         List<UserSkill> userSkills = userSkillService.getAllForUser(1); // replace 1 with actual user id in the future
+        System.out.println(userSkills.isEmpty() + "Aaaaaa");
         model.addAttribute("userSkills", userSkills);
 
         // add data transfer object to model to be able to parse to submit method
@@ -77,11 +79,13 @@ public class HelpRequestController {
         Long savedOfferId =  savedRequest.getId(); //
 
         // save tagged skills
+        System.out.println(newHelpRequestDto.getTaggedSkills().size() + "REE");
         for(UserSkill userSkill:newHelpRequestDto.getTaggedSkills()){
+            System.out.println(userSkill.getCategory() + "debug");
             helpRequestSkillLinkService.save(new HelpRequestSkillLink(null,userSkill,savedRequest));
         }
 
-        return new ModelAndView("redirect:/helpOffer/"+savedOfferId);
+        return new ModelAndView("redirect:/helpRequest/"+savedOfferId);
     }
 
     @GetMapping("/helpRequest/{id}")

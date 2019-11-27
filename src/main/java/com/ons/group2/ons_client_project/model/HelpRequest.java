@@ -16,7 +16,7 @@ import java.sql.Date;
 public class HelpRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "help_offer_id")
+    @Column(name = "help_request_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)

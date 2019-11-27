@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Help Request</title>
+</head>
+<body>
+<h1 th:inline="text"> [[${request.title}]]!</h1>
+
+<h2>Date Posted</h2>
+<h3 th:inline="text">[[${request.date_posted}]]</h3>
+
+<h2>More details:</h2>
+<h3 th:inline="text">[[${request.description}]]</h3>
+
+</body>
+</html>
