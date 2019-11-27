@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a help request</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Request help</title>
+</head>
+<body>
+
+<form autocomplete="on" action="#" th:action="@{/submitRequest}" th:object="${NewHelpRequestDto}" method="post" class="form-signin" role="form">
+
+    <h3 class="form-signin-heading">Request help from your co-workers</h3>
+
+    <div class="form-group">
+        <input type="text" th:field="*{title}" placeholder="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <input type="text" th:field="*{description}" placeholder="Description" class="form-control" />
+    </div>
+
+    <div class = "form-group">
+        <select id = "skills-dropdown" multiple = multiple th:field="*{taggedSkills}">
+            <option value="0">Please select relevant skills</option>
+            <option th:each="skill : ${userSkills}" th:value="${{skill.id}}" th:text="${skill.title}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Submit offer</button>
+    </div>
+</form>
+
+</body>
+</html>
+
+</body>
+</html>
