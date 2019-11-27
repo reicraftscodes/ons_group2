@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserSkillsRepository extends JpaRepository<UserSkill, Integer> {
     Optional<UserSkill> findById(Integer id);
 
-    List<UserSkill> findAllByUser_Id(Integer userId);
+    List<UserSkill> findAllByUser_Id(Long userId);
 
-    void deleteByIdAndUser_Id(Integer skillId, Integer userId);
+    void deleteByIdAndUser_Id(Integer skillId, Long userId);
 }

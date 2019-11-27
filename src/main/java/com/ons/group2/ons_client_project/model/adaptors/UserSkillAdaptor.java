@@ -24,7 +24,7 @@ public class UserSkillAdaptor implements com.ons.group2.ons_client_project.model
                 newSkillDto.getDescription(),
                 newSkillDto.getConfidence().shortValue(),
                 newSkillDto.getUser(),
-                category.get()
+                category.isEmpty() ? null : category.get()
         );
     }
 }
