@@ -1,5 +1,3 @@
-DROP SCHEMA IF EXISTS ons_db;
-
 CREATE SCHEMA IF NOT EXISTS  ons_db;
 
 USE ons_db;
@@ -127,13 +125,13 @@ INSERT INTO `role` (`id`, `name`) VALUES
 (8, 'ROLE_USER');
 
 INSERT INTO `user` (id, email, first_name, last_name, password, img_url) VALUES
-(1, 'somafet@gmail.com', 'Soma', 'Somorjai', '$2a$10$Kxz7iLyOQbpYAHK1W..lnu8eu6tHOWb6ILn83iAWtkPwPHH12l1wq', '/images/profile_page/default_profile.jpeg');
+(1, 'dummy@email.com', 'Darth', 'Vader', '$2a$10$Kxz7iLyOQbpYAHK1W..lnu8eu6tHOWb6ILn83iAWtkPwPHH12l1wq', '/images/profile_page/default_profile.jpeg');
 
 INSERT INTO `users_roles` (user_id, role_id) VALUES
 (1, 8);
 
 INSERT INTO `user_skills` (id, user_id, title, description, confidence, category_id) VALUES
-(1, 1, 'Java', 'Good', 5, null);
+(1, 1, 'Java', 'Spring Security', 5, null);
 
 COMMIT;
 
