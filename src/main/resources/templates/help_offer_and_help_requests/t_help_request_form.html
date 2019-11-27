@@ -35,6 +35,7 @@
         <select id = "skills-dropdown" multiple = multiple th:field="*{taggedSkills}">
             <option value="" disabled selected>Please select relevant skills</option>
             <option th:each="skill : ${userSkills}" th:value="${skill.id}" th:text="${skill.title}"></option>
+            <span th:if="${#fields.hasErrors('taggedSkills')}" th:errors="*{taggedSkills}">Enter a description</span>
         </select>
 
 

@@ -91,9 +91,15 @@ public class HelpRequestController {
     }
 
     @GetMapping("/helpRequest/{id}")
-    public String helpRequest(@Valid NewHelpRequestDto newHelpRequestDto, @PathVariable Long id, Model model, BindingResult bindingResult){
-
+    public String helpRequest(@Valid NewHelpRequestDto newHelpRequestDto,BindingResult bindingResult ,Model model,@PathVariable Long id){
         if (bindingResult.hasErrors()) {
+            // add all skills the user has selected on their profile to model
+            List<UserSkill> userSkills = userSkillService.getAllForUser(1); // replace 1 with actual user id in the future
+            System.out.println(userSkills.isEmpty() + "Aaaaaa");
+            model.addAttribute("userSkills", userSkills);
+
+            // add data transfer object to model to be able to parse to submit method
+            model.addAttribute("NewHelpRequestDto", new NewHelpRequestDto());
             return "help_offer_and_help_requests/t_help_request_form";
         }
 
