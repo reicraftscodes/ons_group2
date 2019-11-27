@@ -1,13 +1,18 @@
 package com.ons.group2.ons_client_project.service;
 
-
 import com.ons.group2.ons_client_project.model.User;
-import com.ons.group2.ons_client_project.web.dto.UserRegistrationDto;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
 
-public interface UserService extends UserDetailsService {
+import java.io.IOException;
+import java.net.URI;
+import java.util.Optional;
 
-    User findByEmail(String email);
+public interface UserService {
 
-    User save(UserRegistrationDto registration);
+    void saveUser(User user);
+    boolean isUserAlreadyPresent(User user);
+    Optional<User> findById(Integer userId);
+
+    void changePassword(User user, String newPassword);
+    URI changeProfilePicture(User user, MultipartFile newImg) throws IOException;
 }
