@@ -10,35 +10,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Request help</title>
+    <link rel="stylesheet" th:href="@{~/css/picnic/picnic.min.css}">
 </head>
 <body>
 
-<form autocomplete="on" action="#" th:action="@{/submitRequest}" th:object="${NewHelpRequestDto}" method="post" class="form-signin" role="form">
+<form autocomplete="on" action="#" th:action="@{/submitRequest}" th:object="${NewHelpRequestDto}" method="post" id="help_form" role="form">
 
-    <h3 class="form-signin-heading">Request help from your co-workers</h3>
-
-    <div class="form-group">
-        <input type="text" th:field="*{title}" placeholder="Title" class="form-control" />
-    </div>
+    <h1 id="header">Request help from your co-workers</h1>
+    <br>
 
     <div class="form-group">
-        <input type="text" th:field="*{description}" placeholder="Description" class="form-control" />
+        <input class="flex two" type="text" th:field="*{title}" placeholder="Title" />
     </div>
+    <br>
 
-    <div class = "form-group">
+    <div class="form-group">
+        <input class="flex two" type="text" th:field="*{description}" placeholder="Description" />
+    </div>
+    <br>
+
+
         <select id = "skills-dropdown" multiple = multiple th:field="*{taggedSkills}">
-            <option value="0">Please select relevant skills</option>
+            <option value="" disabled selected>Please select relevant skills</option>
             <option th:each="skill : ${userSkills}" th:value="${skill.id}" th:text="${skill.title}"></option>
         </select>
-    </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Submit offer</button>
+
+    <div class="submit">
+        <button class='success' type="submit">Submit offer</button>
     </div>
 </form>
 
 </body>
 </html>
+<style>
+    body{
+        background-color: #FAFAFA;
+        margin: 10px;
+    }
+    .submit{
+        text-align: center;
+    }
+    #header{
+        text-align: center;
+        color: #002f94;
+    }
+    #help_form{
+        text-align: center;
+    }
+</style>
 
 </body>
 </html>
