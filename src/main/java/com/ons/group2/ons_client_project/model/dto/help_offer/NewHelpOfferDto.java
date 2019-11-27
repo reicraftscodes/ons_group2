@@ -21,7 +21,6 @@ public class NewHelpOfferDto {
     @NotNull(message = "You must tag at least one skill for others to be able to find your offer!")
     private List<UserSkill> taggedSkills;
 
-    @NotNull
     private String methodOfContact;
 
     @NotNull(message = "Let us know a little more about your offer.")

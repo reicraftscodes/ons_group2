@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,7 +69,21 @@ public class HelpOfferController {
 
 
     @PostMapping("/submitOffer")
-    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpOfferDto newHelpOfferDto, Model model){
+    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpOfferDto newHelpOfferDto, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            // add all skills the user has selected on their profile to model
+            List<UserSkill> userSkills = userSkillService.getAllForUser(1);
+            model.addAttribute("userSkills", userSkills);
+
+            // add data transfer object to model to be able to parse to submit method
+            model.addAttribute("NewHelpOfferDto", new NewHelpOfferDto());
+
+            return new ModelAndView("help_offer_and_help_requests/t_help_offer_form");
+
+        }
+
+
+
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
         String currentUserName;
         User currentUser = null;
