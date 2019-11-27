@@ -93,7 +93,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "com.onsclientproject.app.model.User{" +
+        return "com.ons.ons_client_project.model.User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

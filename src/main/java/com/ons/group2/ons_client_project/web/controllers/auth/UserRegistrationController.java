@@ -1,4 +1,4 @@
-package com.ons.group2.ons_client_project.web;
+package com.ons.group2.ons_client_project.web.controllers.auth;
 
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.service.UserService;

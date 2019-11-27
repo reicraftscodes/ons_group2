@@ -1,367 +1,402 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
+<div class="container-fluid" th:fragment="profile">
+    <style type="text/css">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+        .table-wrapper {
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
 
-  <title>ONS - User</title>
+        .table-title {
+            padding-bottom: 10px;
+            margin: 0 0 10px;
+        }
 
-  <!-- Custom fonts for this template-->
-  <link th:href="@{~/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+        .table-title h2 {
+            margin: 6px 0 0;
+            font-size: 22px;
+        }
 
-  <!-- Custom styles for this template-->
-  <link th:href="@{~/css/sb-admin-2.min.css}" rel="stylesheet">
+        .table-title .add-new {
+            float: right;
+            height: 30px;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: none;
+            min-width: 100px;
+            border-radius: 50px;
+            line-height: 13px;
+        }
 
-</head>
+        .table-title .add-new i {
+            margin-right: 4px;
+        }
 
-<body id="page-top">
+        table.table {
+            table-layout: fixed;
+        }
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+        }
 
-  <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index2.html">
-      <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-laugh-wink"></i>
-      </div>
-      <div class="sidebar-brand-text mx-3">Profile</div>
-    </a>
+        table.table th:last-child {
+            width: 100px;
+        }
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+        table.table td a {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 24px;
+        }
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-      <a class="nav-link" href="index2.html">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-    </li>
+        table.table td a.add {
+            color: #27C46B;
+        }
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        table.table td a.edit {
+            color: #FFC107;
+        }
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Interface
-    </div>
+        table.table td a.delete {
+            color: #E34724;
+        }
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-         aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span>Components</span>
-      </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Components:</h6>
-          <a class="collapse-item" href="buttons.html">Buttons</a>
-          <a class="collapse-item" href="cards.html">Cards</a>
+        table.table td i {
+            font-size: 19px;
+        }
+
+        table.table td a.add i {
+            font-size: 24px;
+            margin-right: -1px;
+            position: relative;
+            top: 3px;
+        }
+
+        table.table .form-control {
+            height: 32px;
+            line-height: 32px;
+            box-shadow: none;
+            border-radius: 2px;
+        }
+
+        table.table .form-control.errm {
+            border-color: #f50000;
+        }
+
+        table.table td .add {
+            display: none;
+        }
+    </style>
+
+    <!--  insert code here   -->
+    <h1 class="h3 mb-4 text-gray-800">Profile Page</h1>
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="card-title mb-4">
+                            <div class="d-flex justify-content-start">
+                                <!--             Profile                   -->
+                                <div class="image-container">
+                                    <img src="https://res.cloudinary.com/da0odz24p/image/upload/v1574439846/clientproject/logo_qttp9t.jpg"
+                                         id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail"/>
+                                    <div class="middle">
+                                        <label class="btn btn-secondary btn-block">
+                                            Browse <input type="file" hidden>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="userData ml-3">
+                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a
+                                            href="javascript:void(0);">ONS User 1</a></h2>
+                                    <h6 class="d-block">Looking for a.....</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab"
+                                           href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">Basic
+                                            Info</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="skils-tab" data-toggle="tab" href="#skils" role="tab"
+                                           aria-controls="skils" aria-selected="false">Skills</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
+                                         aria-labelledby="basicInfo-tab">
+                                        <div class="table-wrapper">
+                                            <div class="table-title">
+                                                <div class="row">
+                                                    <div class="col-sm-8"><h2>About <b>Me</b></h2></div>
+                                                    <div class="col-sm-4">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Full Name</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    ONS User 1
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Email</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    user.1@ons.gov.uk
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Something</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    Something
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Something</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    Something
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Something</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    Something
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+                                            <div class="row">
+                                                <div class="col-md-8"></div>
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-primary btn-block"
+                                                            onclick="saveProfileChanges()">Save Changes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="skils" role="tabpanel"
+                                         aria-labelledby="skils-tab">
+
+                                        <div class="table-wrapper">
+                                            <div class="table-title">
+                                                <div class="row">
+                                                    <div class="col-sm-8"><h2>My <b>Skills</b></h2></div>
+                                                    <div class="col-sm-4">
+                                                        <button type="button" class="btn btn-info add-new"><i
+                                                                class="fa fa-plus"></i> Add New
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>Programming Language</th>
+                                                    <th>Description</th>
+                                                    <th>Confidence Level</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="skillstable">
+                                                <tr>
+                                                    <td class="pl_tablecell">Java Programming</td>
+                                                    <td class="desc_tablecell">Worked with Spring Boot and React</td>
+                                                    <td class="confidence_tablecell">
+                                                        <select class="form-control confidencesel" name="confidence[]">
+                                                            <option value="beginner">1 - Beginner</option>
+                                                            <option value="intermediate">2 - Intermediate</option>
+                                                            <option value="advance">3 - Advance</option>
+                                                            <option value="expert">4 - Expert</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <a class="add" title="Add"><i
+                                                                class="fa fa-plus"></i></a>
+                                                        <a class="edit" title="Edit"><i
+                                                                class="fa fa-edit"></i></a>
+                                                        <a class="delete" title="Delete"><i
+                                                                class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pl_tablecell">Java Programming</td>
+                                                    <td class="desc_tablecell">Worked with Spring Boot and React</td>
+                                                    <td class="confidence_tablecell">
+                                                        <select class="form-control confidencesel" name="confidence[]">
+                                                            <option value="beginner">1 - Beginner</option>
+                                                            <option value="intermediate">2 - Intermediate</option>
+                                                            <option value="advance">3 - Advance</option>
+                                                            <option value="expert">4 - Expert</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <a class="add" title="Add"><i
+                                                                class="fa fa-plus"></i></a>
+                                                        <a class="edit" title="Edit"><i
+                                                                class="fa fa-edit"></i></a>
+                                                        <a class="delete" title="Delete"><i
+                                                                class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-md-8"></div>
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-primary btn-block"
+                                                            onclick="saveSkillsChanges()">Save Changes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </li>
-
-
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Addons
     </div>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+    <script type="text/javascript">
+        function saveProfileChanges() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Great...',
+                text: 'Profile successfully saved!'
+            });
+        }
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+        function saveSkillsChanges() {
+            var isAllSaved = true;
+            var skills = [];
 
-  </ul>
-  <!-- End of Sidebar -->
+            $('#skillstable tr').each(function () {
+                var pl = $(this).find(".pl_tablecell").html();
+                var desc = $(this).find(".desc_tablecell").html();
+                var confidence = $(this).find(".confidence_tablecell .confidencesel").val();
 
-  <!-- Content Wrapper -->
-  <div id="content-wrapper" class="d-flex flex-column">
+                if ($(pl).length > 0 || $(desc).length > 0 || $(confidence).length > 0) {
+                    isAllSaved = false;
+                }
+                skills.push({"pl": pl, "description": desc, "confidence": confidence});
+            });
 
-    <!-- Main Content -->
-    <div id="content">
+            if (isAllSaved) {
+                console.log(skills);
+                if (skills.length < 1) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please add at least one skill!'
+                    });
+                    return;
+                }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great...',
+                    text: 'Skill successfully saved!'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please save all your skills before saving!'
+                });
+            }
+        }
 
-      <!-- Topbar -->
-      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-        <!-- Sidebar Toggle (Topbar) -->
-        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-          <i class="fa fa-bars"></i>
-        </button>
-
-        <!-- Topbar Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                   aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-
-        <!-- Topbar Navbar -->
-        <ul class="navbar-nav ml-auto">
-
-          <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-          <li class="nav-item dropdown no-arrow d-sm-none">
-            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-search fa-fw"></i>
-            </a>
-            <!-- Dropdown - Messages -->
-            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                 aria-labelledby="searchDropdown">
-              <form class="form-inline mr-auto w-100 navbar-search">
-                <div class="input-group">
-                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                         aria-label="Search" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </li>
-
-          <!-- Nav Item - Alerts -->
-          <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-bell fa-fw"></i>
-              <!-- Counter - Alerts -->
-              <span class="badge badge-danger badge-counter">3+</span>
-            </a>
-            <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="alertsDropdown">
-              <h6 class="dropdown-header">
-                Alerts Center
-              </h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-primary">
-                    <i class="fas fa-file-alt text-white"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 12, 2019</div>
-                  <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-success">
-                    <i class="fas fa-donate text-white"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 7, 2019</div>
-                  $290.29 has been deposited into your account!
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                    <i class="fas fa-exclamation-triangle text-white"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 2, 2019</div>
-                  Spending Alert: We've noticed unusually high spending for your account.
-                </div>
-              </a>
-              <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-            </div>
-          </li>
-
-          <!-- Nav Item - Messages -->
-          <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-envelope fa-fw"></i>
-              <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter">7</span>
-            </a>
-            <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="messagesDropdown">
-              <h6 class="dropdown-header">
-                Message Center
-              </h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="font-weight-bold">
-                  <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been
-                    having.
-                  </div>
-                  <div class="small text-gray-500">Emily Fowler · 58m</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                  <div class="status-indicator"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent
-                    to you?
-                  </div>
-                  <div class="small text-gray-500">Jae Chun · 1d</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                  <div class="status-indicator bg-warning"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far,
-                    keep up the good work!
-                  </div>
-                  <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people
-                    say this to all dogs, even if they aren't good...
-                  </div>
-                  <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                </div>
-              </a>
-              <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-            </div>
-          </li>
-
-          <div class="topbar-divider d-none d-sm-block"></div>
-
-          <!-- Nav Item - User Information -->
-          <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="principal.username"></span>
-              <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-            </a>
-            <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                Activity Log
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                Logout
-              </a>
-            </div>
-          </li>
-
-        </ul>
-
-      </nav>
-      <!-- End of Topbar -->
-
-      <!-- Begin Page Content -->
-      <div class="container-fluid">
-
-        <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-gray-800">Profile Page</h1>
-
-      </div>
-      <!-- /.container-fluid -->
-
-    </div>
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2019</span>
-        </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-
-  </div>
-  <!-- End of Content Wrapper -->
-
+        $(document).ready(function () {
+            var actions = $("table td:last-child").html();
+            // Append table with add row form on add new button click
+            $(".add-new").click(function () {
+                $(this).attr("disabled", "disabled");
+                var index = $("table tbody tr:last-child").index();
+                var row = '<tr>' +
+                    '<td class="pl_tablecell"><input type="text" class="form-control" name="name[]" id="name"></td>' +
+                    '<td class="desc_tablecell"><input type="text" class="form-control" name="description[]" id="description"></td>' +
+                    '<td class="confidence_tablecell">' +
+                    '<select class="form-control confidencesel" name="confidence[]">' +
+                    '   <option value="beginner">1 - Beginner</option>' +
+                    '   <option value="intermediate">2 - Intermediate</option>' +
+                    '   <option value="advance">3 - Advance</option>' +
+                    '   <option value="expert">4 - Expert</option>' +
+                    '</select>' +
+                    '</td>' +
+                    '<td>' + actions + '</td>' +
+                    '</tr>';
+                $("table").append(row);
+                $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            });
+            // Add row on add button click
+            $(document).on("click", ".add", function () {
+                var empty = false;
+                var input = $(this).parents("tr").find('input[type="text"]');
+                input.each(function () {
+                    if (!$(this).val()) {
+                        $(this).addClass("errm");
+                        empty = true;
+                    } else {
+                        $(this).removeClass("errm");
+                    }
+                });
+                $(this).parents("tr").find(".errm").first().focus();
+                if (!empty) {
+                    input.each(function () {
+                        $(this).parent("td").html($(this).val());
+                    });
+                    $(this).parents("tr").find(".add, .edit").toggle();
+                    $(".add-new").removeAttr("disabled");
+                }
+            });
+            // Edit row on edit button click
+            $(document).on("click", ".edit", function () {
+                $(this).parents("tr").find("td:nth-child(1), td:nth-child(2)").each(function () {
+                    $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new").attr("disabled", "disabled");
+            });
+            // Delete row on delete button click
+            $(document).on("click", ".delete", function () {
+                $(this).parents("tr").remove();
+                $(".add-new").removeAttr("disabled");
+            });
+        });
+    </script>
 </div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="login.html">Logout</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Bootstrap core JavaScript-->
-<script  th:src="@{~/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{~/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
-<!-- Core plugin JavaScript-->
-<script th:src="@{~/vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-<!-- Custom scripts for all pages-->
-<script th:src="@{~/js/sb-admin-2.min.js}"></script>
-
-
-</body>
-
-</html>
