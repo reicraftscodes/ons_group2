@@ -15,8 +15,6 @@ function saveSkill(title, description, confidence, category, id = null) {
         "categoryId": category
     };
 
-    console.log(payload);
-
     return fetch('/api/Skills/AddSkill', {
         method: 'POST',
         headers: {
