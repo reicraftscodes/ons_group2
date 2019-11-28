@@ -1,88 +1,36 @@
-CREATE SCHEMA IF NOT EXISTS ons_db;
-
-DROP TABLE IF EXISTS `user_table`;
-DROP TABLE IF EXISTS `user_skills`;
-DROP TABLE IF EXISTS `help_offer`;
-DROP TABLE IF EXISTS `help_offer_skill_link_table`;
-DROP TABLE IF EXISTS `help_request`;
-DROP TABLE IF EXISTS `help_request_skill_link_table`;
-
+CREATE SCHEMA IF NOT EXISTS  ons_db;
 
 USE ons_db;
--- ---------------------------------------------------------------------------------------------------------------------
--- USER DATA TABLES
--- ---------------------------------------------------------------------------------------------------------------------
 
 
-CREATE TABLE IF NOT EXISTS `user_table`
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user`
 (
-  `user_id`   int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(255) DEFAULT NULL,
-  `email`     varchar(255) DEFAULT NULL,
+  `id`   int(20) NOT NULL,
+    `email` varchar(100) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name`     varchar(255) DEFAULT NULL,
   `password`  varchar(255) DEFAULT NULL,
-  `img_url`   varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  KEY `EMAIL_INDEX` (`email`)
-);
+  `img_url`   varchar(255) DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `user_skills`
 (
   `skill_id`    int(11) NOT NULL AUTO_INCREMENT,
-  `user_id`     int(11) NOT NULL,
+  `user_id`     int(20) NOT NULL,
   `title`       varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `confidence`  tinyint      DEFAULT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_id` int(11),
   PRIMARY KEY (`skill_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `categories`
-(
-  `id`        int(11)      NOT NULL AUTO_INCREMENT,
-  `name`      varchar(255) NOT NULL UNIQUE,
-  `parent_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE IF NOT EXISTS `categories` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL UNIQUE,
+    `parent_id` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`)
 );
--- ---------------------------------------------------------------------------------------------------------------------
--- OFFERS AND REQUESTS FOR HELP TABLES
--- ---------------------------------------------------------------------------------------------------------------------
-CREATE TABLE `help_offer`
-(
-  `help_offer_id`     int(11) NOT NULL AUTO_INCREMENT,
-  `user_id`           int(11) NOT NULL,
-  `date_posted`       date         DEFAULT NULL,
-  `title`             VARCHAR(25)  DEFAULT NULL,
-  `description`       VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
-  `method_of_contact` VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (`help_offer_id`)
-);
-
-CREATE TABLE `help_offer_skill_link_table`
-(
-  `help_offer_skill_link_id` int(11) NOT NULL AUTO_INCREMENT,
-  `skill_id`                 int(11) NOT NULL,
-  `help_offer_id`            int(11) NOT NULL,
-  PRIMARY KEY (`help_offer_skill_link_id`)
-);
-
-CREATE TABLE `help_request`
-(
-  `help_request_id`   int(11) NOT NULL AUTO_INCREMENT,
-  `user_id`           int(11) NOT NULL,
-  `date_posted`       date         DEFAULT NULL,
-  `title`             VARCHAR(25)  DEFAULT NULL,
-  `description`       VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
-  `method_of_contact` VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (`help_request_id`)
-);
-
-CREATE TABLE `help_request_skill_link_table`
-(
-  `help_request_skill_link_id` int(11) NOT NULL AUTO_INCREMENT,
-  `skill_id`                   int(11) NOT NULL,
-  `help_request_id`            int(11) NOT NULL,
-  PRIMARY KEY (`help_request_skill_link_id`)
-);
-
-
-

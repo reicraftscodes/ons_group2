@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryAdaptor implements com.ons.group2.ons_client_project.model.adaptors.abstraction.CategoryAdaptor {
-
     private final CategoryRepository categoryRepository;
 
     public CategoryAdaptor(CategoryRepository categoryRepository) {
@@ -24,7 +23,8 @@ public class CategoryAdaptor implements com.ons.group2.ons_client_project.model.
                 null,
                 newCategoryDto.getName(),
                 null,
-                parentCategoryOpt.orElse(null)
+                parentCategoryOpt.map(Category::getId).orElse(null)
         );
     }
+
 }

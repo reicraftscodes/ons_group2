@@ -3,9 +3,11 @@ package com.ons.group2.ons_client_project.controllers.rest;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.dto.skill.NewSkillDto;
 import com.ons.group2.ons_client_project.model.dto.skill.SkillDetail;
+import com.ons.group2.ons_client_project.security.UserPrincipal;
 import com.ons.group2.ons_client_project.service.UserSkillService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -25,7 +27,9 @@ public class UserSkillRestController {
 
     @PostMapping("/AddSkill")
     public ResponseEntity addSkill(@RequestBody @Valid NewSkillDto newSkillDto,
-            @SessionAttribute("user") User user) {
+                                   Authentication auth) {
+        var principal = (UserPrincipal) auth.getPrincipal();
+        var user = principal.getUser();
 
         newSkillDto.setUser(user);
         userSkillService.create(newSkillDto);
@@ -36,7 +40,15 @@ public class UserSkillRestController {
     @DeleteMapping("/RemoveSkill/{skillId}")
     @Transactional
     public ResponseEntity addSkill(@PathVariable("skillId") Integer skillId,
-                                   @SessionAttribute("user") User user) {
+                                   Authentication auth) {
+        var principal = (UserPrincipal) auth.getPrincipal();
+        var user = principal.getUser();
+
+        var skillOpt = userSkillService.getById(skillId);
+        if(skillOpt.isEmpty()) return ResponseEntity.notFound().build();
+        if(!skillOpt.get().getUser().getId().equals(user.getId())) {
+            return ResponseEntity.status(403).body("Skill doesn't belong to user.");
+        }
 
         userSkillService.removeSkill(user, skillId);
 
@@ -44,7 +56,10 @@ public class UserSkillRestController {
     }
 
     @GetMapping("/User")
-    public ResponseEntity getAllForUser(@SessionAttribute("user") User user) {
+    public ResponseEntity getAllForUser(Authentication auth) {
+
+        var principal = (UserPrincipal) auth.getPrincipal();
+        var user = principal.getUser();
 
         var userSkills = userSkillService.getAllForUser(user.getId());
         var skillDetails = new ArrayList<SkillDetail>();

@@ -1,10 +1,17 @@
 package com.ons.group2.ons_client_project.service.impl;
 
+import com.ons.group2.ons_client_project.model.Role;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.repository.UserRepository;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.utils.StorageException;
+import com.ons.group2.ons_client_project.web.dto.UserRegistrationDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,12 +23,14 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final BCryptPasswordEncoder encoder;
     private static final String defaultUserProfilePicURL = "/images/profile_page/default_profile.jpeg";
     private static final String uploadWebLocationBase = "/images/user/profile/";
 
@@ -30,27 +39,47 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder encoder) {
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.encoder = encoder;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public void saveUser(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setProfileUrl(defaultUserProfilePicURL);
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
 
-        userRepository.save(user);
+    public User save(UserRegistrationDto registration) {
+        User user = new User();
+        user.setFirstName(registration.getFirstName());
+        user.setLastName(registration.getLastName());
+        user.setEmail(registration.getEmail());
+        user.setPassword(passwordEncoder.encode(registration.getPassword()));
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        return userRepository.save(user);
     }
 
     @Override
-    public boolean isUserAlreadyPresent(User user) {
-        return false;
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username or password.");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPassword(),
+                mapRolesToAuthorities(user.getRoles()));
     }
 
-    @Override
-    public Optional<User> findById(Integer userId) {
-        return userRepository.findById(userId);
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -97,10 +126,5 @@ public class UserServiceImpl implements UserService {
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
-    }
-
-    @Override
-    public User getUserByUsername(String username) {
-        return userRepository.findUserByEmail(username);
     }
 }

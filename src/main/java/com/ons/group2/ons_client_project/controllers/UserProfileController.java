@@ -27,11 +27,11 @@ public class UserProfileController {
     }
 
     @GetMapping("/test/{id}")
-    public String profilePage(@PathVariable("id") Integer id, Model model) {
+    public String profilePage(@PathVariable("id") Long id, Model model) {
 
         Optional<User> user = userService.findById(id);
 
-        if(!user.isPresent()) {
+        if(user.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 

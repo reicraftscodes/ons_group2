@@ -51,7 +51,7 @@ public class AccountController {
             );
         }
 
-        userService.changePassword(user, changePasswordDto.newPassword);
+        // userService.changePassword(user, changePasswordDto.newPassword);
 
         model.addAttribute("changePasswordSuccess", "Password changed!");
 
