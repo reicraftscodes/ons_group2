@@ -87,7 +87,7 @@ public class HelpRequestController {
 //        }
 
         // save help Request
-        HelpRequest newRequest = new HelpRequest(null,dummyUser,date,newHelpRequestDto.getTitle(),newHelpRequestDto.getDescription(),newHelpRequestDto.getMethodOfContact());  // convert helpRequestDto to helpRequest model
+        HelpRequest newRequest = new HelpRequest(null,dummyUser,date,newHelpRequestDto.getTitle(),newHelpRequestDto.getDescription(),dummyUser.getEmail());  // convert helpRequestDto to helpRequest model
         HelpRequest savedRequest = helpRequestService.save(newRequest); // returned helpRequest that's saved to the db containing PK
         Long savedOfferId =  savedRequest.getId(); //
 

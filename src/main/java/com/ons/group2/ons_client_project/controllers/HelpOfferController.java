@@ -98,7 +98,7 @@ public class HelpOfferController {
 //        }
 
         // save help offer
-        HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),newHelpOfferDto.getMethodOfContact()); // save offer to database
+        HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),dummyUser.getEmail()); // save offer to database
         HelpOffer savedOffer = helpOfferService.save(newOffer);
         System.out.println(savedOffer + "AAA");
         Long savedOfferId =  savedOffer.getId();
