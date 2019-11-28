@@ -2255,18 +2255,18 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: #adc13b;
+  border-color: #8da032;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2e59d9;
-  border-color: #2653d4;
+  background-color: #8da032;
+  border-color: #80932f;
 }
 
 .btn-primary:focus, .btn-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(0, 68, 102, 0.5);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
@@ -9667,8 +9667,8 @@ a:focus {
 }
 
 .bg-gradient-primary {
-  background-color: #4e73df;
-  background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+  background-color: #00375b;
+  background-image: linear-gradient(180deg, #004466 10%, #004f76 100%);
   background-size: cover;
 }
 
@@ -10583,20 +10583,20 @@ a:focus {
   }
 }
 
-/*.bg-login-image {*/
-/*  background: url("");*/
-/*  background-position: center;*/
-/*  background-size: cover;*/
-/*}*/
+.bg-login-image {
+  background: url("https://res.cloudinary.com/da0odz24p/image/upload/v1574439846/clientproject/ONS_cq5hss.jpg");
+  background-position: center;
+  background-size: cover;
+}
 
 .bg-register-image {
-  background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
+  background: url("https://res.cloudinary.com/da0odz24p/image/upload/v1574849935/clientproject/img-stats.png");
   background-position: center;
   background-size: cover;
 }
 
 .bg-password-image {
-  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
+  background: url("https://res.cloudinary.com/da0odz24p/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1574848932/clientproject/forgotpass_kik7si.png");
   background-position: center;
   background-size: cover;
 }
