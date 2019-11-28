@@ -1,6 +1,5 @@
 package com.ons.group2.ons_client_project.web.dto;
 
-
 import com.ons.group2.ons_client_project.constraint.FieldMatch;
 
 import javax.validation.constraints.AssertTrue;

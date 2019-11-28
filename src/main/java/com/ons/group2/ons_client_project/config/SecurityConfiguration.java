@@ -1,6 +1,6 @@
 package com.ons.group2.ons_client_project.config;
 
-import com.ons.group2.ons_client_project.service.UserService;
+import com.ons.group2.ons_client_project.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
+    private CustomUserDetailsService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/forgotpass**",
                         "/js/**",
                         "/css/**",
-                        "/img/**",  
+                        "/img/**",
                         "/scss/**",
                         "/vendor/**").permitAll()
                 .antMatchers("/user/**").hasRole("USER")
@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
+        http.csrf().ignoringAntMatchers("/api/**");
     }
 
     @Bean

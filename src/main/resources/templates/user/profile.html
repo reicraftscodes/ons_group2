@@ -1,4 +1,5 @@
-<div class="container-fluid" th:fragment="profile">
+<div class="container-fluid" th:fragment="profile" xmlns:th="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
     <style type="text/css">
 
         .table-wrapper {
@@ -109,17 +110,23 @@
                             <div class="d-flex justify-content-start">
                                 <!--             Profile                   -->
                                 <div class="image-container">
-                                    <img src="https://res.cloudinary.com/da0odz24p/image/upload/v1574439846/clientproject/logo_qttp9t.jpg"
+                                    <img th:src="${#authentication.getPrincipal().getUser().getProfileUrl()}"
                                          id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail"/>
                                     <div class="middle">
                                         <label class="btn btn-secondary btn-block">
-                                            Browse <input type="file" hidden>
+                                            Browse <input type="file" hidden id="profilePicChange">
                                         </label>
                                     </div>
                                 </div>
                                 <div class="userData ml-3">
-                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a
-                                            href="javascript:void(0);">ONS User 1</a></h2>
+                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">
+                                        <a
+                                                href="javascript:void(0);"
+                                                th:inline="text">
+                                            [[${#authentication.getPrincipal().getUser().getFullName()}]]
+                                        </a>
+
+                                    </h2>
                                     <h6 class="d-block">Looking for a.....</h6>
                                 </div>
                             </div>
@@ -153,8 +160,8 @@
                                                 <div class="col-sm-3 col-md-2 col-5">
                                                     <label style="font-weight:bold;">Full Name</label>
                                                 </div>
-                                                <div class="col-md-8 col-6">
-                                                    ONS User 1
+                                                <div class="col-md-8 col-6" th:inline="text">
+                                                    [[${#authentication.getPrincipal().getUser().getFullName()}]]
                                                 </div>
                                             </div>
                                             <hr/>
@@ -164,48 +171,10 @@
                                                     <label style="font-weight:bold;">Email</label>
                                                 </div>
                                                 <div class="col-md-8 col-6">
-                                                    user.1@ons.gov.uk
+                                                    [[${#authentication.getPrincipal().getUser().getEmail()}]]
                                                 </div>
                                             </div>
                                             <hr/>
-
-
-                                            <div class="row">
-                                                <div class="col-sm-3 col-md-2 col-5">
-                                                    <label style="font-weight:bold;">Something</label>
-                                                </div>
-                                                <div class="col-md-8 col-6">
-                                                    Something
-                                                </div>
-                                            </div>
-                                            <hr/>
-                                            <div class="row">
-                                                <div class="col-sm-3 col-md-2 col-5">
-                                                    <label style="font-weight:bold;">Something</label>
-                                                </div>
-                                                <div class="col-md-8 col-6">
-                                                    Something
-                                                </div>
-                                            </div>
-                                            <hr/>
-                                            <div class="row">
-                                                <div class="col-sm-3 col-md-2 col-5">
-                                                    <label style="font-weight:bold;">Something</label>
-                                                </div>
-                                                <div class="col-md-8 col-6">
-                                                    Something
-                                                </div>
-                                            </div>
-                                            <hr/>
-
-                                            <div class="row">
-                                                <div class="col-md-8"></div>
-                                                <div class="col-md-4">
-                                                    <button class="btn btn-primary btn-block"
-                                                            onclick="saveProfileChanges()">Save Changes
-                                                    </button>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="skils" role="tabpanel"
@@ -216,8 +185,8 @@
                                                 <div class="row">
                                                     <div class="col-sm-8"><h2>My <b>Skills</b></h2></div>
                                                     <div class="col-sm-4">
-                                                        <button type="button" class="btn btn-info add-new"><i
-                                                                class="fa fa-plus"></i> Add New
+                                                        <button type="button" class="btn btn-info add-new">
+                                                            <i class="fa fa-plus"></i> Add New
                                                         </button>
                                                     </div>
                                                 </div>
@@ -228,60 +197,13 @@
                                                     <th>Programming Language</th>
                                                     <th>Description</th>
                                                     <th>Confidence Level</th>
+                                                    <th>Category</th>
                                                     <th>Actions</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody id="skillstable">
-                                                <tr>
-                                                    <td class="pl_tablecell">Java Programming</td>
-                                                    <td class="desc_tablecell">Worked with Spring Boot and React</td>
-                                                    <td class="confidence_tablecell">
-                                                        <select class="form-control confidencesel" name="confidence[]">
-                                                            <option value="beginner">1 - Beginner</option>
-                                                            <option value="intermediate">2 - Intermediate</option>
-                                                            <option value="advance">3 - Advance</option>
-                                                            <option value="expert">4 - Expert</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <a class="add" title="Add"><i
-                                                                class="fa fa-plus"></i></a>
-                                                        <a class="edit" title="Edit"><i
-                                                                class="fa fa-edit"></i></a>
-                                                        <a class="delete" title="Delete"><i
-                                                                class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="pl_tablecell">Java Programming</td>
-                                                    <td class="desc_tablecell">Worked with Spring Boot and React</td>
-                                                    <td class="confidence_tablecell">
-                                                        <select class="form-control confidencesel" name="confidence[]">
-                                                            <option value="beginner">1 - Beginner</option>
-                                                            <option value="intermediate">2 - Intermediate</option>
-                                                            <option value="advance">3 - Advance</option>
-                                                            <option value="expert">4 - Expert</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <a class="add" title="Add"><i
-                                                                class="fa fa-plus"></i></a>
-                                                        <a class="edit" title="Edit"><i
-                                                                class="fa fa-edit"></i></a>
-                                                        <a class="delete" title="Delete"><i
-                                                                class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="row">
-                                                <div class="col-md-8"></div>
-                                                <div class="col-md-4">
-                                                    <button class="btn btn-primary btn-block"
-                                                            onclick="saveSkillsChanges()">Save Changes
-                                                    </button>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -292,8 +214,30 @@
             </div>
         </div>
     </div>
-
+    <script th:src="@{~/js/profile_page/profile_page.js}"></script>
     <script type="text/javascript">
+        $('#profilePicChange').on('change', (e) => {
+            let $img = $('#imgProfile');
+
+            let reader = new FileReader();
+            reader.onloadend = function () {
+
+                let formData = new FormData(),
+                    file = e.target.files[0];
+
+                formData.set('imgFile', file);
+
+                fetch('/api/Account/ChangePicture', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                $img.prop('src', reader.result);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+
         function saveProfileChanges() {
             Swal.fire({
                 icon: 'success',
@@ -319,14 +263,6 @@
 
             if (isAllSaved) {
                 console.log(skills);
-                if (skills.length < 1) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Please add at least one skill!'
-                    });
-                    return;
-                }
                 Swal.fire({
                     icon: 'success',
                     title: 'Great...',
@@ -342,24 +278,38 @@
         }
 
         $(document).ready(function () {
-            var actions = $("table td:last-child").html();
+
             // Append table with add row form on add new button click
             $(".add-new").click(function () {
+                var actions = $("table td:last-child").html();
                 $(this).attr("disabled", "disabled");
                 var index = $("table tbody tr:last-child").index();
-                var row = '<tr>' +
-                    '<td class="pl_tablecell"><input type="text" class="form-control" name="name[]" id="name"></td>' +
-                    '<td class="desc_tablecell"><input type="text" class="form-control" name="description[]" id="description"></td>' +
-                    '<td class="confidence_tablecell">' +
-                    '<select class="form-control confidencesel" name="confidence[]">' +
-                    '   <option value="beginner">1 - Beginner</option>' +
-                    '   <option value="intermediate">2 - Intermediate</option>' +
-                    '   <option value="advance">3 - Advance</option>' +
-                    '   <option value="expert">4 - Expert</option>' +
-                    '</select>' +
-                    '</td>' +
-                    '<td>' + actions + '</td>' +
-                    '</tr>';
+                var row = `<tr>
+                                <td class="pl_tablecell">
+                                    <input type="text" class="form-control" name="name[]">
+                                </td>
+                                <td class="desc_tablecell">
+                                    <input type="text" class="form-control" name="description[]">
+                                </td>
+                                <td class="confidence_tablecell">
+                                    <select class="form-control confidencesel" name="confidence[]">
+                                        <option value="2">1 - None</option>
+                                        <option value="2">2 - Beginner</option>
+                                        <option value="3">3 - Intermediate</option>
+                                        <option value="4">4 - Advance</option>
+                                        <option value="5">5 - Expert</option>
+                                    </select>
+                                </td>
+                                <td>none</td>
+                                <td>
+                                    <a class="add" title="Add"><i
+                                            class="fa fa-check"></i></a>
+                                    <a class="edit" title="Edit"><i
+                                            class="fa fa-edit"></i></a>
+                                    <a class="delete" title="Delete"><i
+                                            class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>`;
                 $("table").append(row);
                 $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
             });
@@ -380,6 +330,14 @@
                     input.each(function () {
                         $(this).parent("td").html($(this).val());
                     });
+                    let title = $(this).parents("tr").find(".pl_tablecell").text();
+                    let description = $(this).parents("tr").find(".desc_tablecell").text();
+                    let confidence = $(this).parents("tr").find(".confidencesel").val();
+
+                    saveSkill(title, description, confidence, null);
+
+                    $(this).parents("tr").find("td:nth-child(3)")
+                        .html($(this).parents("tr").find("td:nth-child(3) option:selected").text());
                     $(this).parents("tr").find(".add, .edit").toggle();
                     $(".add-new").removeAttr("disabled");
                 }
@@ -389,6 +347,15 @@
                 $(this).parents("tr").find("td:nth-child(1), td:nth-child(2)").each(function () {
                     $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
                 });
+                $(this).parents("tr").find("td:nth-child(3)").html(`
+                   <select class="form-control confidencesel" name="confidence[]">
+                        <option value="2">0 - None</option>
+                        <option value="2">1 - Beginner</option>
+                        <option value="3">2 - Intermediate</option>
+                        <option value="4">3 - Advance</option>
+                        <option value="5">4 - Expert</option>
+                    </select>`);
+
                 $(this).parents("tr").find(".add, .edit").toggle();
                 $(".add-new").attr("disabled", "disabled");
             });

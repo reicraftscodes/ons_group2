@@ -1,5 +1,6 @@
 package com.ons.group2.ons_client_project.web.controllers.user;
 
+
 import com.ons.group2.ons_client_project.model.UserInfo;
 import com.ons.group2.ons_client_project.service.userfinder.UserFinder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,9 @@ public class UserDashboardController {
     }
 
 
-
+//    @GetMapping("/user")
+//    public String userIndex(Model model) {
+//        model.addAttribute("content", "dashboard");
+//        return "user/index";
+//    }
 }

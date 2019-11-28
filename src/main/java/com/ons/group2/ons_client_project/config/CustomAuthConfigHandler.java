@@ -1,5 +1,6 @@
 package com.ons.group2.ons_client_project.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.Authentication;
@@ -15,8 +16,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
-public class CustomAuthConfigHandler
-        implements AuthenticationSuccessHandler {
+@Slf4j
+public class CustomAuthConfigHandler implements AuthenticationSuccessHandler {
 
     protected Log logger = LogFactory.getLog(this.getClass());
 
@@ -53,6 +54,7 @@ public class CustomAuthConfigHandler
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
+            log.info(grantedAuthority.toString());
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
                 isUser = true;
                 break;
@@ -82,6 +84,7 @@ public class CustomAuthConfigHandler
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
+
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }
