@@ -13,7 +13,7 @@
             <tbody>
             <tr th:each="user: ${userInfoKey}">
                 <td th:text="${user.first_name}"></td>
-                <td><a class="btn btn-link" th:href="@{/user/profile}"> View Profile </a></td>
+                <td><a class="btn btn-link" th:href ="@{/user/profile}"> View Profile </a> </td>
             </tr>
 
             </tbody>
@@ -29,15 +29,10 @@
 
 <script>
     $('.mydatatable').DataTable({
-        scrollY: 300,
+        scrollY:        300,
         scrollCollapse: true,
-        scroller: true,
+        scroller:       true,
         paging: false
 
     });
 </script>
-
-<!--<div class="container-fluid" th:fragment="dashboard">-->
-<!--    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>-->
-<!--    &lt;!&ndash;        Insert your Code here&ndash;&gt;-->
-<!--</div>-->
