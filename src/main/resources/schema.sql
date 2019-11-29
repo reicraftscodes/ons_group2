@@ -139,3 +139,22 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+
+--- helen's db table
+
+
+CREATE TABLE `user_table` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `EMAIL_INDEX` (`email`)
+) ENGINE=InnoDB;
+
+INSERT INTO `user_table`(`user_id`, email, `first_name`, `last_name`) VALUES (1, 'abigail@gmail.com', 'abigail', 'abraham');
+INSERT INTO `user_table`(`user_id`, email, `first_name`, `last_name`) VALUES (2, 'helen@gmail.com','helen', 'abraham');
+INSERT INTO `user_table`(`user_id`, email, `first_name`, `last_name`) VALUES (3, 'jack@gmail.com', 'jack', 'abraham');
+INSERT INTO `user_table`(`user_id`, email, `first_name`, `last_name`) VALUES (4, 'jaya@gmail.com', 'jaya', 'abraham');
+INSERT INTO `user_table`(`user_id`, email, `first_name`, `last_name`) VALUES (5, 'jose@gmail.com', 'jose', 'abraham');
+INSERT INTO `user_table`(`user_id`, email, `first_name`, `last_name`) VALUES (6, 'May@gmail.com', 'may', 'abraham');
+INSERT INTO `user_table`(`user_id`, email, `first_name`, `last_name`) VALUES (7, 'Tiger@gmail.com', 'tiger', 'abraham');

@@ -45,8 +45,8 @@ public class UserSkillRestController {
         var user = principal.getUser();
 
         var skillOpt = userSkillService.getById(skillId);
-        if(skillOpt.isEmpty()) return ResponseEntity.notFound().build();
-        if(!skillOpt.get().getUser().getId().equals(user.getId())) {
+        if (skillOpt.isEmpty()) return ResponseEntity.notFound().build();
+        if (!skillOpt.get().getUser().getId().equals(user.getId())) {
             return ResponseEntity.status(403).body("Skill doesn't belong to user.");
         }
 
