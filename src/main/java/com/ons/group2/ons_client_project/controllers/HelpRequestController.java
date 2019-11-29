@@ -60,7 +60,7 @@ public class HelpRequestController {
         if (bindingResult.hasErrors()) {
 
             // add all skills the user has selected on their profile to model
-            List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser().getId()); // replace 1 with actual user id in the future
+            List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId()); // replace 1 with actual user id in the future
             model.addAttribute("userSkills", userSkills);
 
             // add data transfer object to model to be able to parse to submit method
