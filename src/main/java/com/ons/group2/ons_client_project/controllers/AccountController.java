@@ -41,7 +41,7 @@ public class AccountController {
         log.info("Change Password Dto: " + changePasswordDto);
         log.info("Change Password For user: " + user);
 
-        if (!changePasswordDto.newPassword.equals(changePasswordDto.newPasswordCf)) {
+        if(!changePasswordDto.newPassword.equals(changePasswordDto.newPasswordCf)) {
             bindingResult.addError(
                     new FieldError("changePasswordDto", "newPasswordCf", "The two passwords do not match.")
             );

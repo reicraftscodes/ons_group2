@@ -31,7 +31,7 @@ public class UserProfileController {
 
         Optional<User> user = userService.findById(id);
 
-        if (user.isEmpty()) {
+        if(user.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
