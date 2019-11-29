@@ -5,6 +5,7 @@ import com.ons.group2.ons_client_project.model.HelpOfferSkillLink;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.UserSkill;
 import com.ons.group2.ons_client_project.model.dto.help_offer.NewHelpOfferDto;
+import com.ons.group2.ons_client_project.security.UserPrincipal;
 import com.ons.group2.ons_client_project.service.HelpOfferService;
 import com.ons.group2.ons_client_project.service.HelpOfferSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserService;
@@ -38,28 +39,19 @@ public class HelpOfferController {
     private HelpOfferService helpOfferService;
     private HelpOfferSkillLinkService helpOfferSkillLinkService;
     private UserSkillService userSkillService;
+    private UserService userService;
 
-    public HelpOfferController(HelpOfferService helpOfferService, HelpOfferSkillLinkService helpOfferSkillLinkService,UserSkillService userSkillService) {
+    public HelpOfferController(HelpOfferService helpOfferService, HelpOfferSkillLinkService helpOfferSkillLinkService,UserSkillService userSkillService,UserService userService) {
         this.helpOfferService = helpOfferService;
         this.helpOfferSkillLinkService = helpOfferSkillLinkService;
+        this.userSkillService = userSkillService;
         this.userSkillService = userSkillService;
     }
 
     @GetMapping("/createOffer")
-    public String createOffer(Model model) {
-        String currentUserName;
-        User currentUser = null;
-
-        //TODO: UNCOMMENT CURRENT USER GRAB METHOD AND REPLACE HARD CODED USER ID FROM CALL TO USER SKILL SERVICE TO GET USER SKILLS
-
-        //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // get the current logged in users name and then find the user object with corresponding username
-//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-//            currentUserName = authentication.getName();
-//            currentUser = userService.getUserByUsername(currentUserName);
-//        }
-
+    public String createOffer(Model model, Authentication authentication) {
         // add all skills the user has selected on their profile to model
-        List<UserSkill> userSkills = userSkillService.getAllForUser(1);
+        List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId());
         model.addAttribute("userSkills", userSkills);
 
         // add data transfer object to model to be able to parse to submit method
@@ -69,10 +61,13 @@ public class HelpOfferController {
 
 
     @PostMapping("/submitOffer")
-    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpOfferDto newHelpOfferDto, BindingResult bindingResult, Model model){
+    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpOfferDto newHelpOfferDto, BindingResult bindingResult, Model model,Authentication authentication){
+
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
+
         if(bindingResult.hasErrors()){
             // add all skills the user has selected on their profile to model
-            List<UserSkill> userSkills = userSkillService.getAllForUser(1);
+            List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId());
             model.addAttribute("userSkills", userSkills);
 
             // add data transfer object to model to be able to parse to submit method
@@ -82,25 +77,9 @@ public class HelpOfferController {
 
         }
 
-
-
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
-        String currentUserName;
-        User currentUser = null;
-
-        User dummyUser = new User(1,"testUser","testUser@gmail.com","testPassword","www.google.com");
-
-        //TODO: CHANGE FROM DUMMY USER FOR TESTING PURPOSES ONCE LOGIN HAS BEEN MERGED TO MASTER TO ALLOW ACTUAL USER TO BE SAVED INSTEAD OF DUMMY USER
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // get the current logged in users name and then find the user object with corresponding username
-//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-//            currentUserName = authentication.getName();
-//            currentUser = userService.getUserByUsername(currentUserName);
-//        }
-
         // save help offer
-        HelpOffer newOffer = new HelpOffer(null,dummyUser,date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),dummyUser.getEmail()); // save offer to database
+        HelpOffer newOffer = new HelpOffer(null,getCurrentUser(authentication),date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),getCurrentUser(authentication).getEmail()); // save offer to database
         HelpOffer savedOffer = helpOfferService.save(newOffer);
-        System.out.println(savedOffer + "AAA");
         Long savedOfferId =  savedOffer.getId();
 
         // save tagged skills
@@ -121,5 +100,10 @@ public class HelpOfferController {
         }
         return"help_offer_and_help_requests/t_help_offer";
 
+    }
+
+    public User getCurrentUser(Authentication authentication){
+        var principal = (UserPrincipal)authentication.getPrincipal();
+        return principal.getUser();
     }
 }

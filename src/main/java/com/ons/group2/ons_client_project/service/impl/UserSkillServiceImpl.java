@@ -29,8 +29,11 @@ public class UserSkillServiceImpl implements UserSkillService {
     }
 
     @Override
-    public List<UserSkill> getAllForUser(Long userId) {
-        return userSkillsRepository.findAllByUser_Id(userId);
+    public UserSkill save(NewSkillDto newSkillDto) {
+        var skill = userSkillAdaptor.createUserSkill(newSkillDto);
+
+        return userSkillsRepository.save(skill);
+
     }
 
     @Override
@@ -53,5 +56,10 @@ public class UserSkillServiceImpl implements UserSkillService {
     @Override
     public void removeSkill(User user, Integer skillId) {
         userSkillsRepository.deleteByIdAndUser_Id(skillId, user.getId());
+    }
+
+    @Override
+    public List<UserSkill> getAllForUser(Long userId) {
+        return userSkillsRepository.findAllByUser_Id(userId);
     }
 }

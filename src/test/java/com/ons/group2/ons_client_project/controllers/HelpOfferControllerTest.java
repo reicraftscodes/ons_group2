@@ -77,7 +77,7 @@ public class HelpOfferControllerTest {
 
     @Test
     void createOffer() throws Exception {
-        User dummyUser = new User(1,"testUser","testUser@gmail.com","testPassword","www.google.com");
+        User dummyUser = new User(1,"testUser","testUser@gmail.com","testPassword","www.google.com",);
 
         UserSkill testSkill = new UserSkill(null, "test skill", "test description", (short) 1, dummyUser);
         List<UserSkill> userSkills = userSkillsRepository.findAllByUser_Id(1);

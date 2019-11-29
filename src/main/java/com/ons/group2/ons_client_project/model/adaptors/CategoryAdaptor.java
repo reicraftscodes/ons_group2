@@ -23,8 +23,9 @@ public class CategoryAdaptor implements com.ons.group2.ons_client_project.model.
                 null,
                 newCategoryDto.getName(),
                 null,
-                parentCategoryOpt.map(Category::getId).orElse(null)
+                parentCategoryOpt.orElse(null)
         );
+
     }
 
 }
