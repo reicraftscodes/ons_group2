@@ -5,6 +5,7 @@ import com.ons.group2.ons_client_project.model.HelpRequestSkillLink;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.UserSkill;
 import com.ons.group2.ons_client_project.model.dto.helpRequest.NewHelpRequestDto;
+import com.ons.group2.ons_client_project.security.UserPrincipal;
 import com.ons.group2.ons_client_project.service.HelpRequestService;
 import com.ons.group2.ons_client_project.service.HelpRequestSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserService;
@@ -43,10 +44,10 @@ public class HelpRequestController {
     }
 
     @GetMapping("/createRequest")
-    public String createRequest(Model model){
+    public String createRequest(Model model,Authentication authentication){
 
         // add all skills the user has selected on their profile to model
-        List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser().getId());
+        List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId());
         model.addAttribute("userSkills", userSkills);
 
         // add data transfer object to model to be able to parse to submit method
@@ -55,7 +56,7 @@ public class HelpRequestController {
     }
 
     @PostMapping("/submitRequest")
-    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpRequestDto newHelpRequestDto, BindingResult bindingResult, Model model){
+    public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpRequestDto newHelpRequestDto, BindingResult bindingResult, Model model,Authentication authentication){
         if (bindingResult.hasErrors()) {
 
             // add all skills the user has selected on their profile to model
@@ -70,7 +71,7 @@ public class HelpRequestController {
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
 
         // save help Request
-        HelpRequest newRequest = new HelpRequest(null,getCurrentUser(),date,newHelpRequestDto.getTitle(),newHelpRequestDto.getDescription(),getCurrentUser().getEmail());  // convert helpRequestDto to helpRequest model
+        HelpRequest newRequest = new HelpRequest(null,getCurrentUser(authentication),date,newHelpRequestDto.getTitle(),newHelpRequestDto.getDescription(),getCurrentUser(authentication).getEmail());  // convert helpRequestDto to helpRequest model
         HelpRequest savedRequest = helpRequestService.save(newRequest); // returned helpRequest that's saved to the db containing PK
         Long savedOfferId =  savedRequest.getId(); //
 
@@ -93,13 +94,9 @@ public class HelpRequestController {
 
     }
 
-    public User getCurrentUser(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // get the current logged in users name and then find the user object with corresponding username
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-
-            return userService.findByEmail(authentication.getName());
-        }
-        return null;
+    public User getCurrentUser(Authentication authentication){
+        var principal = (UserPrincipal)authentication.getPrincipal();
+        return principal.getUser();
     }
 
 
