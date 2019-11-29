@@ -125,7 +125,6 @@
                                                 th:inline="text">
                                             [[${#authentication.getPrincipal().getUser().getFullName()}]]
                                         </a>
-
                                     </h2>
                                     <h6 class="d-block">Looking for a.....</h6>
                                 </div>
@@ -220,7 +219,7 @@
             let $img = $('#imgProfile');
 
             let reader = new FileReader();
-            reader.onloadend = function () {
+            reader.onloadend = function(){
 
                 let formData = new FormData(),
                     file = e.target.files[0];
