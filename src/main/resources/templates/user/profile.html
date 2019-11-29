@@ -121,8 +121,8 @@
                                 <div class="userData ml-3">
                                     <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">
                                         <a
-                                            href="javascript:void(0);"
-                                            th:inline="text">
+                                                href="javascript:void(0);"
+                                                th:inline="text">
                                             [[${#authentication.getPrincipal().getUser().getFullName()}]]
                                         </a>
                                     </h2>
@@ -192,13 +192,13 @@
                                             </div>
                                             <table class="table table-bordered">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Programming Language</th>
-                                                        <th>Description</th>
-                                                        <th>Confidence Level</th>
-                                                        <th>Category</th>
-                                                        <th>Actions</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>Programming Language</th>
+                                                    <th>Description</th>
+                                                    <th>Confidence Level</th>
+                                                    <th>Category</th>
+                                                    <th>Actions</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody id="skillstable">
                                                 </tbody>
@@ -227,8 +227,8 @@
                 formData.set('imgFile', file);
 
                 fetch('/api/Account/ChangePicture', {
-                   method: 'POST',
-                   body: formData
+                    method: 'POST',
+                    body: formData
                 });
 
                 $img.prop('src', reader.result);

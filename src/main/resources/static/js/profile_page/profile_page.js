@@ -49,14 +49,14 @@ function refreshSkillsList() {
 
         $table.empty();
 
-       if(response.ok){
-           response.text().then((data) => {
-               let results = JSON.parse(data);
+        if(response.ok){
+            response.text().then((data) => {
+                let results = JSON.parse(data);
 
-               for (let i = 0; i < results.length; i++) {
-                   const currentSkill = results[i];
+                for (let i = 0; i < results.length; i++) {
+                    const currentSkill = results[i];
 
-                   let $markup = $(`<tr>
+                    let $markup = $(`<tr>
                         <td class="pl_tablecell">${currentSkill.title}</td>
                         <td class="desc_tablecell">${currentSkill.description}</td>
                         <td class="confidence_tablecell">
@@ -73,22 +73,22 @@ function refreshSkillsList() {
                         </td>
                     </tr>`);
 
-                   $table.append($markup);
-               }
+                    $table.append($markup);
+                }
 
-               getCategories().then((categories) => {
-                   let $categorySelect = $('#categorySelect');
-                   $categorySelect.empty();
+                getCategories().then((categories) => {
+                    let $categorySelect = $('#categorySelect');
+                    $categorySelect.empty();
 
-                   for (let i = 0; i < categories.length; i++) {
-                       const currentCategory = categories[i];
-                       $categorySelect.append(new Option(currentCategory.name, currentCategory.id));
+                    for (let i = 0; i < categories.length; i++) {
+                        const currentCategory = categories[i];
+                        $categorySelect.append(new Option(currentCategory.name, currentCategory.id));
 
-                       displaySubCategories(currentCategory);
-                   }
-               });
-           })
-       }
+                        displaySubCategories(currentCategory);
+                    }
+                });
+            })
+        }
     });
 }
 
