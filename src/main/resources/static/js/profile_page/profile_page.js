@@ -49,7 +49,7 @@ function refreshSkillsList() {
 
         $table.empty();
 
-        if(response.ok){
+        if (response.ok) {
             response.text().then((data) => {
                 let results = JSON.parse(data);
 
@@ -95,8 +95,8 @@ function refreshSkillsList() {
 function displaySubCategories(category, level = 1) {
     let $categorySelect = $('#categorySelect');
 
-    if(!category.subCategories) return;
-    if(category.subCategories.length === 0) return;
+    if (!category.subCategories) return;
+    if (category.subCategories.length === 0) return;
 
     for (let i = 0; i < category.subCategories.length; i++) {
         const currentCategory = category.subCategories[i];

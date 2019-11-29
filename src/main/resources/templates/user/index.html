@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5 ">
-
-
 <head>
     <title>ONS - User</title>
     <meta charset="utf-8">
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -22,15 +20,13 @@
     <link th:href="@{~/vendor/sweetalert2/dist/sweetalert2.css}" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
-    <script th:src="@{~/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{~/js/jquery-3.4.1.min.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-
 
 </head>
 
 <body id="page-top">
-
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -64,14 +60,13 @@
 
 <script>
     $('.mydatatable').DataTable({
-        scrollY: 300,
+        scrollY:        300,
         scrollCollapse: true,
-        scroller: true,
+        scroller:       true,
         paging: false
 
     });
 </script>
-
 
 </body>
 </html>
