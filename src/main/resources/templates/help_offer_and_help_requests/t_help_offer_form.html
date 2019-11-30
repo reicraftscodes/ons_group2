@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Offer your services</title>
+    <link rel="stylesheet" th:href="@{~/css/picnic/picnic.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/help_offer_and_request/helpOfferAndRequestForm.css}">
+</head>
+<body>
+
+<form action="#" autocomplete="on" id="help_form" method="post" role="form"
+      th:action="@{/submitOffer}" th:object="${NewHelpOfferDto}">
+
+    <h1 id="header">Offer your expertise</h1>
+    <br>
+
+    <div class="form-group">
+        <input class="flex two" placeholder="Title" th:field="*{title}" type="text"/>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <input class="flex two" placeholder="Description" th:field="*{description}" type="text"/>
+    </div>
+    <br>
+
+
+    <select id="skills-dropdown" multiple=multiple th:field="*{taggedSkills}">
+        <option value="" disabled selected hidden >Please select relevant skills</option>
+        <option th:each="skill : ${userSkills}" th:text="${skill.title}" th:value="${{skill.id}}"></option>
+    </select>
+
+
+    <div class="submit">
+        <button class='success' type="submit">Submit offer</button>
+    </div>
+</form>
+
+</body>
+<style>
+    body{
+        background-color: #FAFAFA;
+        margin: 10px;
+    }
+    .submit{
+        text-align: center;
+    }
+    #header{
+        text-align: center;
+        color: #002f94;
+    }
+    #help_form{
+        text-align: center;
+    }
+</style>
+
+</html>

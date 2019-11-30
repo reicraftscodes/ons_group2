@@ -4,7 +4,9 @@ import com.ons.group2.ons_client_project.model.Category;
 import com.ons.group2.ons_client_project.model.adaptors.CategoryAdaptor;
 import com.ons.group2.ons_client_project.model.dto.category.NewCategoryDto;
 import com.ons.group2.ons_client_project.repository.CategoryRepository;
+import com.ons.group2.ons_client_project.repository.UserSkillsRepository;
 import com.ons.group2.ons_client_project.service.CategoryService;
+import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +17,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryAdaptor categoryAdaptor;
+    private final UserSkillsRepository userSkillsRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryAdaptor categoryAdaptor) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryAdaptor categoryAdaptor, UserSkillsRepository userSkillsRepository) {
         this.categoryRepository = categoryRepository;
         this.categoryAdaptor = categoryAdaptor;
+        this.userSkillsRepository = userSkillsRepository;
     }
 
 
@@ -94,6 +98,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void remove(Category category) {
         if(category == null) return;
+
+        var skillsWithCategory = userSkillsRepository.findAllByCategory_Id(category.getId());
+
+        for(var skill : skillsWithCategory) {
+            skill.setCategory(null);
+
+            userSkillsRepository.save(skill);
+        }
 
         categoryRepository.delete(category);
     }

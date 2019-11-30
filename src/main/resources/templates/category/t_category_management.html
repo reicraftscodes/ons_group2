@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Category Management</title>
+        <link rel="stylesheet" href="/css/picnic/picnic.min.css">
+        <link rel="stylesheet" href="/css/pages/category/page.css">
+    </head>
+    <body>
+        <nav>
+            <span class="brand">Manage categories</span>
+        </nav>
+        <main>
+            <div class="visual flex one two-800">
+                <div class="card">
+                    <header>
+                        <h3>Create category</h3>
+                    </header>
+                    <section>
+                        <label>
+                            Category name
+                            <input type="text" id="newCategoryName" placeholder="e.g.: Web Technology">
+                        </label>
+                        <label>
+                            Parent Category
+                            <select id="newCategoryParentSelect" class="categorySelect"></select>
+                        </label>
+                        <button id="createButton">Create</button>
+                    </section>
+                </div>
+                <div class="card">
+                    <header>
+                        <h3>Remove category</h3>
+                    </header>
+                    <section>
+                        <label>
+                            Category Name
+                            <select id="removeCategorySelect" class="categorySelect"></select>
+                        </label>
+                        <button id="deleteButton" class="error">Delete</button>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <script src="/js/jquery-3.4.1.min.js"></script>
+        <script src="/js/category/category.js"></script>
+        <script>
+            fillSelects();
+
+            $('#deleteButton').on('click', () => {
+                removeCategoryById($('#removeCategorySelect').val()).then(() => {
+                    fillSelects();
+                });
+            });
+
+            $('#createButton').on('click', () => {
+                createCategory(
+                    {
+                        name: $('#newCategoryName').val(),
+                        parentCategoryId: $('#newCategoryParentSelect').val()
+                    }
+                ).then(() => {
+                    $('#newCategoryName').val("");
+                    fillSelects();
+                });
+            });
+
+            function fillSelects() {
+                getRootCategories().then((categories) => {
+                    fillSelectWithCategories($('.categorySelect'), categories);
+
+                    $('#newCategoryParentSelect').prepend(
+                        new Option('None', null, true, true)
+                    )
+                });
+            }
+        </script>
+    </body>
+</html>
