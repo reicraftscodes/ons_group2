@@ -27,4 +27,3 @@ public class UserQueries implements UserFinder{
         return userSearchRepository.getAllUserInformation();
     }
 }
-

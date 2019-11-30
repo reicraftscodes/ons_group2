@@ -1,6 +1,5 @@
 package com.ons.group2.ons_client_project.web.controllers.user;
 
-
 import com.ons.group2.ons_client_project.model.UserInfo;
 import com.ons.group2.ons_client_project.service.userfinder.UserFinder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ public class UserDashboardController {
     @Autowired
     private UserFinder userFinder;
 
-    //    insert your code here
     @GetMapping("user")
     public String userFinder(Model model) {
 
@@ -29,17 +27,4 @@ public class UserDashboardController {
 
         return "user/index";
     }
-
-    @GetMapping("/user/profile")
-    public String userProfile(Model model) {
-        model.addAttribute("content", "profile");
-        return "user/index";
-    }
-
-
-//    @GetMapping("/user")
-//    public String userIndex(Model model) {
-//        model.addAttribute("content", "dashboard");
-//        return "user/index";
-//    }
 }

@@ -10590,13 +10590,13 @@ a:focus {
 }
 
 .bg-register-image {
-  background: url("https://res.cloudinary.com/da0odz24p/image/upload/v1574849935/clientproject/img-stats.png");
+  background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
   background-position: center;
   background-size: cover;
 }
 
 .bg-password-image {
-  background: url("https://res.cloudinary.com/da0odz24p/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1574848932/clientproject/forgotpass_kik7si.png");
+  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
   background-position: center;
   background-size: cover;
 }
