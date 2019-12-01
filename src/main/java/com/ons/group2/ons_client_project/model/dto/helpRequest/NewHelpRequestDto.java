@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class NewHelpRequestDto {
 
-    @NotNull
+    @NotNull(message = "Please enter a title")
     private String title;
 
     @NotNull(message = "You must tag at least one skill for others to be able to find your offer!")
