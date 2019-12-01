@@ -32,7 +32,7 @@ public class UserSkillRestController {
         var user = principal.getUser();
 
         newSkillDto.setUser(user);
-        userSkillService.save(newSkillDto);
+        userSkillService.create(newSkillDto);
 
         return ResponseEntity.ok().build();
     }

@@ -29,19 +29,37 @@ public class UserSkillServiceImpl implements UserSkillService {
     }
 
     @Override
-    public List<UserSkill> getAllForUser(Long userId) {
-        return userSkillsRepository.findAllByUser_Id(userId);
+    public UserSkill save(NewSkillDto newSkillDto) {
+        var skill = userSkillAdaptor.createUserSkill(newSkillDto);
+
+        return userSkillsRepository.save(skill);
+
     }
 
     @Override
-    public UserSkill save(NewSkillDto newSkillDto) {
+    public List<UserSkill> getAllByCategoryId(Integer categoryId) {
+        return userSkillsRepository.findAllByCategory_Id(categoryId);
+    }
+
+    @Override
+    public UserSkill create(NewSkillDto newSkillDto) {
         var skill = userSkillAdaptor.createUserSkill(newSkillDto);
 
         return userSkillsRepository.save(skill);
     }
 
     @Override
+    public UserSkill save(UserSkill userSkill) {
+        return userSkillsRepository.save(userSkill);
+    }
+
+    @Override
     public void removeSkill(User user, Integer skillId) {
         userSkillsRepository.deleteByIdAndUser_Id(skillId, user.getId());
+    }
+
+    @Override
+    public List<UserSkill> getAllForUser(Long userId) {
+        return userSkillsRepository.findAllByUser_Id(userId);
     }
 }

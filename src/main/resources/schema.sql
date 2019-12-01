@@ -2,27 +2,35 @@ CREATE SCHEMA IF NOT EXISTS  ons_db;
 
 USE ons_db;
 
---
--- Table structure for table `user`
---
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+-- ---------------------------------------------------------------------------------------------------------------------
+-- USER DATA TABLES
+-- ---------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `user` (
-    `id` int(20) NOT NULL,
-    `email` varchar(100) DEFAULT NULL,
-    `first_name` varchar(255) DEFAULT NULL,
-    `last_name` varchar(255) DEFAULT NULL,
-    `password` varchar(255) DEFAULT NULL,
-    `img_url` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `user_skills` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `user_id` int(20) NOT NULL,
-      `title` varchar(255) DEFAULT NULL,
-      `description` varchar(255) DEFAULT NULL,
-      `confidence` tinyint DEFAULT NULL,
-      `category_id` int(11),
-      PRIMARY KEY(`id`)
+CREATE TABLE IF NOT EXISTS `user_table`
+(
+  `user_id`   int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) DEFAULT NULL,
+  `email`     varchar(255) DEFAULT NULL,
+  `password`  varchar(255) DEFAULT NULL,
+  `img_url`   varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `EMAIL_INDEX` (`email`)
+);
+
+CREATE TABLE IF NOT EXISTS `user_skills`
+(
+  `skill_id`    int(11) NOT NULL AUTO_INCREMENT,
+  `user_id`     int(20) NOT NULL,
+  `title`       varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `confidence`  tinyint      DEFAULT NULL,
+  `category_id` int(11),
+  PRIMARY KEY (`skill_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -31,21 +39,55 @@ CREATE TABLE IF NOT EXISTS `categories` (
     `parent_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
+-- ---------------------------------------------------------------------------------------------------------------------
+-- OFFERS AND REQUESTS FOR HELP TABLES
+-- ---------------------------------------------------------------------------------------------------------------------
+CREATE TABLE `help_offer`
+(
+  `help_offer_id`     int(11) NOT NULL AUTO_INCREMENT,
+  `user_id`           int(11) NOT NULL,
+  `date_posted`       date         DEFAULT NULL,
+  `title`             VARCHAR(25)  DEFAULT NULL,
+  `description`       VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
+  `method_of_contact` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`help_offer_id`)
+);
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+CREATE TABLE `help_offer_skill_link_table`
+(
+  `help_offer_skill_link_id` int(11) NOT NULL AUTO_INCREMENT,
+  `skill_id`                 int(11) NOT NULL,
+  `help_offer_id`            int(11) NOT NULL,
+  PRIMARY KEY (`help_offer_skill_link_id`)
+);
+
+CREATE TABLE `help_request`
+(
+  `help_request_id`   int(11) NOT NULL AUTO_INCREMENT,
+  `user_id`           int(11) NOT NULL,
+  `date_posted`       date         DEFAULT NULL,
+  `title`             VARCHAR(25)  DEFAULT NULL,
+  `description`       VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
+  `method_of_contact` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`help_request_id`)
+);
+
+CREATE TABLE `help_request_skill_link_table`
+(
+  `help_request_skill_link_id` int(11) NOT NULL AUTO_INCREMENT,
+  `skill_id`                   int(11) NOT NULL,
+  `help_request_id`            int(11) NOT NULL,
+  PRIMARY KEY (`help_request_skill_link_id`)
+);
+
+
+
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `ons_db`
---
 
 -- --------------------------------------------------------
 

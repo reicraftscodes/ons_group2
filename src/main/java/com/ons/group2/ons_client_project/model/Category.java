@@ -1,8 +1,10 @@
 package com.ons.group2.ons_client_project.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -21,24 +23,20 @@ public class Category {
 
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "parent_id")
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Category> subCategories;
 
-    @Column(name = "parent_id")
-    private Integer parentId;
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private Category parentCategory;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(id, category.id) &&
-                Objects.equals(name, category.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
+    @JsonProperty("parent_id")
+    public Integer getParentCategory() {
+        return parentCategory == null ? null : parentCategory.id;
     }
 }
