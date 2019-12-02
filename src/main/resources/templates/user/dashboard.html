@@ -6,14 +6,14 @@
 
 
         <!--Get user to select what they want to search for-->
-        <select class = "selectedSearchCategory">
+        <select class="selectedSearchCategory">
             <option>Please select a search type</option>
-            <option>Users</option>
+            <option>mydatatable</option>
             <option>Help Offers</option>
         </select>
 
 
-        <table class="table table-striped table-bordered mydatatable" style="width: 100%" id="mydatatable">
+        <table class="table table-striped table-bordered mydatatable" id="mydatatable" style="width: 100%">
             <thead>
             <tr>
                 <th>Name</th>
@@ -23,11 +23,27 @@
             <tbody>
             <tr th:each="user: ${userInfoKey}">
                 <td th:text="${user.first_name}"></td>
-                <td><a class="btn btn-link" th:href ="@{/user/profile}"> View Profile </a> </td>
+                <td><a class="btn btn-link" th:href="@{/user/profile}"> View Profile </a></td>
             </tr>
 
             </tbody>
 
         </table>
+
+        <table class="table table-striped table-bordered helpOfferDataTable" id="help_offers"
+               style="width: 100%">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+
+            <tbody>
+            <!--TODO: POPULATE TABLE-->
+            </tbody>
+            </thead>
+        </table>
+
     </div>
 </div>
