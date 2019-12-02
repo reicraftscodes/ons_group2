@@ -64,7 +64,7 @@ function refreshSkillsList() {
                         <td class="confidence_tablecell">
                             ${skillMap[currentSkill.confidence]}
                         </td>
-                        <td>${!currentSkill.category ? "" : currentSkill.category.name}</td>
+                        <td>${!currentSkill.category ? "none" : currentSkill.category.name}</td>
                         <td>
                             <input id="idField" type="hidden" value="${currentSkill.id}">
                             <a class="add" title="Add"><i
