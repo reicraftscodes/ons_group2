@@ -17,6 +17,8 @@ public interface UserService extends UserDetailsService {
 
     User save(UserRegistrationDto registration);
 
-    void changePassword(User user, String newPassword);
     URI changeProfilePicture(User user, MultipartFile newImg);
+
+    void updatePassword(String password, Long userId);
+
 }
