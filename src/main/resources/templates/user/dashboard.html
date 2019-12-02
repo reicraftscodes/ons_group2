@@ -10,6 +10,7 @@
             <option>Please select a search type</option>
             <option>mydatatable</option>
             <option>Help Offers</option>
+            <option>Help Requests</option>
         </select>
 
 
@@ -40,7 +41,32 @@
             </tr>
 
             <tbody>
-            <!--TODO: POPULATE TABLE-->
+            <tr th:each="helpOffer:${helpOffers}">
+                <td th:text="${helpOffer.title}"></td>
+                <td th:text="${helpOffer.description}"></td>
+                <td><a class="btn btn-link" th:href="@{/helpOffer/${helpOffer.id}}"> View Request </a></td>
+
+            </tr>
+            </tbody>
+            </thead>
+        </table>
+
+        <table class="table table-striped table-bordered helpOfferDataTable" id="help_requests"
+               style="width: 100%">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+
+            <tbody>
+            <tr th:each="helpRequest:${helpRequests}">
+                <td th:text="${helpRequest.title}"></td>
+                <td th:text="${helpRequest.description}"></td>
+                <td><a class="btn btn-link" th:href="@{/helpRequest/${helpRequest.id}}"> View Request </a></td>
+
+            </tr>
             </tbody>
             </thead>
         </table>
