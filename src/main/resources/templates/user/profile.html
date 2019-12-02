@@ -96,6 +96,16 @@
         table.table td .add {
             display: none;
         }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+        }
     </style>
 
     <!--  insert code here   -->
@@ -253,6 +263,7 @@
                 var pl = $(this).find(".pl_tablecell").html();
                 var desc = $(this).find(".desc_tablecell").html();
                 var confidence = $(this).find(".confidence_tablecell .confidencesel").val();
+                var category = $(this).find(".categorySelect_tablecell .categoryl").val();
 
                 if ($(pl).length > 0 || $(desc).length > 0 || $(confidence).length > 0) {
                     isAllSaved = false;
@@ -299,7 +310,30 @@
                                         <option value="5">5 - Expert</option>
                                     </select>
                                 </td>
-                                <td>none</td>
+                                <td class="categorySelect_tablecell" name="category[]">
+                                        <div class="dropdown" >
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Categories
+                                            <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a tabindex="-1" href="#">HTML</a></li>
+                                                <li><a tabindex="-1" href="#">CSS</a></li>
+                                                <li class="dropdown-submenu">
+                                                    <a class="test" tabindex="-1" href="#">Python <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a tabindex="-1" href="#">Flask</a></li>
+                                                        <li><a tabindex="-1" href="#">Socket Programming</a></li>
+                                                        <li class="dropdown-submenu">
+                                                            <a class="test" href="#"> File Handling <span class="caret"></span></a>
+                                                            <ul class="dropdown-menu">
+                                                              <li><a href="#">Python File Handling</a></li>
+                                                              <li><a href="#">Python Read Files</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                </td>
                                 <td>
                                     <a class="add" title="Add"><i
                                             class="fa fa-check"></i></a>
@@ -365,4 +399,16 @@
             });
         });
     </script>
+
+
+    <script>
+        $(document).ready(function(){
+            $('.dropdown-submenu a.test').on("click", function(e){
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    </script>
+
 </div>
