@@ -10,6 +10,7 @@ import com.ons.group2.ons_client_project.service.HelpOfferService;
 import com.ons.group2.ons_client_project.service.HelpOfferSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.service.UserSkillService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 public class HelpOfferController {
 
     private HelpOfferService helpOfferService;
@@ -44,7 +46,6 @@ public class HelpOfferController {
     public HelpOfferController(HelpOfferService helpOfferService, HelpOfferSkillLinkService helpOfferSkillLinkService,UserSkillService userSkillService,UserService userService) {
         this.helpOfferService = helpOfferService;
         this.helpOfferSkillLinkService = helpOfferSkillLinkService;
-        this.userSkillService = userSkillService;
         this.userSkillService = userSkillService;
     }
 
@@ -65,7 +66,8 @@ public class HelpOfferController {
 
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
 
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors()) {
+            log.info(bindingResult.toString());
             // add all skills the user has selected on their profile to model
             List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId());
             model.addAttribute("userSkills", userSkills);
