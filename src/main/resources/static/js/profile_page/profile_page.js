@@ -15,8 +15,10 @@ function saveSkill(title, description, confidence, category, id = null) {
         "categoryId": category
     };
 
-    return fetch('/api/Skills/AddSkill', {
-        method: 'POST',
+    console.log(payload);
+
+    return fetch(id === null ? '/api/Skills/AddSkill' : '/api/Skills/EditSkill', {
+        method: id === null ? 'POST' : 'PUT',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
@@ -40,7 +42,7 @@ function refreshSkillsList() {
         1: '1 - None',
         2: '2 - Beginner',
         3: '3 - Intermediate',
-        4: '4 - Advance',
+        4: '4 - Advanced',
         5: '5 - Expert',
     };
 
@@ -64,6 +66,7 @@ function refreshSkillsList() {
                         </td>
                         <td>${!currentSkill.category ? "" : currentSkill.category.name}</td>
                         <td>
+                            <input id="idField" type="hidden" value="${currentSkill.id}">
                             <a class="add" title="Add"><i
                                     class="fa fa-check"></i></a>
                             <a class="edit" title="Edit"><i
