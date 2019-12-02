@@ -21,7 +21,7 @@
 
     <div class="form-group">
         <input class="flex two" type="text" th:field="*{title}" placeholder="Title" />
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
     </div>
     <br>
 
