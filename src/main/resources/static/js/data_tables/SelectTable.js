@@ -4,12 +4,17 @@ function hideAllButOne(optionToShow){
     for (var i = 0; i < options.length; i++) {
         var idPrefix = "#";
         var tableName = idPrefix.concat(options[i].replace(/ /g,"_").toLowerCase());
+
+        var wrapperSuffix ="_wrapper";
+        var wrapperName = tableName.concat(wrapperSuffix);
+
         if(options[i] == optionToShow){
             // show selected table
-            $(tableName).show();
+            $(wrapperName).show();
             console.log("showing ".concat(tableName))
         }else{
-            $(tableName).hide();
+            // hide all tables besides selected table
+            $(wrapperName).hide();
         }
     }
 }
@@ -17,8 +22,10 @@ function hideAllButOne(optionToShow){
 
 $(document).ready(function(){
 
-    $('#help_offers').hide();
-    $('#help_requests').hide();
+    // hide all tables on startup besides user table
+    $('#help_offers_wrapper').hide();
+    $('#help_requests_wrapper').hide();
+
 
     // gets the currently selected table to search
     $("select.selectedSearchCategory").change(function(){

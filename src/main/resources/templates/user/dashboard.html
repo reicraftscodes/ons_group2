@@ -44,7 +44,7 @@
             <tr th:each="helpOffer:${helpOffers}">
                 <td th:text="${helpOffer.title}"></td>
                 <td th:text="${helpOffer.description}"></td>
-                <td><a class="btn btn-link" th:href="@{/helpOffer/} + ${helpOffer.id}"> View Request </a></td>
+                <td><a class="btn btn-link" th:href="@{/helpOffer/} + ${helpOffer.id}"> View Offer </a></td>
 
             </tr>
             </tbody>
