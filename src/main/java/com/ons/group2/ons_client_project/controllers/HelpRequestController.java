@@ -51,7 +51,7 @@ public class HelpRequestController {
         model.addAttribute("userSkills", userSkills);
 
         // add data transfer object to model to be able to parse to submit method
-        model.addAttribute("NewHelpRequestDto", new NewHelpRequestDto());
+        model.addAttribute("newHelpRequestDto", new NewHelpRequestDto());
         return "help_offer_and_help_requests/t_help_request_form";
     }
 
@@ -62,9 +62,6 @@ public class HelpRequestController {
             // add all skills the user has selected on their profile to model
             List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId()); // replace 1 with actual user id in the future
             model.addAttribute("userSkills", userSkills);
-
-            // add data transfer object to model to be able to parse to submit method
-            model.addAttribute("NewHelpRequestDto", new NewHelpRequestDto());
             return new ModelAndView("help_offer_and_help_requests/t_help_request_form");
         }
 

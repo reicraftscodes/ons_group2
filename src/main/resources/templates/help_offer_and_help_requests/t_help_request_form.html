@@ -14,20 +14,20 @@
 </head>
 <body>
 
-<form autocomplete="on" action="#" th:action="@{/submitRequest}" th:object="${NewHelpRequestDto}" method="post" id="help_form" role="form">
+<form autocomplete="on" action="#" th:action="@{/submitRequest}" th:object="${newHelpRequestDto}" method="post" id="help_form" role="form">
 
     <h1 id="header">Request help from your co-workers</h1>
     <br>
 
     <div class="form-group">
         <input class="flex two" type="text" th:field="*{title}" placeholder="Title" />
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Enter a title</span>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
     </div>
     <br>
 
     <div class="form-group">
         <input class="flex two" type="text" th:field="*{description}" placeholder="Description" />
-        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Enter a description</span>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
     </div>
     <br>
 
@@ -35,7 +35,7 @@
         <select id = "skills-dropdown" multiple = multiple th:field="*{taggedSkills}">
             <option value="" disabled selected>Please select relevant skills</option>
             <option th:each="skill : ${userSkills}" th:value="${skill.id}" th:text="${skill.title}"></option>
-            <span th:if="${#fields.hasErrors('taggedSkills')}" th:errors="*{taggedSkills}">Enter a description</span>
+            <span th:if="${#fields.hasErrors('taggedSkills')}" th:errors="*{taggedSkills}"></span>
         </select>
 
 
