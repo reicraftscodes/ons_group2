@@ -5,6 +5,7 @@ import com.ons.group2.ons_client_project.repository.HelpRequestRepository;
 import com.ons.group2.ons_client_project.service.HelpRequestService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,10 @@ public class HelpRequestServiceImpl implements HelpRequestService {
     @Override
     public Optional<HelpRequest> findById(Long id) {
         return helpRequestRepository.findById(id);
+    }
+
+    @Override
+    public List<HelpRequest> getAllRequests() {
+        return helpRequestRepository.findAll();
     }
 }
