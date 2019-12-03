@@ -131,8 +131,8 @@
                                 <div class="userData ml-3">
                                     <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">
                                         <a
-                                            href="javascript:void(0);"
-                                            th:inline="text">
+                                                href="javascript:void(0);"
+                                                th:inline="text">
                                             [[${#authentication.getPrincipal().getUser().getFullName()}]]
                                         </a>
                                     </h2>
@@ -202,13 +202,13 @@
                                             </div>
                                             <table class="table table-bordered">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Programming Language</th>
-                                                        <th>Description</th>
-                                                        <th>Confidence Level</th>
-                                                        <th>Category</th>
-                                                        <th>Actions</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>Programming Language</th>
+                                                    <th>Description</th>
+                                                    <th>Confidence Level</th>
+                                                    <th>Category</th>
+                                                    <th>Actions</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody id="skillstable">
                                                 </tbody>
@@ -229,7 +229,7 @@
             let $img = $('#imgProfile');
 
             let reader = new FileReader();
-            reader.onloadend = function(){
+            reader.onloadend = function () {
 
                 let formData = new FormData(),
                     file = e.target.files[0];
@@ -237,8 +237,8 @@
                 formData.set('imgFile', file);
 
                 fetch('/api/Account/ChangePicture', {
-                   method: 'POST',
-                   body: formData
+                    method: 'POST',
+                    body: formData
                 });
 
                 $img.prop('src', reader.result);
@@ -402,12 +402,13 @@
 
 
     <script>
-        $(document).ready(function(){
-            $('.dropdown-submenu a.test').on("click", function(e){
+        $(document).ready(function () {
+            $('.categorySelect_tablecell').hover(function (e) {
+                console.log("im working");
                 $(this).next('ul').toggle();
                 e.stopPropagation();
                 e.preventDefault();
-            });
+            })
         });
     </script>
 
