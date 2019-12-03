@@ -1,28 +1,21 @@
 package com.ons.group2.ons_client_project.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-//@AllArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserInfo {
 
-    private String first_name;
-    private String skills;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String profileUrl;
 
-    public UserInfo(String first_name) {
-        this.first_name = first_name;
-    }
 
-    public UserInfo(String first_name, String skills) {
-        this.first_name = first_name;
-        this.skills = skills;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public String getFullName() {
+        return String.format("%s %s", firstName, lastName);
     }
 }

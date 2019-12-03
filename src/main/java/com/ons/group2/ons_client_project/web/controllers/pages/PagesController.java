@@ -10,7 +10,7 @@ public class PagesController {
 
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "redirect:/login";
     }
 
 

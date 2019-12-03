@@ -19,8 +19,11 @@ public class UserSearchRepoJDBC implements UserSearchRepository {
         jdbc = aTemplate;
 
         userInfoRowMapper = ((rs, i) -> new UserInfo(
-                rs.getString("first_name")
-        ));
+                rs.getLong("id"),
+                rs.getString("first_name"),
+                rs.getString("last_name"),
+                rs.getString("img_url")
+                ));
     }
 
 
@@ -37,7 +40,7 @@ public class UserSearchRepoJDBC implements UserSearchRepository {
 
     @Override
     public List<UserInfo> getAllUserInformation() {
-        return jdbc.query("SELECT first_name FROM user",
+        return jdbc.query("SELECT id, first_name, last_name, img_url FROM user",
                 userInfoRowMapper
         );
     }
