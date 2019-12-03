@@ -274,6 +274,8 @@
     <script th:src="@{~/js/category/PopulateCategoriesForProfilePage.js}"></script>
     <script th:src="@{~/js/profile_page/profile_page.js}"></script>
     <script type="text/javascript">
+        refreshSkillsList();
+
         $('#profilePicChange').on('change', (e) => {
             let $img = $('#imgProfile');
 

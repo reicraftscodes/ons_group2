@@ -1,5 +1,6 @@
 <div class="container-fluid" th:fragment="userDetails" xmlns:th="http://www.w3.org/1999/xhtml"
      xmlns:sec="http://www.w3.org/1999/xhtml">
+    <script th:src="@{~/js/profile_page/profile_page.js}"></script>
     <style type="text/css">
         .table-wrapper {
             margin: 30px auto;
@@ -189,6 +190,24 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="skillstable">
+                                                <tr th:each="currentSkill : ${userSkills}">
+                                                    <td class="pl_tablecell" th:text="${currentSkill.title}"></td>
+                                                    <td class="desc_tablecell" th:text="${currentSkill.description}"></td>
+                                                    <td class="confidence_tablecell">
+                                                        <script th:inline="javascript">
+                                                            /*<![CDATA[*/
+
+                                                            let confidenceLevel = /*[[${currentSkill.confidence}]]*/ 'none';
+                                                            let confidence = skillMap[confidenceLevel];
+                                                            $('.confidence_tablecell').text(confidence);
+                                                            /*]]>*/
+                                                        </script>
+                                                    </td>
+                                                    <td>
+                                                        <span th:if="${currentSkill.category}" th:text="${currentSkill.category.name}"></span>
+                                                        <span th:unless="${currentSkill.category}">None</span>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -201,6 +220,4 @@
             </div>
         </div>
     </div>
-    <script th:src="@{~/js/category/PopulateCategoriesForProfilePage.js}"></script>
-    <script th:src="@{~/js/profile_page/profile_page.js}"></script>
 </div>

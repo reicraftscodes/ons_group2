@@ -1,4 +1,10 @@
-refreshSkillsList();
+const skillMap = {
+    1: '1 - None',
+    2: '2 - Beginner',
+    3: '3 - Intermediate',
+    4: '4 - Advanced',
+    5: '5 - Expert',
+};
 
 function getCategories() {
     return $.get({
@@ -38,13 +44,7 @@ function removeSkill(id) {
 }
 
 function refreshSkillsList() {
-    let skillMap = {
-        1: '1 - None',
-        2: '2 - Beginner',
-        3: '3 - Intermediate',
-        4: '4 - Advanced',
-        5: '5 - Expert',
-    };
+
 
     fetch("/api/Skills/User").then((response) => {
         let $table = $('#skillstable');
@@ -52,8 +52,10 @@ function refreshSkillsList() {
         $table.empty();
 
        if(response.ok){
-           response.text().then((data) => {
-               let results = JSON.parse(data);
+           response.text().then((skills) => {
+               let results = JSON.parse(skills);
+
+               console.log(results);
 
                for (let i = 0; i < results.length; i++) {
                    const currentSkill = results[i];

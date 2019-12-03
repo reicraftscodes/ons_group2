@@ -2,6 +2,7 @@ package com.ons.group2.ons_client_project.web.controllers.user;
 
 import com.ons.group2.ons_client_project.model.dto.account.SafeUserDetails;
 import com.ons.group2.ons_client_project.service.UserService;
+import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ProfileController {
 
     private final UserService userService;
+    private final UserSkillService userSkillService;
 
-    public ProfileController(UserService userService) {
+    public ProfileController(UserService userService, UserSkillService userSkillService) {
         this.userService = userService;
+        this.userSkillService = userSkillService;
     }
 
     @GetMapping("/user/profile")
@@ -38,6 +41,7 @@ public class ProfileController {
                     user.getProfileUrl()
                 )
         );
+        model.addAttribute("userSkills", userSkillService.getAllForUser(user.getId()));
 
         return "user/index";
     }
