@@ -2,6 +2,54 @@
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <style type="text/css">
 
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu > a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover > a:after {
+            border-left-color: #fff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+
         .table-wrapper {
             margin: 30px auto;
             background: #fff;
@@ -223,6 +271,7 @@
             </div>
         </div>
     </div>
+    <script th:src="@{~/js/category/PopulateCategoriesForProfilePage.js}"></script>
     <script th:src="@{~/js/profile_page/profile_page.js}"></script>
     <script type="text/javascript">
         $('#profilePicChange').on('change', (e) => {
@@ -246,49 +295,7 @@
             reader.readAsDataURL(e.target.files[0]);
         });
 
-
-        function saveProfileChanges() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Great...',
-                text: 'Profile successfully saved!'
-            });
-        }
-
-        function saveSkillsChanges() {
-            var isAllSaved = true;
-            var skills = [];
-
-            $('#skillstable tr').each(function () {
-                var pl = $(this).find(".pl_tablecell").html();
-                var desc = $(this).find(".desc_tablecell").html();
-                var confidence = $(this).find(".confidence_tablecell .confidencesel").val();
-                var category = $(this).find(".categorySelect_tablecell .categoryl").val();
-
-                if ($(pl).length > 0 || $(desc).length > 0 || $(confidence).length > 0) {
-                    isAllSaved = false;
-                }
-                skills.push({"pl": pl, "description": desc, "confidence": confidence});
-            });
-
-            if (isAllSaved) {
-                console.log(skills);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Great...',
-                    text: 'Skill successfully saved!'
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please save all your skills before saving!'
-                });
-            }
-        }
-
         $(document).ready(function () {
-
             // Append table with add row form on add new button click
             $(".add-new").click(function () {
                 var actions = $("table td:last-child").html();
@@ -311,28 +318,14 @@
                                     </select>
                                 </td>
                                 <td class="categorySelect_tablecell" name="category[]">
-                                        <div class="dropdown" >
-                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Categories
-                                            <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                                <li><a tabindex="-1" href="#">HTML</a></li>
-                                                <li><a tabindex="-1" href="#">CSS</a></li>
-                                                <li class="dropdown-submenu">
-                                                    <a class="test" tabindex="-1" href="#">Python <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a tabindex="-1" href="#">Flask</a></li>
-                                                        <li><a tabindex="-1" href="#">Socket Programming</a></li>
-                                                        <li class="dropdown-submenu">
-                                                            <a class="test" href="#"> File Handling <span class="caret"></span></a>
-                                                            <ul class="dropdown-menu">
-                                                              <li><a href="#">Python File Handling</a></li>
-                                                              <li><a href="#">Python Read Files</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Categories
+                                        </button>
+                                        <ul class="dropdown-menu multi-level" id="dropdownTable" role="menu" aria-labelledby="dropdownMenu">
+                                        </ul>
+                                    </div>
                                 </td>
                                 <td>
                                     <a class="add" title="Add"><i
@@ -345,6 +338,10 @@
                             </tr>`;
                 $("table").append(row);
                 $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+
+                getCategories().then((categories) => {
+                    fillCategoryDropDown(categories);
+                });
             });
             // Add row on add button click
             $(document).on("click", ".add", function () {
@@ -367,7 +364,7 @@
                     let description = $(this).parents("tr").find(".desc_tablecell").text();
                     let confidence = $(this).parents("tr").find(".confidencesel").val();
 
-                    saveSkill(title, description, confidence, null);
+                    saveSkill(title, description, confidence, selectedId);
 
                     $(this).parents("tr").find("td:nth-child(3)")
                         .html($(this).parents("tr").find("td:nth-child(3) option:selected").text());
@@ -400,16 +397,5 @@
         });
     </script>
 
-
-    <script>
-        $(document).ready(function () {
-            $('.categorySelect_tablecell').hover(function (e) {
-                console.log("im working");
-                $(this).next('ul').toggle();
-                e.stopPropagation();
-                e.preventDefault();
-            })
-        });
-    </script>
 
 </div>

@@ -75,34 +75,7 @@ function refreshSkillsList() {
 
                    $table.append($markup);
                }
-
-               getCategories().then((categories) => {
-                   let $categorySelect = $('#categorySelect');
-                   $categorySelect.empty();
-
-                   for (let i = 0; i < categories.length; i++) {
-                       const currentCategory = categories[i];
-                       $categorySelect.append(new Option(currentCategory.name, currentCategory.id));
-
-                       displaySubCategories(currentCategory);
-                   }
-               });
            })
        }
     });
-}
-
-function displaySubCategories(category, level = 1) {
-    let $categorySelect = $('#categorySelect');
-
-    if(!category.subCategories) return;
-    if(category.subCategories.length === 0) return;
-
-    for (let i = 0; i < category.subCategories.length; i++) {
-        const currentCategory = category.subCategories[i];
-        $categorySelect.append(
-            new Option('-'.repeat(level) + ' ' + currentCategory.name, currentCategory.id));
-
-        displaySubCategories(currentCategory, level + 1);
-    }
 }
