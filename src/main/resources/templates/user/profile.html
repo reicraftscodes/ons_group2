@@ -372,6 +372,8 @@
 
                     $(this).parents("tr").find("td:nth-child(3)")
                         .html($(this).parents("tr").find("td:nth-child(3) option:selected").text());
+                    $(this).parents("tr").find("td:nth-child(4)")
+                        .html($(this).parents("tr").find("td:nth-child(4) button").text());
                     $(this).parents("tr").find(".add, .edit").toggle();
                     $(".add-new").removeAttr("disabled");
                 }
@@ -383,15 +385,28 @@
                 });
                 $(this).parents("tr").find("td:nth-child(3)").html(`
                    <select class="form-control confidencesel" name="confidence[]">
-                        <option value="2">1 - None</option>
+                        <option value="1">1 - None</option>
                         <option value="2">2 - Beginner</option>
                         <option value="3">3 - Intermediate</option>
                         <option value="4">4 - Advance</option>
                         <option value="5">5 - Expert</option>
                     </select>`);
+                $(this).parents('tr').find('td:nth-child(4)').html(`
+                    <div class="dropdown">
+                        <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Categories
+                        </button>
+                        <ul class="dropdown-menu multi-level" id="dropdownTable" role="menu" aria-labelledby="dropdownMenu">
+                        </ul>
+                    </div>
+                `);
 
                 $(this).parents("tr").find(".add, .edit").toggle();
                 $(".add-new").attr("disabled", "disabled");
+
+                getCategories().then((categories) => {
+                    fillCategoryDropDown(categories);
+                });
             });
             // Delete row on delete button click
             $(document).on("click", ".delete", function () {
