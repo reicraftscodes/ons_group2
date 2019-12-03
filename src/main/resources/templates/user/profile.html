@@ -250,13 +250,13 @@
                                             </div>
                                             <table class="table table-bordered">
                                                 <thead>
-                                                <tr>
-                                                    <th>Programming Language</th>
-                                                    <th>Description</th>
-                                                    <th>Confidence Level</th>
-                                                    <th>Category</th>
-                                                    <th>Actions</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th>Programming Language</th>
+                                                        <th>Description</th>
+                                                        <th>Confidence Level</th>
+                                                        <th>Category</th>
+                                                        <th>Actions</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody id="skillstable">
                                                 </tbody>
@@ -345,8 +345,8 @@
             });
             // Add row on add button click
             $(document).on("click", ".add", function () {
-                var empty = false;
-                var input = $(this).parents("tr").find('input[type="text"]');
+                let empty = false;
+                const input = $(this).parents("tr").find('input[type="text"]');
                 input.each(function () {
                     if (!$(this).val()) {
                         $(this).addClass("errm");
@@ -357,14 +357,18 @@
                 });
                 $(this).parents("tr").find(".errm").first().focus();
                 if (!empty) {
+                    let idInput = $(this).parents("tr").find("#idField");
+                    let id = idInput.val();
+
                     input.each(function () {
                         $(this).parent("td").html($(this).val());
                     });
+
                     let title = $(this).parents("tr").find(".pl_tablecell").text();
                     let description = $(this).parents("tr").find(".desc_tablecell").text();
                     let confidence = $(this).parents("tr").find(".confidencesel").val();
 
-                    saveSkill(title, description, confidence, selectedId);
+                    saveSkill(title, description, confidence, selectedId, !id ? null : id);
 
                     $(this).parents("tr").find("td:nth-child(3)")
                         .html($(this).parents("tr").find("td:nth-child(3) option:selected").text());
@@ -379,11 +383,11 @@
                 });
                 $(this).parents("tr").find("td:nth-child(3)").html(`
                    <select class="form-control confidencesel" name="confidence[]">
-                        <option value="2">0 - None</option>
-                        <option value="2">1 - Beginner</option>
-                        <option value="3">2 - Intermediate</option>
-                        <option value="4">3 - Advance</option>
-                        <option value="5">4 - Expert</option>
+                        <option value="2">1 - None</option>
+                        <option value="2">2 - Beginner</option>
+                        <option value="3">3 - Intermediate</option>
+                        <option value="4">4 - Advance</option>
+                        <option value="5">5 - Expert</option>
                     </select>`);
 
                 $(this).parents("tr").find(".add, .edit").toggle();
@@ -396,6 +400,4 @@
             });
         });
     </script>
-
-
 </div>
