@@ -65,6 +65,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    /** Reset features*/
+    @Override
+    public void updatePassword(String password, Long userId) {
+        userRepository.updatePassword(password, userId);
+    }
+
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
@@ -80,13 +87,6 @@ public class UserServiceImpl implements UserService {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void changePassword(User user, String newPassword) {
-        user.setPassword(newPassword);
-
-        userRepository.save(user);
     }
 
     @Override
