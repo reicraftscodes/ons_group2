@@ -23,8 +23,8 @@
             </thead>
             <tbody>
             <tr th:each="user: ${userInfoKey}">
-                <td th:text="${user.first_name}"></td>
-                <td><a class="btn btn-link" th:href="@{/user/profile}"> View Profile </a></td>
+                <td th:text="${user.getFullName()}"></td>
+                <td><a class="btn btn-link" th:href="@{/user/{id} (id=${user.id})}"> View Profile </a></td>
             </tr>
 
             </tbody>
