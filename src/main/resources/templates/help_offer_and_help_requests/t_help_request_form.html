@@ -19,9 +19,11 @@
     <h1 id="header">Request help from your co-workers</h1>
     <br>
 
-    <div class="form-group">
+    <div class="form-group" th:classappend="${#fields.hasErrors('title')}? 'has-error':''">
         <input class="flex two" type="text" th:field="*{title}" placeholder="Title" />
-        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        <span class="error-message"
+           th:each="error: ${#fields.errors('title')}"
+           th:text="${error}">Validation error</span>
     </div>
     <br>
 
@@ -31,12 +33,17 @@
     </div>
     <br>
 
-
+    <div class = "form-group" th:classappend="${#fields.hasErrors('taggedSkills')}? 'has-error':''">
         <select id = "skills-dropdown" multiple = multiple th:field="*{taggedSkills}">
             <option value="" disabled selected>Please select relevant skills</option>
             <option th:each="skill : ${userSkills}" th:value="${skill.id}" th:text="${skill.title}"></option>
             <span th:if="${#fields.hasErrors('taggedSkills')}" th:errors="*{taggedSkills}"></span>
         </select>
+        <span class="error-message"
+              th:each="error: ${#fields.errors('taggedSkills')}"
+              th:text="${error}">Validation error</span>
+    </div>
+
 
 
     <div class="submit">
