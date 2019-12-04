@@ -55,27 +55,27 @@ public class HelpOfferController {
         model.addAttribute("userSkills", userSkills);
 
         // add data transfer object to model to be able to parse to submit method
-        model.addAttribute("NewHelpOfferDto", new NewHelpOfferDto());
+        model.addAttribute("newHelpOfferDto", new NewHelpOfferDto());
         return "help_offer_and_help_requests/t_help_offer_form";
     }
 
 
     @PostMapping("/submitOffer")
     public ModelAndView submitOffer(@Valid @ModelAttribute NewHelpOfferDto newHelpOfferDto, BindingResult bindingResult, Model model,Authentication authentication){
-
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
-
         if(bindingResult.hasErrors()){
             // add all skills the user has selected on their profile to model
             List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId());
             model.addAttribute("userSkills", userSkills);
 
-            // add data transfer object to model to be able to parse to submit method
-            model.addAttribute("NewHelpOfferDto", new NewHelpOfferDto());
-
+            model.addAttribute("newHelpOfferDto", new NewHelpOfferDto());
             return new ModelAndView("help_offer_and_help_requests/t_help_offer_form");
 
         }
+
+
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
+
+
 
         // save help offer
         HelpOffer newOffer = new HelpOffer(null,getCurrentUser(authentication),date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),getCurrentUser(authentication).getEmail()); // save offer to database

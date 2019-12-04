@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -15,10 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewHelpOfferDto {
-    @NotNull
+    @NotNull(message = "Please enter a title")
+    @Length(min = 1,message = "Please enter a title")
     private String title;
 
-    @NotNull(message = "You must tag at least one skill for others to be able to find your offer!")
+    @NotEmpty(message = "You must tag at least one skill for others to be able to find your offer!")
     private List<UserSkill> taggedSkills;
 
     private String methodOfContact;
