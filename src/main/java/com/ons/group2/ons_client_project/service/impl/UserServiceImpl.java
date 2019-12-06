@@ -2,6 +2,7 @@ package com.ons.group2.ons_client_project.service.impl;
 
 import com.ons.group2.ons_client_project.model.Role;
 import com.ons.group2.ons_client_project.model.User;
+import com.ons.group2.ons_client_project.model.dto.account.UpdateUserInfoDto;
 import com.ons.group2.ons_client_project.repository.UserRepository;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.utils.StorageException;
@@ -51,6 +52,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public User updateUser(UpdateUserInfoDto userInfoDto) {
+        if(userInfoDto.getUserId() == null)
+            throw new IllegalArgumentException("User id must not be null.");
+
+        Optional<User> userToUpdateOpt = userRepository.findById(userInfoDto.getUserId());
+
+        if(userToUpdateOpt.isEmpty())
+            throw new UsernameNotFoundException("Cannot update user. User not found.");
+
+        var user = userToUpdateOpt.get();
+
+        user.setEmail(userInfoDto.getEmail());
+        user.setFirstName(userInfoDto.getFirstName());
+        user.setLastName(userInfoDto.getLastName());
+
+        return userRepository.save(user);
     }
 
     public User newUser(UserRegistrationDto registration) {

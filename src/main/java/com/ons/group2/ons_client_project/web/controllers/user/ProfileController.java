@@ -1,12 +1,17 @@
 package com.ons.group2.ons_client_project.web.controllers.user;
 
 import com.ons.group2.ons_client_project.model.dto.account.SafeUserDetails;
+import com.ons.group2.ons_client_project.model.dto.account.UpdateUserInfoDto;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.service.UserSkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 @Controller
 public class ProfileController {
@@ -44,5 +49,13 @@ public class ProfileController {
         model.addAttribute("userSkills", userSkillService.getAllForUser(user.getId()));
 
         return "user/index";
+    }
+
+    @PutMapping("/user/update")
+    public String updateProfile(@RequestBody @Valid UpdateUserInfoDto userInfoDto) {
+
+
+
+        return "/user/index";
     }
 }
