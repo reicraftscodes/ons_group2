@@ -27,10 +27,9 @@
             <!--   table for Name         -->
             <tr th:each="user: ${userInfoKey}">
                 <td th:text="${user.getFullName()}"></td>
-                <td>none</td>
+                <td th:text="${user.getFullSkillsTitle()}"></td>
                 <td><a class="btn btn-link" th:href="@{/user/{id} (id=${user.id})}"> View Profile </a></td>
             </tr>
-
             </tbody>
 
         </table>
