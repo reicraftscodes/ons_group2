@@ -22,6 +22,7 @@ public class UserQueries implements UserFinder{
 
     }
 
+//    finding both names & skills of an user
     @Override
     public List<UserInfo> getAllUserInfos() {
         return userSearchRepository.getAllUserInformation();

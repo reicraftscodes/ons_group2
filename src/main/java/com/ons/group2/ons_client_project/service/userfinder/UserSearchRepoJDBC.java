@@ -22,12 +22,10 @@ public class UserSearchRepoJDBC implements UserSearchRepository {
                 rs.getLong("id"),
                 rs.getString("first_name"),
                 rs.getString("last_name"),
+                rs.getString("title"),
                 rs.getString("img_url")
-                ));
+        ));
     }
-
-
-
 
     @Override
     public List<UserInfo> getUserInformation(Long userID) {
@@ -40,7 +38,7 @@ public class UserSearchRepoJDBC implements UserSearchRepository {
 
     @Override
     public List<UserInfo> getAllUserInformation() {
-        return jdbc.query("SELECT id, first_name, last_name, img_url FROM user",
+        return jdbc.query("select user.id, user.email, user.first_name, user.last_name, user_skill.title, user.password, user.img_url from user inner join user_skill on user.id=user_skill.user_id;",
                 userInfoRowMapper
         );
     }
