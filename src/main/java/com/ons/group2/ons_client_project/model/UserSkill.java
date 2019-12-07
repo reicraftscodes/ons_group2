@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
  * This class represents a skill of a user.
  */
 @Entity
-@Table(name = "user_skills")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +18,6 @@ public class UserSkill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "skill_id")
     private Integer id;
 
     @NotNull

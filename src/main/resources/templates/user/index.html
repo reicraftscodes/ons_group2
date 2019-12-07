@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
     <!-- Custom fonts for this template-->
     <link th:href="@{~/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -23,6 +24,34 @@
 
     <!-- Bootstrap core JavaScript-->
     <script th:src="@{~/js/jquery-3.4.1.min.js}"></script>
+
+    <!--categories in profile page -->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">&ndash;&gt; TODO:MAYBE DONT NEED IMPORT-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    <script th:src="@{~/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{~/vendor/jquery-easing/jquery.easing.min.js}"></script>
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{~/js/sb-admin-2.min.js}"></script>
+    <!-- Sweet Alert-->
+    <script th:src="@{~/vendor/sweetalert2/dist/sweetalert2.js}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+
+    <!--Data Tables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+
+<!--    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css'>-->
+
+
+
 </head>
 
 <body id="page-top">
@@ -43,22 +72,7 @@
 </a>
 <div th:replace="fragments/user/logout.html :: div.modal"></div>
 
-<script th:src="@{~/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<!-- Core plugin JavaScript-->
-<script th:src="@{~/vendor/jquery-easing/jquery.easing.min.js}"></script>
-<!-- Custom scripts for all pages-->
-<script th:src="@{~/js/sb-admin-2.min.js}"></script>
-<!-- Sweet Alert-->
-<script th:src="@{~/vendor/sweetalert2/dist/sweetalert2.js}"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
-<!--causing logout to stop working/appearing-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  -->
-
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 <script>
     $('.mydatatable').DataTable({
@@ -68,6 +82,12 @@
         paging: false
 
     });
+    $('.helpOfferDataTable').DataTable({
+        scrollY:        300,
+        scrollCollapse: true,
+        scroller:       true,
+        paging: false
+    })
 </script>
 
 </body>

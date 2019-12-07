@@ -23,9 +23,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,15 +53,24 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
-    public User save(UserRegistrationDto registration) {
+    public User newUser(UserRegistrationDto registration) {
         User user = new User();
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        user.setRoles(Collections.singletonList(new Role("ROLE_USER")));
+        user.setProfileUrl(defaultUserProfilePicURL);
+
         return userRepository.save(user);
     }
+
+    /** Reset features*/
+    @Override
+    public void updatePassword(String password, Long userId) {
+        userRepository.updatePassword(password, userId);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -83,16 +90,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(User user, String newPassword) {
-        user.setPassword(newPassword);
-
-        userRepository.save(user);
-    }
-
-    @Override
     public URI changeProfilePicture(User user, MultipartFile newImg) {
 
-        String filename = StringUtils.cleanPath(newImg.getOriginalFilename());
+        String filename = StringUtils.cleanPath(Objects.requireNonNull(newImg.getOriginalFilename()));
         try {
             if (newImg.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);

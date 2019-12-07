@@ -20,17 +20,15 @@
     <h1 id="header">offer help to your co-workers</h1>
     <br>
 
-    <div class="form-group" th:classappend="${#fields.hasErrors('title')}? 'has-error':''">
-        <input required class="flex two" type="text" th:field="*{title}" placeholder="Title" />
-        <span class="error-message"
-              th:each="error: ${#fields.errors('title')}"
-              th:text="${error}">Validation error</span>
+    <div class="form-group">
+        <input class="flex two" placeholder="Title" th:field="*{title}" type="text"/>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> Please enter a correct title </div>
     </div>
     <br>
 
     <div class="form-group">
-        <input required class="flex two" type="text" th:field="*{description}" placeholder="Description" />
-        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        <input class="flex two" placeholder="Description" th:field="*{description}" type="text"/>
+        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> Please enter a correct description  of 30 characters or more </div>
     </div>
     <br>
 
@@ -45,6 +43,11 @@
               th:text="${error}">Validation error</span>
     </div>
 
+    <select id="skills-dropdown" multiple=multiple th:field="*{taggedSkills}">
+        <option value="" disabled selected hidden >Please select relevant skills</option>
+        <option th:each="skill : ${userSkills}" th:text="${skill.title}" th:value="${{skill.id}}"></option>
+        <div th:if="${#fields.hasErrors('taggedSkills')}" th:errors="*{taggedSkills}"> Please select at least one skill</div>
+    </select>
 
 
     <div class="submit">
