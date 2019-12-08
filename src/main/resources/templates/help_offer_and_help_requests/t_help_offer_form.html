@@ -1,17 +1,23 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a help offer</title>
+</head>
+<body>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Offer your services</title>
+    <title>Request help</title>
     <link rel="stylesheet" th:href="@{~/css/picnic/picnic.min.css}">
-    <link rel="stylesheet" th:href="@{~/css/help_offer_and_request/helpOfferAndRequestForm.css}">
 </head>
 <body>
 
-<form action="#" autocomplete="on" id="help_form" method="post" role="form"
-      th:action="@{/submitOffer}" th:object="${NewHelpOfferDto}">
+<form autocomplete="on" action="#" th:action="@{/submitOffer}" th:object="${newHelpOfferDto}"
+      method="post" id="help_form" role="form">
 
-    <h1 id="header">Offer your expertise</h1>
+    <h1 id="header">offer help to your co-workers</h1>
     <br>
 
     <div class="form-group">
@@ -26,6 +32,16 @@
     </div>
     <br>
 
+    <div class = "form-group" th:classappend="${#fields.hasErrors('taggedSkills')}? 'has-error':''">
+        <select required id = "skills-dropdown" multiple = multiple th:field="*{taggedSkills}">
+            <option value="" disabled selected>Please select relevant skills</option>
+            <option th:each="skill : ${userSkills}" th:value="${skill.id}" th:text="${skill.title}"></option>
+            <span th:if="${#fields.hasErrors('taggedSkills')}" th:errors="*{taggedSkills}"></span>
+        </select>
+        <span class="error-message"
+              th:each="error: ${#fields.errors('taggedSkills')}"
+              th:text="${error}">Validation error</span>
+    </div>
 
     <select id="skills-dropdown" multiple=multiple th:field="*{taggedSkills}">
         <option value="" disabled selected hidden >Please select relevant skills</option>
@@ -40,6 +56,7 @@
 </form>
 
 </body>
+</html>
 <style>
     body{
         background-color: #FAFAFA;
@@ -57,4 +74,5 @@
     }
 </style>
 
+</body>
 </html>

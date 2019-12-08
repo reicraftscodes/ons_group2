@@ -62,6 +62,8 @@ public class HelpRequestController {
             // add all skills the user has selected on their profile to model
             List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId()); // replace 1 with actual user id in the future
             model.addAttribute("userSkills", userSkills);
+
+            model.addAttribute("newHelpRequestDto", new NewHelpRequestDto());
             return new ModelAndView("help_offer_and_help_requests/t_help_request_form");
         }
 
