@@ -11,10 +11,7 @@ import com.ons.group2.ons_client_project.service.HelpOfferSkillLinkService;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.service.UserSkillService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,12 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.sound.midi.SysexMessage;
 import javax.validation.Valid;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -77,11 +69,6 @@ public class HelpOfferController {
             return new ModelAndView("help_offer_and_help_requests/t_help_offer_form");
 
         }
-
-
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
-
-
 
         // save help offer
         HelpOffer newOffer = new HelpOffer(null,getCurrentUser(authentication),date,newHelpOfferDto.getTitle(),newHelpOfferDto.getDescription(),getCurrentUser(authentication).getEmail()); // save offer to database
