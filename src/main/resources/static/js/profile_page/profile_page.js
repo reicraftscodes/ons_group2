@@ -1,4 +1,10 @@
-refreshSkillsList();
+const skillMap = {
+    1: '1 - None',
+    2: '2 - Beginner',
+    3: '3 - Intermediate',
+    4: '4 - Advanced',
+    5: '5 - Expert',
+};
 
 function getCategories() {
     return $.get({
@@ -15,8 +21,10 @@ function saveSkill(title, description, confidence, category, id = null) {
         "categoryId": category
     };
 
-    return fetch('/api/Skills/AddSkill', {
-        method: 'POST',
+    console.log(payload);
+
+    return fetch(id === null ? '/api/Skills/AddSkill' : '/api/Skills/EditSkill', {
+        method: id === null ? 'POST' : 'PUT',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
@@ -36,13 +44,7 @@ function removeSkill(id) {
 }
 
 function refreshSkillsList() {
-    let skillMap = {
-        1: '1 - None',
-        2: '2 - Beginner',
-        3: '3 - Intermediate',
-        4: '4 - Advance',
-        5: '5 - Expert',
-    };
+
 
     fetch("/api/Skills/User").then((response) => {
         let $table = $('#skillstable');
@@ -50,8 +52,10 @@ function refreshSkillsList() {
         $table.empty();
 
        if(response.ok){
-           response.text().then((data) => {
-               let results = JSON.parse(data);
+           response.text().then((skills) => {
+               let results = JSON.parse(skills);
+
+               console.log(results);
 
                for (let i = 0; i < results.length; i++) {
                    const currentSkill = results[i];
@@ -62,8 +66,9 @@ function refreshSkillsList() {
                         <td class="confidence_tablecell">
                             ${skillMap[currentSkill.confidence]}
                         </td>
-                        <td>${!currentSkill.category ? "" : currentSkill.category.name}</td>
+                        <td>${!currentSkill.category ? "none" : currentSkill.category.name}</td>
                         <td>
+                            <input id="idField" type="hidden" value="${currentSkill.id}">
                             <a class="add" title="Add"><i
                                     class="fa fa-check"></i></a>
                             <a class="edit" title="Edit"><i
@@ -75,34 +80,7 @@ function refreshSkillsList() {
 
                    $table.append($markup);
                }
-
-               getCategories().then((categories) => {
-                   let $categorySelect = $('#categorySelect');
-                   $categorySelect.empty();
-
-                   for (let i = 0; i < categories.length; i++) {
-                       const currentCategory = categories[i];
-                       $categorySelect.append(new Option(currentCategory.name, currentCategory.id));
-
-                       displaySubCategories(currentCategory);
-                   }
-               });
            })
        }
     });
-}
-
-function displaySubCategories(category, level = 1) {
-    let $categorySelect = $('#categorySelect');
-
-    if(!category.subCategories) return;
-    if(category.subCategories.length === 0) return;
-
-    for (let i = 0; i < category.subCategories.length; i++) {
-        const currentCategory = category.subCategories[i];
-        $categorySelect.append(
-            new Option('-'.repeat(level) + ' ' + currentCategory.name, currentCategory.id));
-
-        displaySubCategories(currentCategory, level + 1);
-    }
 }

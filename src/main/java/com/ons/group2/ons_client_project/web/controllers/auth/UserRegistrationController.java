@@ -38,14 +38,14 @@ public class UserRegistrationController {
 
         User existing = userService.findByEmail(userDto.getEmail());
         if (existing != null) {
-            result.rejectValue("email", null, "There is already an account registered with that email");
+            result.rejectValue("templates/email", null, "There is already an account registered with that email");
         }
 
         if (result.hasErrors()) {
             return "registration";
         }
 
-        userService.save(userDto);
+        userService.newUser(userDto);
         return "redirect:/registration?success";
     }
 }

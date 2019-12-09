@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PagesController {
 
+
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "redirect:/login";
     }
+
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -27,9 +29,5 @@ public class PagesController {
         return "forgotpass";
     }
 
-    @GetMapping("/resetpass")
-    public String resetPassword(Model model) {
-        return "resetpass";
-    }
 
 }

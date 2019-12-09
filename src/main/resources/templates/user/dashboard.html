@@ -1,9 +1,20 @@
 <div class="container-fluid" th:fragment="dashboard" xmlns:th="http://www.w3.org/1999/xhtml">
-    <!--        Insert your Code here-->
+    <script th:src="@{~/js/data_tables/SelectTable.js}"></script>
 
     <h1 class="h3 mb-4 text-gray-800">People to help you!</h1>
     <div class="container mb-5 mt-3">
-        <table class="table table-striped table-bordered mydatatable" style="width: 100%" id="mydatatable">
+
+
+        <!--Get user to select what they want to search for-->
+        <select class="selectedSearchCategory">
+            <option>Please select a search type</option>
+            <option>mydatatable</option>
+            <option>Help Offers</option>
+            <option>Help Requests</option>
+        </select>
+
+
+        <table class="table table-striped table-bordered mydatatable" id="mydatatable" style="width: 100%">
             <thead>
             <tr>
                 <th>Name</th>
@@ -12,12 +23,53 @@
             </thead>
             <tbody>
             <tr th:each="user: ${userInfoKey}">
-                <td th:text="${user.first_name}"></td>
-                <td><a class="btn btn-link" th:href ="@{/user/profile}"> View Profile </a> </td>
+                <td th:text="${user.getFullName()}"></td>
+                <td><a class="btn btn-link" th:href="@{/user/{id} (id=${user.id})}"> View Profile </a></td>
             </tr>
 
             </tbody>
 
         </table>
+
+        <table class="table table-striped table-bordered helpOfferDataTable" id="help_offers"
+               style="width: 100%">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+
+            <tbody>
+            <tr th:each="helpOffer:${helpOffers}">
+                <td th:text="${helpOffer.title}"></td>
+                <td th:text="${helpOffer.description}"></td>
+                <td><a class="btn btn-link" th:href="@{/helpOffer/} + ${helpOffer.id}"> View Offer </a></td>
+
+            </tr>
+            </tbody>
+            </thead>
+        </table>
+
+        <table class="table table-striped table-bordered helpOfferDataTable" id="help_requests"
+               style="width: 100%">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+
+            <tbody>
+            <tr th:each="helpRequest:${helpRequests}">
+                <td th:text="${helpRequest.title}"></td>
+                <td th:text="${helpRequest.description}"></td>
+                <td><a class="btn btn-link" th:href="@{/helpRequest/}+${helpRequest.id}"> View Request </a></td>
+
+            </tr>
+            </tbody>
+            </thead>
+        </table>
+
     </div>
 </div>
