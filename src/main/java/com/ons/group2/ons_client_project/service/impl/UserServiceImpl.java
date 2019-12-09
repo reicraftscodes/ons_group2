@@ -7,6 +7,7 @@ import com.ons.group2.ons_client_project.repository.UserRepository;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.utils.StorageException;
 import com.ons.group2.ons_client_project.web.dto.UserRegistrationDto;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -55,14 +56,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UpdateUserInfoDto userInfoDto) {
+    public User updateUser(UpdateUserInfoDto userInfoDto) throws NotFoundException {
         if(userInfoDto.getUserId() == null)
             throw new IllegalArgumentException("User id must not be null.");
 
         Optional<User> userToUpdateOpt = userRepository.findById(userInfoDto.getUserId());
 
         if(userToUpdateOpt.isEmpty())
-            throw new UsernameNotFoundException("Cannot update user. User not found.");
+            throw new NotFoundException("Cannot update user. User not found.");
 
         var user = userToUpdateOpt.get();
 

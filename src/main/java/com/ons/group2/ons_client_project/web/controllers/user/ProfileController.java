@@ -4,16 +4,20 @@ import com.ons.group2.ons_client_project.model.dto.account.SafeUserDetails;
 import com.ons.group2.ons_client_project.model.dto.account.UpdateUserInfoDto;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.service.UserSkillService;
+import com.ons.group2.ons_client_project.utils.UserUtils;
+import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Controller
+@Slf4j
 public class ProfileController {
 
     private final UserService userService;
@@ -25,7 +29,13 @@ public class ProfileController {
     }
 
     @GetMapping("/user/profile")
-    public String userProfile(Model model) {
+    public String userProfile(Model model, Authentication auth) {
+
+        var user = UserUtils.getUserFromAuth(auth);
+
+        var formPreFilled = new UpdateUserInfoDto(null, user.getFirstName(), user.getLastName(), user.getEmail());
+
+        model.addAttribute("updateFrom", formPreFilled);
         model.addAttribute("content", "profile");
         return "user/index";
     }
@@ -51,10 +61,30 @@ public class ProfileController {
         return "user/index";
     }
 
-    @PutMapping("/user/update")
-    public String updateProfile(@RequestBody @Valid UpdateUserInfoDto userInfoDto) {
+    @PostMapping("/user/update")
+    public String updateProfile(
+            @Valid UpdateUserInfoDto userInfoDto,
+            Model model,
+            BindingResult bindingResult,
+            Authentication auth) {
 
+        var user = UserUtils.getUserFromAuth(auth);
 
+        // Update the user info for the logged in user no matter what
+        userInfoDto.setUserId(user.getId());
+
+        try {
+            userService.updateUser(userInfoDto);
+        } catch (IllegalArgumentException e) {
+            log.error(String.format("Error updating user profile: %s", e.getMessage()));
+        } catch (NotFoundException e) {
+            log.error(e.getMessage());
+        }
+
+        var formPreFilled = new UpdateUserInfoDto(null, user.getFirstName(), user.getLastName(), user.getEmail());
+
+        model.addAttribute("updateFrom", formPreFilled);
+        model.addAttribute("content", "profile");
 
         return "/user/index";
     }

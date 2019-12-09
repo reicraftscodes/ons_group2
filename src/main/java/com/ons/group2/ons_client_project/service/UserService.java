@@ -4,6 +4,7 @@ package com.ons.group2.ons_client_project.service;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.model.dto.account.UpdateUserInfoDto;
 import com.ons.group2.ons_client_project.web.dto.UserRegistrationDto;
+import javassist.NotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +17,7 @@ public interface UserService extends UserDetailsService {
 
     Optional<User> findById(Long id);
 
-    User updateUser(UpdateUserInfoDto userInfoDto);
+    User updateUser(UpdateUserInfoDto userInfoDto) throws NotFoundException;
 
     User newUser(UserRegistrationDto registration);
 
