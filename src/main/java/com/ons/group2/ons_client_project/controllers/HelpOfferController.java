@@ -79,7 +79,6 @@ public class HelpOfferController {
         }
 
 
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); // get the current date of posting
 
 
 
