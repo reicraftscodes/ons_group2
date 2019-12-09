@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 
@@ -68,16 +67,23 @@ public class ProfileController {
     @PostMapping("/user/update")
     public String updateProfile(
             @Valid UpdateUserInfoDto userInfoDto,
-            Model model,
             BindingResult bindingResult,
-            SessionStatus sessionStatus,
+            Model model,
             Authentication auth) {
 
+        var user = UserUtils.getUserFromAuth(auth);
+
         if(bindingResult.hasErrors()) {
+            model.addAttribute("content", "profile");
+
+            var formPreFilled = new UpdateUserInfoDto(null, user.getFirstName(),
+                    user.getLastName(), user.getEmail());
+
+            model.addAttribute("updateFrom", formPreFilled);
+
             return "user/index";
         }
 
-        var user = UserUtils.getUserFromAuth(auth);
 
         // Update the user info for the logged in user no matter what
         userInfoDto.setUserId(user.getId());
@@ -98,8 +104,6 @@ public class ProfileController {
 
             model.addAttribute("updateFrom", formPreFilled);
         }
-
-
 
         model.addAttribute("content", "profile");
 
