@@ -256,9 +256,9 @@
                                                                 class="form-control"
                                                                 th:field="*{email}">
                                                         <div
-                                                                class="errm"
-                                                                th:if="${#fields.hasErrors('email')}"
-                                                                th:errors="*{email}">Incorrect last name.</div>
+                                                                class="mt-1 alert alert-danger"
+                                                                th:if="${emailError}"
+                                                                th:text="${emailError}"></div>
                                                     </div>
                                                 </div>
                                                 <hr/>

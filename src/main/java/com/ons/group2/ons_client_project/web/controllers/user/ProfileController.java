@@ -8,12 +8,14 @@ import com.ons.group2.ons_client_project.service.UserSkillService;
 import com.ons.group2.ons_client_project.utils.UserUtils;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -66,21 +68,17 @@ public class ProfileController {
 
     @PostMapping("/user/update")
     public String updateProfile(
-            @Valid UpdateUserInfoDto userInfoDto,
+            @ModelAttribute("updateForm") @Valid UpdateUserInfoDto userInfoDto,
             BindingResult bindingResult,
-            Model model,
-            Authentication auth) {
+            Authentication auth,
+            Model model) {
 
         var user = UserUtils.getUserFromAuth(auth);
 
         if(bindingResult.hasErrors()) {
-            model.addAttribute("content", "profile");
-
-            var formPreFilled = new UpdateUserInfoDto(null, user.getFirstName(),
-                    user.getLastName(), user.getEmail());
-
+            var formPreFilled = new UpdateUserInfoDto(null, user.getFirstName(), user.getLastName(), user.getEmail());
             model.addAttribute("updateFrom", formPreFilled);
-
+            model.addAttribute("content", "profile");
             return "user/index";
         }
 
@@ -95,6 +93,10 @@ public class ProfileController {
             log.error(String.format("Error updating user profile: %s", e.getMessage()));
         } catch (NotFoundException e) {
             log.error(e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            log.error(e.getMessage());
+            model
+                    .addAttribute("emailError", "Email address already in use");
         } finally {
             ((UserPrincipal) auth.getPrincipal()).setUser(user);
             SecurityContextHolder.getContext().setAuthentication(auth); // refresh logged in user details
