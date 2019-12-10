@@ -6,6 +6,11 @@ const skillMap = {
     5: '5 - Expert',
 };
 
+const isPublicOptionMap = {
+    0: 'private',
+    1: 'public'
+};
+
 function getCategories() {
     return $.get({
         url: "/api/categories/topLevel"
@@ -68,7 +73,7 @@ function refreshSkillsList() {
                             ${skillMap[currentSkill.confidence]}
                         </td>
                         <td>${!currentSkill.category ? "none" : currentSkill.category.name}</td>
-                        <td class="isPublic">${currentSkill.is_public}</td>
+                        <td class="isPublic">${isPublicOptionMap[currentSkill.is_public]}</td>
                         <td>
                             <input id="idField" type="hidden" value="${currentSkill.id}">
                             <a class="add" title="Add"><i
