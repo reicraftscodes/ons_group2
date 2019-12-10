@@ -12,7 +12,7 @@ function getCategories() {
     })
 }
 
-function saveSkill(title, description, confidence, category, id = null,is_public) {
+function saveSkill(title, description, confidence, category, id = null, is_public) {
     let payload = {
         "id": id,
         "title": title,
@@ -68,6 +68,7 @@ function refreshSkillsList() {
                             ${skillMap[currentSkill.confidence]}
                         </td>
                         <td>${!currentSkill.category ? "none" : currentSkill.category.name}</td>
+                        <td class="isPublic">${currentSkill.is_public}</td>
                         <td>
                             <input id="idField" type="hidden" value="${currentSkill.id}">
                             <a class="add" title="Add"><i

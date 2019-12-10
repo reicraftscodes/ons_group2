@@ -345,7 +345,7 @@
                 var index = $("table tbody tr:last-child").index();
                 var row = `<tr>
                                 <td class="pl_tablecell">
-                                    <input type="text" class="form-control" id="skill" name="name[]">
+                                    <input type="text" class="form-control" name="name[]">
                                 </td>
                                 <td class="desc_tablecell">
                                     <input type="text" class="form-control" name="description[]">
@@ -369,8 +369,8 @@
                                         </ul>
                                     </div>
                                 </td>
-                                <td >
-                                    yes : <input type="checkbox" class = "isPublic">
+                                <td>
+                                    yes : <input type="checkbox" class="isPublic" name="isPublic[]">
                                 </td>
                                 <td>
                                     <a class="add" title="Add"><i
@@ -451,6 +451,9 @@
                         <ul class="dropdown-menu multi-level" id="dropdownTable" role="menu" aria-labelledby="dropdownMenu">
                         </ul>
                     </div>
+                `);
+                $(this).parents('tr').find('td:nth-child(5)').html(`
+                yes : <input type="checkbox" class = "isPublic" name="isPublic[]">
                 `);
 
                 $(this).parents("tr").find(".add, .edit").toggle();

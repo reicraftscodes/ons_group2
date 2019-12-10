@@ -29,4 +29,7 @@ public class EditSkillDto {
     private Short confidence;
 
     private Integer categoryId;
+
+    private Integer is_public;
+
 }
