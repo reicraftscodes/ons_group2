@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `user_skill`
   `description` varchar(255) DEFAULT NULL,
   `confidence`  tinyint      DEFAULT NULL,
   `category_id` int(11),
+  `is_public` boolean NOT NULL,
   PRIMARY KEY (`id`)
 );
 

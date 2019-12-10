@@ -38,7 +38,7 @@ public class UserSearchRepoJDBC implements UserSearchRepository {
 
     @Override
     public List<UserInfo> getAllUserInformation() {
-        return jdbc.query("select user.id, user.email, user.first_name, user.last_name, user_skill.title, user.password, user.img_url from user inner join user_skill on user.id=user_skill.user_id;",
+        return jdbc.query("select user.id, user.email, user.first_name, user.last_name, user_skill.title, user.password, user.img_url from user inner join user_skill on user.id=user_skill.user_id WHERE user_skill.is_public = 1;",
                 userInfoRowMapper
         );
     }

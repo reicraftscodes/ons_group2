@@ -12,13 +12,14 @@ function getCategories() {
     })
 }
 
-function saveSkill(title, description, confidence, category, id = null) {
+function saveSkill(title, description, confidence, category, id = null,is_public) {
     let payload = {
         "id": id,
         "title": title,
         "description": description,
         "confidence": confidence,
-        "categoryId": category
+        "categoryId": category,
+        "is_public":is_public
     };
 
     console.log(payload);
