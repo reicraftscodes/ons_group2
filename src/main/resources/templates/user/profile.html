@@ -208,30 +208,69 @@
                                             <div class="table-title">
                                                 <div class="row">
                                                     <div class="col-sm-8"><h2>About <b>Me</b></h2></div>
-                                                    <div class="col-sm-4">
+                                                </div>
+                                            </div>
+                                            <form action="/user/update" method="POST" th:object="${updateFrom}">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-2 col-5">
+                                                        <label for="firstName" style="font-weight:bold;">First Name</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-6">
+                                                        <input
+                                                                id="firstName"
+                                                                th:field="*{firstName}"
+                                                                class="form-control"
+                                                                type="text">
+                                                        <div
+                                                                class="errm"
+                                                                th:if="${#fields.hasErrors('firstName')}"
+                                                                th:errors="*{firstName}">Incorrect first name.</div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-2 col-5">
+                                                        <label for="lastName" style="font-weight:bold;">Last Name</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-6">
+                                                        <input
+                                                                id="lastName"
+                                                                th:field="*{lastName}"
+                                                                class="form-control"
+                                                                type="text">
+                                                        <div
+                                                                class="errm"
+                                                                th:if="${#fields.hasErrors('lastName')}"
+                                                                th:errors="*{lastName}">Incorrect last name.</div>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-2 col-5">
+                                                        <label for="email" style="font-weight:bold;">Email</label>
+                                                    </div>
+                                                    <div class="col-md-8 col-6">
+                                                        <input
+                                                                id="email"
+                                                                type="text"
+                                                                class="form-control"
+                                                                th:field="*{email}">
+                                                        <div
+                                                                class="mt-1 alert alert-danger"
+                                                                th:if="${emailError}"
+                                                                th:text="${emailError}"></div>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <input
+                                                            th:name="${_csrf.parameterName}"
+                                                            th:value="${_csrf.token}"
+                                                            type="hidden"/>
 
-                                            <div class="row">
-                                                <div class="col-sm-3 col-md-2 col-5">
-                                                    <label style="font-weight:bold;">Full Name</label>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                                 </div>
-                                                <div class="col-md-8 col-6" th:inline="text">
-                                                    [[${#authentication.getPrincipal().getUser().getFullName()}]]
-                                                </div>
-                                            </div>
-                                            <hr/>
-
-                                            <div class="row">
-                                                <div class="col-sm-3 col-md-2 col-5">
-                                                    <label style="font-weight:bold;">Email</label>
-                                                </div>
-                                                <div class="col-md-8 col-6">
-                                                    [[${#authentication.getPrincipal().getUser().getEmail()}]]
-                                                </div>
-                                            </div>
-                                            <hr/>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="skils" role="tabpanel"
