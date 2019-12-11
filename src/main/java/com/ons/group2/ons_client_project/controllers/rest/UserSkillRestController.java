@@ -60,6 +60,7 @@ public class UserSkillRestController {
         skill.setCategory(newCategory.isEmpty() ? null : newCategory.get());
         skill.setConfidence(editSkillDto.getConfidence());
         skill.setDescription(editSkillDto.getDescription());
+        skill.setIs_public(editSkillDto.getIs_public());
 
         userSkillService.save(skill);
 
@@ -99,7 +100,8 @@ public class UserSkillRestController {
                     skill.getTitle(),
                     skill.getDescription(),
                     skill.getConfidence(),
-                    skill.getCategory()
+                    skill.getCategory(),
+                    skill.getIs_public()
             ));
         }
 

@@ -22,4 +22,6 @@ public class SkillDetail {
     private Short confidence;
 
     private Category category;
+
+    private Integer is_public;
 }

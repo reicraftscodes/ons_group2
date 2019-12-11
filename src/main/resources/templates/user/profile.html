@@ -289,13 +289,14 @@
                                             </div>
                                             <table class="table table-bordered">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Programming Language</th>
-                                                        <th>Description</th>
-                                                        <th>Confidence Level</th>
-                                                        <th>Category</th>
-                                                        <th>Actions</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>Programming Language</th>
+                                                    <th>Description</th>
+                                                    <th>Confidence Level</th>
+                                                    <th>Category</th>
+                                                    <th>Public?</th>
+                                                    <th>Actions</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody id="skillstable">
                                                 </tbody>
@@ -369,6 +370,9 @@
                                     </div>
                                 </td>
                                 <td>
+                                    yes : <input type="checkbox" class="isPublic" name="isPublic[]">
+                                </td>
+                                <td>
                                     <a class="add" title="Add"><i
                                             class="fa fa-check"></i></a>
                                     <a class="edit" title="Edit"><i
@@ -408,8 +412,15 @@
                     let title = $(this).parents("tr").find(".pl_tablecell").text();
                     let description = $(this).parents("tr").find(".desc_tablecell").text();
                     let confidence = $(this).parents("tr").find(".confidencesel").val();
+                    let is_public;
+                    if($(this).parents("tr").find(".isPublic").is(":checked")){
+                        is_public = 1;
+                    }else if (! $(this).parents("tr").find(".isPublic").is(":checked") ){
+                        is_public = 0;
+                    }
+                    console.log(is_public);
 
-                    saveSkill(title, description, confidence, selectedId, !id ? null : id);
+                    saveSkill(title, description, confidence, selectedId, !id ? null : id,is_public);
 
                     $(this).parents("tr").find("td:nth-child(3)")
                         .html($(this).parents("tr").find("td:nth-child(3) option:selected").text());
@@ -440,6 +451,9 @@
                         <ul class="dropdown-menu multi-level" id="dropdownTable" role="menu" aria-labelledby="dropdownMenu">
                         </ul>
                     </div>
+                `);
+                $(this).parents('tr').find('td:nth-child(5)').html(`
+                yes : <input type="checkbox" class = "isPublic" name="isPublic[]">
                 `);
 
                 $(this).parents("tr").find(".add, .edit").toggle();
