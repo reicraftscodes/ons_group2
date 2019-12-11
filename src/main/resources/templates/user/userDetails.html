@@ -193,13 +193,15 @@
                                                 <tr th:each="currentSkill : ${userSkills}">
                                                     <td class="pl_tablecell" th:text="${currentSkill.title}"></td>
                                                     <td class="desc_tablecell" th:text="${currentSkill.description}"></td>
-                                                    <td class="confidence_tablecell">
+                                                    <td class="confidence_tablecell" th:id="'confidenceFor' + ${currentSkill.title}">
                                                         <script th:inline="javascript">
                                                             /*<![CDATA[*/
 
-                                                            let confidenceLevel = /*[[${currentSkill.confidence}]]*/ 'none';
-                                                            let confidence = skillMap[confidenceLevel];
-                                                            $('.confidence_tablecell').text(confidence);
+                                                            currentSkill = /*[[${currentSkill}]]*/ 'none';
+
+                                                            $(`#confidenceFor${currentSkill.title}`).text(skillMap[currentSkill.confidence]);
+
+                                                            delete currentSkill;
                                                             /*]]>*/
                                                         </script>
                                                     </td>

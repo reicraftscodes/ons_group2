@@ -26,4 +26,10 @@ public class NewSkillDto {
     private Integer categoryId;
 
     private User user;
+
+    private Integer is_public;
+
+    public Integer getIsPubic(){
+        return is_public;
+    }
 }

@@ -37,4 +37,8 @@ public class UserSkill {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @Column(name = "is_public")
+    @NotNull
+    private Integer is_public;
 }

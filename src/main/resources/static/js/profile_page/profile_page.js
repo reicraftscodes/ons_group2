@@ -6,19 +6,25 @@ const skillMap = {
     5: '5 - Expert',
 };
 
+const isPublicOptionMap = {
+    0: 'private',
+    1: 'public'
+};
+
 function getCategories() {
     return $.get({
         url: "/api/categories/topLevel"
     })
 }
 
-function saveSkill(title, description, confidence, category, id = null) {
+function saveSkill(title, description, confidence, category, id = null, is_public) {
     let payload = {
         "id": id,
         "title": title,
         "description": description,
         "confidence": confidence,
-        "categoryId": category
+        "categoryId": category,
+        "is_public":is_public
     };
 
     console.log(payload);
@@ -39,7 +45,9 @@ function removeSkill(id) {
     xhr.send();
 
     xhr.onreadystatechange = () => {
-        refreshSkillsList();
+        // refreshSkillsList();
+        $('#skillstable').deleteRow(id);
+
     }
 }
 
@@ -67,6 +75,7 @@ function refreshSkillsList() {
                             ${skillMap[currentSkill.confidence]}
                         </td>
                         <td>${!currentSkill.category ? "none" : currentSkill.category.name}</td>
+                        <td class="isPublic">${isPublicOptionMap[currentSkill.is_public]}</td>
                         <td>
                             <input id="idField" type="hidden" value="${currentSkill.id}">
                             <a class="add" title="Add"><i
