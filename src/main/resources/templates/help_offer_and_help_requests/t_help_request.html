@@ -2,27 +2,64 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Help Request</title>
+    <title>Request Help</title>
     <link rel="stylesheet" th:href="@{~/css/picnic/picnic.min.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400i&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<h1 th:inline="text"> [[${request.title}]]!</h1>
+<main class="container" role="main">
+    <div class="card" style="margin-top: 60px; margin-bottom: 100px">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h1 th:inline="text"> [[${request.title}]]!</h1>
+                    <h2>Date Posted</h2>
+                    <p th:inline="text">[[${request.date_posted}]]</p>
 
-<h2>Date Posted</h2>
-<h3 th:inline="text">[[${request.date_posted}]]</h3>
+                    <h2>More details:</h2>
+                    <p th:inline="text">[[${request.description}]]</p>
 
-<h2>More details:</h2>
-<h3 th:inline="text">[[${request.description}]]</h3>
+                    <h3 th:inline="text">Contact: <a
+                            th:href="'mailto:' + ${request.getUser_id().getEmail()} + '?Subject=Offer&body='+'I%20would%20like%20to%20request%20your%20with%0ATitle%20:%20'+${request.title}+'%0ADescription%20:%20'+${request.description}"
+                            target="_top">[[${request.getUser_id().getEmail()}]]</a></h3>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <a href="/user">Back to homepage</a>
+        </div>
+    </div>
+</main>
+</body>
+
 
 </body>
 <style>
-    h1{
+    h1 {
         text-align: center;
-        color: #002f94;
+        color: #222222;
     }
-    body{
-        background-color: #FAFAFA;
-        margin: 2px;
+
+    h2 {
+        color: #033E58;
+    }
+
+    p {
+        font-size: 19pt;
+    }
+
+    a {
+        color: #033E58;
+        font-size: 15pt;
+    }
+
+    body {
+        background-color: #3B7A9E;
+        height: 100%;
+        margin-bottom: 70px;
     }
 </style>
 </html>

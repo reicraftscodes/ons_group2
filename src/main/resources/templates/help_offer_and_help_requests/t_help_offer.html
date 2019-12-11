@@ -2,28 +2,59 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Help Offer</title>
+    <title>Offer Help</title>
     <link rel="stylesheet" th:href="@{~/css/picnic/picnic.min.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400i&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<h1 th:inline="text"> [[${offer.title}]]!</h1>
-
-<h2>Date Posted:</h2>
-<h3 th:inline="text">[[${offer.date_posted}]]</h3>
-
-<h2>More details:</h2>
-<h3 th:inline="text">[[${offer.description}]]</h3>
-
-
+<main class="container" role="main">
+    <div class="card" style="margin-top: 60px; margin-bottom: 100px">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h1 th:inline="text"> [[${offer.title}]]!</h1>
+                    <h2>Date Posted:</h2>
+                    <p th:inline="text">[[${offer.date_posted}]]</p>
+                    <h2>More details:</h2>
+                    <p th:inline="text">[[${offer.description}]]</p>
+                    <h3 th:inline="text">Offered by: <a
+                            th:href="'mailto:' + ${offer.getUser_id().getEmail()} + '?Subject=Offer&body='+'I%20am%20interested%20about%20your%20offer%0ATitle%20:%20'+${offer.title}+'%0ADescription%20:%20'+${offer.description}"
+                            target="_top">[[${offer.getUser_id().getEmail()}]]</a></h3>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <a href="/user">Back to homepage</a>
+        </div>
+    </div>
+</main>
 </body>
 <style>
-    h1{
+    h1 {
         text-align: center;
-        color: #002f94;
+        color: #222222;
     }
-    body{
-        background-color: #FAFAFA;
-        margin: 2px;
+
+    h2 {
+        color: #033E58;
+    }
+
+    p {
+        font-size: 19pt;
+    }
+
+    a {
+        color: #033E58;
+        font-size: 15pt;
+    }
+
+    body {
+        background-color: #008080;
+        height: 100%;
+        margin-bottom: 70px;
     }
 </style>
 </html>
