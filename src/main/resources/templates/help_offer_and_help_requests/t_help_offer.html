@@ -14,21 +14,7 @@
 <h2>More details:</h2>
 <h3 th:inline="text">[[${offer.description}]]</h3>
 
-<!-- Page Wrapper -->
-<div id="wrapper">
-    <div th:replace="fragments/user/user_sidebar.html :: ul.navbar-nav"></div>
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div th:replace="fragments/user/user_nav.html :: nav.navbar"></div>
-            <div th:replace="@{'user/' + ${content}} :: ${content}"></div>
-        </div>
-        <div th:replace="fragments/user/footer.html :: footer.sticky-footer"></div>
-    </div>
-</div>
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-<div th:replace="fragments/user/logout.html :: div.modal"></div>
+
 
 
 </body>
