@@ -67,7 +67,7 @@ public class HelpOfferController {
 
         if(bindingResult.hasErrors()){
             log.error(bindingResult.toString());
-            log.error("Donation Form has binding errors");
+            log.error("Form has binding errors");
 
             // add all skills the user has selected on their profile to model
             List<UserSkill> userSkills = userSkillService.getAllForUser(getCurrentUser(authentication).getId());
