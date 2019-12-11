@@ -45,7 +45,9 @@ function removeSkill(id) {
     xhr.send();
 
     xhr.onreadystatechange = () => {
-        refreshSkillsList();
+        // refreshSkillsList();
+        $('#skillstable').deleteRow(id);
+
     }
 }
 
