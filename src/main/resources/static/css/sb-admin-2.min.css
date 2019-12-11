@@ -8522,12 +8522,12 @@ a:focus{
     background-size:cover
 }
 .bg-register-image{
-    background:url(https://source.unsplash.com/Mv9hjnEUHR4/600x800);
+    background:url(https://res.cloudinary.com/da0odz24p/image/upload/v1574849935/clientproject/img-stats.png);
     background-position:center;
     background-size:cover
 }
 .bg-password-image{
-    background:url(https://source.unsplash.com/oWTW-jNGl9I/600x800);
+    background:url(https://res.cloudinary.com/da0odz24p/image/upload/v1575395156/clientproject/lock_2_xujgra.jpg);
     background-position:center;
     background-size:cover
 }

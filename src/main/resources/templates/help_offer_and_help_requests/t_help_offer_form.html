@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Create a help offer</title>
-    <!-- Custom fonts for this template-->
-    <link th:href="@{~/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
-    <link th:href="@{~/css/sb-admin-2.min.css}" rel="stylesheet">
-
-    <link th:href="@{~/vendor/sweetalert2/dist/sweetalert2.css}" rel="stylesheet">
-
-
+</head>
 <body>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
@@ -28,19 +20,19 @@
     <h1 id="header">offer help to your co-workers</h1>
     <br>
 
-    <div class="form-group formInput">
-        <input  placeholder="Title" th:field="*{title}" type="text"/>
+    <div class="form-group">
+        <input class="flex two" placeholder="Title" th:field="*{title}" type="text"/>
         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> Please enter a correct title </div>
     </div>
     <br>
 
-    <div class="form-group formInput">
-        <input  placeholder="Description" th:field="*{description}" type="text"/>
+    <div class="form-group">
+        <input class="flex two" placeholder="Description" th:field="*{description}" type="text"/>
         <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> Please enter a correct description  of 30 characters or more </div>
     </div>
     <br>
 
-    <div class = "form-group formInput" th:classappend="${#fields.hasErrors('taggedSkills')}? 'has-error':''">
+    <div class = "form-group" th:classappend="${#fields.hasErrors('taggedSkills')}? 'has-error':''">
         <select required id = "skills-dropdown" multiple = multiple th:field="*{taggedSkills}">
             <option value="" disabled selected>Please select relevant skills</option>
             <option th:each="skill : ${userSkills}" th:value="${skill.id}" th:text="${skill.title}"></option>
@@ -51,31 +43,15 @@
               th:text="${error}">Validation error</span>
     </div>
 
-
     <div class="submit">
         <button class='success' type="submit">Submit offer</button>
     </div>
 </form>
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-    <div th:replace="fragments/user/user_sidebar.html :: ul.navbar-nav"></div>
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div th:replace="fragments/user/user_nav.html :: nav.navbar"></div>
-        </div>
-        <div th:replace="fragments/user/footer.html :: footer.sticky-footer"></div>
-    </div>
-</div>
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-<div th:replace="fragments/user/logout.html :: div.modal"></div>
-
-
+<br>
+<br>
+<a href="/user">Back to homepage</a>
 
 </body>
-
 </html>
 <style>
     body{
@@ -90,10 +66,7 @@
         color: #002f94;
     }
     #help_form{
-        position: absolute;
-        left: 10%;
-        top:10%;
-        width:80%;
+        text-align: center;
     }
 </style>
 
