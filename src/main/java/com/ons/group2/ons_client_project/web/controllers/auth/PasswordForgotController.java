@@ -4,7 +4,7 @@ import com.ons.group2.ons_client_project.model.Mail;
 import com.ons.group2.ons_client_project.model.PasswordResetToken;
 import com.ons.group2.ons_client_project.model.User;
 import com.ons.group2.ons_client_project.repository.PasswordResetTokenRepository;
-import com.ons.group2.ons_client_project.service.EmailService;
+import com.ons.group2.ons_client_project.service.impl.EmailService;
 import com.ons.group2.ons_client_project.service.UserService;
 import com.ons.group2.ons_client_project.web.dto.PasswordForgotDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,12 @@ import java.util.UUID;
 @RequestMapping("/forgot-password")
 public class PasswordForgotController {
 
-    @Autowired private UserService userService;
-    @Autowired private PasswordResetTokenRepository tokenRepository;
-    @Autowired private EmailService emailService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
+    @Autowired
+    private EmailService emailService;
 
     @ModelAttribute("forgotPasswordForm")
     public PasswordForgotDto forgotPasswordDto() {
@@ -44,12 +47,12 @@ public class PasswordForgotController {
                                             BindingResult result,
                                             HttpServletRequest request) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "forgot-password";
         }
 
         User user = userService.findByEmail(form.getEmail());
-        if (user == null){
+        if (user == null) {
             result.rejectValue("email", null, "We could not find an account for that e-mail address.");
             return "forgot-password";
         }
