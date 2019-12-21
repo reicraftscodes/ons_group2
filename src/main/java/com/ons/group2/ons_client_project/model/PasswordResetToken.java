@@ -1,9 +1,16 @@
 package com.ons.group2.ons_client_project.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class PasswordResetToken {
 
@@ -21,39 +28,7 @@ public class PasswordResetToken {
     @Column(nullable = false)
     private Date expiryDate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Date getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public void setExpiryDate(int minutes){
+    public void setExpiryDate(int minutes) {
         Calendar now = Calendar.getInstance();
         now.add(Calendar.MINUTE, minutes);
         this.expiryDate = now.getTime();
