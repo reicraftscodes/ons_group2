@@ -3,6 +3,7 @@ package com.ons.group2.ons_client_project.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,7 @@ public class HelpRequest {
     private String title;
 
     @Column(name = "description")
+    @Length(min = 30,message = "Please explain your offer a little more to ensure you're able to help the right people.")
     private String description;
 
     @Column(name = "method_of_contact")
