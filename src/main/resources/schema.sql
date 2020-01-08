@@ -65,7 +65,7 @@ CREATE TABLE `help_request`
 (
   `help_request_id`   int(11) NOT NULL AUTO_INCREMENT,
   `user_id`           int(11) NOT NULL,
-  `date_posted`       date         DEFAULT NULL,
+  `date_posted`       date       DEFAULT NULL,
   `title`             VARCHAR(25)  DEFAULT NULL,
   `description`       VARCHAR(500) DEFAULT NULL, -- VALUE FOR THIS COULD CHANGE DEPENDING ON IF 500 CHARACTERS IS NOT ENOUGH
   `method_of_contact` VARCHAR(255) DEFAULT NULL,
