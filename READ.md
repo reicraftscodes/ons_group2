@@ -8,3 +8,5 @@ spring.datasource.password=
 spring.datasource.platform=MYSQL
 
 Then hit bootrun
+
+Test
